@@ -427,7 +427,35 @@ default = "dropdown_test",
 	    -- other code
 	    end
 
+Or just:
+--  { key = 'Rake_AOE', type = 'checkbox', text = 'Rake AOE', desc = 'Use Rake to AOE' },
 
+		local userakeaoe = dark_addon.settings.fetch('KiraFeral_settings_Rake_AOE', true)
+		  if userakeaoe and target.alive and target.enemy and player.alive and target.distance < 8 then
+				   local userake = true 
+				   local index = 0
+				   local NotMain = true
+				   local MainTarget = UnitGUID("target")
+				   TargetNearestEnemy()
+				   while(NotMain)
+				   do
+					  local RakeDur
+					  for i = 1, 40 do
+						 name, a, b, c, d, dur = UnitDebuff("target", i, "PLAYER")
+						 if (name == "Rake") then
+							RakeDur = dur   
+						 end
+					  end
+					  if userake and (RakeDur == nil or RakeDur-5 < GetTime()) and target.alive then
+						CastSpellByName("Rake")
+					  end
+					  TargetNearestEnemy()
+					  if(MainTarget == UnitGUID("target") or index == 30) then
+						 NotMain = false
+					  end
+					  index = index + 1
+				   end
+		end
 
 
 - Idk kick?
