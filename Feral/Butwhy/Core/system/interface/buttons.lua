@@ -444,7 +444,7 @@ dark_addon.on_ready(function()
   dark_addon.interface.buttons.add_toggle({
     core = true,
     name = 'cooldowns',
-    label = 'Бурсты',
+    label = 'cooldowns',
     font = 'dark_addon_icon',
     on = {
       label = dark_addon.interface.icon('alarm-clock'),
@@ -478,7 +478,7 @@ dark_addon.on_ready(function()
   dark_addon.interface.buttons.add_toggle({
     core = true,
     name = 'multitarget',
-    label = 'Аое',
+    label = 'multitarget',
     font = 'dark_addon_icon',
     on = {
       label = dark_addon.interface.icon('users'),
@@ -715,7 +715,7 @@ dark_addon.on_ready(function()
   dark_addon.interface.buttons.add_toggle({
     core = true,
     name = 'cooldowns',
-    label = 'Burst',
+    label = 'cooldowns',
     font = 'dark_addon_icon',
     on = {
       label = dark_addon.interface.icon('alarm-clock'),
@@ -749,7 +749,7 @@ dark_addon.on_ready(function()
   dark_addon.interface.buttons.add_toggle({
     core = true,
     name = 'multitarget',
-    label = 'Aoe',
+    label = 'multitarget',
     font = 'dark_addon_icon',
     on = {
       label = dark_addon.interface.icon('users'),

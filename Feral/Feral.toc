@@ -1,5 +1,9 @@
-## Title: |cffff0051Друид|r - |CFF259A0EКоробка автомат.|r
-## Notes: Шо ручки устали? А может их нет? :3
+## Title-ruRU: |cffff0051Друид|r - |CFF259A0EКоробка автомат.|r
+## Title: |cffff0051Druid|r - |CFF259A0EAuto-Rotation.|r
+
+## Notes-ruRU: Шо ручки устали? А может их нет? :3
+## Notes: U boored? Huh noob! :3
+
 ## Interface: 80200
 ## SavedVariablesPerCharacter: dark_addon_storage
 ## Version: 1.3.3.7

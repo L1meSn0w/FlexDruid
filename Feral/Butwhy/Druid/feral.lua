@@ -356,11 +356,11 @@ local Renewal = dark_addon.settings.fetch("KiraFeral_settings_Renewal", 41)
          
 	
 	if toggle("KickALL", false) and castable(SB.SkullBash, 'target') and -spell(SB.SkullBash) == 0 and target.interrupt(intpercent, false) then
-      print('Kicked' .. intpercent)
+    --  print('Kicked' .. intpercent)
       return cast(SB.SkullBash, 'target')
     end
 	if toggle("KickALL", false) and castable(SB.MightyBash, 'target') and -spell(SB.SkullBash) > 0 and -spell(SB.MightyBash) == 0 and target.interrupt(intpercent, false) then
-        print('Kicked' .. intpercent)
+      --  print('Kicked' .. intpercent)
         return cast(SB.MightyBash, 'target')
     end
 	
@@ -421,6 +421,7 @@ local Renewal = dark_addon.settings.fetch("KiraFeral_settings_Renewal", 41)
 		end
 	
 	--local Kick0 = dark_addon.settings.fetch('KiraFeral_settings2_Kick0', false)
+  if toggle('interrupts', false) then
 	if Kick0 == true then
         if target.castable(SB.SkullBash) then
         for i = 1, 40 do
@@ -525,7 +526,7 @@ local Renewal = dark_addon.settings.fetch("KiraFeral_settings_Renewal", 41)
         for i = 1, 40 do
         local name, _, _, _, endTime, _, _, _, spell_id  = UnitCastingInfo("target", i)
             if name and ef[spell_id] then
-                print("Кикнул " .. name .. " на цели.")
+              --  print("Кикнул " .. name .. " на цели.")
                 return cast(SB.SkullBash, target)
             end
           end
@@ -1075,6 +1076,8 @@ local Renewal = dark_addon.settings.fetch("KiraFeral_settings_Renewal", 41)
 --        end
 --	end
 --	end
+end
+  
   if toggle("dispel", false) and target.enemy and target.alive then
   if castable(SB.Soothe) then
       for i = 1, 2 do
@@ -1139,45 +1142,6 @@ end
     end
   end
 end
-end
-
-if toggle('beartest', false) and talent(3, 2) and not tank.alive then
-if castable(SB.BearForm, 'player') and not -buff(SB.BearForm) then
-return cast(SB.BearForm, 'player')
-end
-auto_attack()
-if castable(SB.MoonFire, 'target') and target.distance <= 40 and  target.debuff(SB.Moonfire).down then
-return cast(SB.MoonFire, 'target')
-end
-if castable(SB.Mangle) and target.distance <= 8 then
-return cast(SB.Mangle, 'target')
-end
-if castable(SB.Thrash, 'target') and target.distance <= 8 then
-return cast(SB.Thrash, 'target')
-end
-if castable(SB.Swipe, 'target') and not castable(SB.Mangle) and not castable(SB.Thrash) and target.distance <= 8 then
-return cast(SB.Swipe, 'target')
-end
-if castable(SB.FrenziedRegeneration, 'player') and not -buff(SB.FrenziedRegeneration) and player.health.percent < 76 then
-return cast(SB.FrenziedRegeneration, 'player')
-end
-if castable(SB.Ironfur, 'player') and not -buff(SB.Ironfur) and player.health.percent < 95 and player.power.energy.actual >= 40 then
-return cast(SB.Ironfur, 'player')
-end
-if castable(SB.SurvivalInstincts, 'player') and not -buff(SB.SurvivalInstincts) and player.health.percent < 45 then
-return cast(SB.SurvivalInstincts, 'player')
-end
-if castable(SB.Renewal, 'player') and not -buff(SB.Renewal) and player.health.percent < 43 then
-return cast(SB.Renewal, 'player')
-end
-  local taunt_unit
-  local isTanking
-  local members = GetNumGroupMembers()
-isTanking = UnitThreatSituation("player", "target")
-if target.enemy and IsSpellInRange('Growl', 'target') and UnitAffectingCombat('target') and (isTanking == 0 or isTanking == nil) then
-return cast(SB.Growl, target)
-end
-return
 end
 
   -- print(group_type .. members.."target")
@@ -1350,7 +1314,47 @@ frame:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 20, "O
 	
 	end
 	end
-	end
+	
+	if toggle('beartest', false) and talent(3, 2) and not tank.alive then
+if castable(SB.BearForm, 'player') and not -buff(SB.BearForm) then
+return cast(SB.BearForm, 'player')
+end
+auto_attack()
+if castable(SB.MoonFire, 'target') and target.distance <= 40 and  target.debuff(SB.Moonfire).down then
+return cast(SB.MoonFire, 'target')
+end
+if castable(SB.Mangle) and target.distance <= 8 then
+return cast(SB.Mangle, 'target')
+end
+if castable(SB.Thrash, 'target') and target.distance <= 8 then
+return cast(SB.Thrash, 'target')
+end
+if castable(SB.Swipe, 'target') and not castable(SB.Mangle) and not castable(SB.Thrash) and target.distance <= 8 then
+return cast(SB.Swipe, 'target')
+end
+if castable(SB.FrenziedRegeneration, 'player') and not -buff(SB.FrenziedRegeneration) and player.health.percent < 76 then
+return cast(SB.FrenziedRegeneration, 'player')
+end
+if castable(SB.Ironfur, 'player') and not -buff(SB.Ironfur) and player.health.percent < 95 and player.power.energy.actual >= 40 then
+return cast(SB.Ironfur, 'player')
+end
+if castable(SB.SurvivalInstincts, 'player') and not -buff(SB.SurvivalInstincts) and player.health.percent < 45 then
+return cast(SB.SurvivalInstincts, 'player')
+end
+if castable(SB.Renewal, 'player') and not -buff(SB.Renewal) and player.health.percent < 43 then
+return cast(SB.Renewal, 'player')
+end
+  local taunt_unit
+  local isTanking
+  local members = GetNumGroupMembers()
+isTanking = UnitThreatSituation("player", "target")
+if target.enemy and IsSpellInRange('Growl', 'target') and UnitAffectingCombat('target') and (isTanking == 0 or isTanking == nil) then
+return cast(SB.Growl, target)
+end
+return
+end
+
+end
 
 local function resting()
 
@@ -1460,7 +1464,7 @@ local function interface()
             { type = 'text', text = 'Таланты поддерживаются все кроме:  [3-3] и [4-2] [4-3]' },
             { type = 'text', text = 'Талант: [6-1] Необходим, если вы хотите юзать медведя когда танк умер.' },
             { type = 'text', text = 'ALT = Рывок Тигра | Shift = Рывок | Ctrl = Порыв.' },
-			{ type = 'text', text = 'Пвп кик каста цель\фокус, нужно настроить в панели!.' },
+			{ type = 'text', text = 'Пвп кик каста цель\фокус, нужно настроить в панели! (!!Проверь включен-ли кик каста на панели!!).' },
 			{ type = 'text', text = 'Пве кик каста, нужно включить кнопкой! (*Кикает всё что можно)' },
             { type = 'rule' },
             { type = 'header', text = '            КИК КАСТА' },
@@ -1543,7 +1547,7 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
         resize = true,
         show = false,
         template = {
-            { type = 'header', text = "            Укажи что кикать!" },
+            { type = 'header', text = "            Укажи что кикать в цель!" },
 			{ type = 'rule' },
 			{ type = 'header', text = "            МАГ" },
 			{ key = 'Kick0', type = 'checkbox', text = 'Овца', desc = '', default = false },
@@ -1818,7 +1822,7 @@ local settings = {
             { type = 'text', text = 'Support all talents exept:  [3-3] and [4-2] [4-3]' },
             { type = 'text', text = 'Talent: [6-1] required, if u wanna tank while ur tank rip.' },
             { type = 'text', text = 'ALT = Tiger Dash | Shift = Charge | Ctrl = Dash.' },
-			{ type = 'text', text = 'Configure PvP kick Target|Focus from settings.' },
+			{ type = 'text', text = 'Configure PvP kick Target|Focus from settings. (!!Check interrupts enabled to work!!)' },
 			{ type = 'text', text = 'Enable PVE kick from buttun! (*Kick everycast.)' },
             { type = 'rule' },
             { type = 'header', text = '            Kick' },
@@ -1901,7 +1905,7 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
         resize = true,
         show = false,
         template = {
-            { type = 'header', text = "            Configure!" },
+            { type = 'header', text = "            Configure target kick!" },
 			{ type = 'rule' },
 			{ type = 'header', text = "            Mage" },
 			{ key = 'Kick0', type = 'checkbox', text = 'Sheep', desc = '', default = false },
