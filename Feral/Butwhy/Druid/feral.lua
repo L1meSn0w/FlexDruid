@@ -268,6 +268,7 @@ SB.GroundTotem = 8178
 SB.UberStrike = 167385
 SB.GreaterBless = 203538
 SB.FeralFrenzy = 274837
+
 local function combat()
 --Кик в цель
 	local Kick0 = dark_addon.settings.fetch('KiraFeral_settings2_Kick0', true)
@@ -327,7 +328,7 @@ local function combat()
 	local flex = dark_addon.settings.fetch('KiraFeral_settings_flex', false)
 	local flex2 = dark_addon.settings.fetch('KiraFeral_settings_flex2', false)
 	local flex3 = dark_addon.settings.fetch('KiraFeral_settings_flex3', false)
-		
+	local userake = dark_addon.settings.fetch('KiraFeral_settings_dotall')		
 	
 if target.alive and target.enemy and player.alive and not player.channeling() then
   local regrowhealth = dark_addon.settings.fetch('KiraFeral_settings2_regrowhealth',30)
@@ -342,6 +343,34 @@ if target.alive and target.enemy and player.alive and not player.channeling() th
   if target.enemy and target.alive and target.distance < 8 then
     auto_attack()
   end  	
+  
+  local userakeaoe = dark_addon.settings.fetch('KiraFeral_settings_Rake_AOE', true)
+  if userakeaoe and target.alive and target.enemy and player.alive and target.distance < 8 then
+		   local userake = true 
+		   local index = 0
+		   local NotMain = true
+		   local MainTarget = UnitGUID("target")
+		   TargetNearestEnemy()
+		   while(NotMain)
+		   do
+			  local RakeDur
+			  for i = 1, 40 do
+				 name, a, b, c, d, dur = UnitDebuff("target", i, "PLAYER")
+				 if (name == "Rake") then
+					RakeDur = dur   
+				 end
+			  end
+			  if userake and (RakeDur == nil or RakeDur-5 < GetTime()) and target.alive then
+				CastSpellByName("Rake")
+			  end
+			  TargetNearestEnemy()
+			  if(MainTarget == UnitGUID("target") or index == 30) then
+				 NotMain = false
+			  end
+			  index = index + 1
+		   end
+end
+
 local BearForm = dark_addon.settings.fetch("KiraFeral_settings_BearForm", 7)
    if BearForm and -player.health <= BearForm then
         return cast(SB.BearForm)
@@ -401,7 +430,7 @@ local Renewal = dark_addon.settings.fetch("KiraFeral_settings_Renewal", 41)
 			return  cast(SB.Incarnation, 'target')	
 		end
         -- Кусь что бы продлить разорвать
-        if castable(SB.FerociousBite, 'target') and -spell(SB.FerociousBite) == 0 and player.power.combopoints.actual >= 5 and target.debuff(SB.Rip).up then
+        if castable(SB.FerociousBite, 'target') and -spell(SB.FerociousBite) == 0 and player.power.combopoints.actual >= 5 and target.debuff(SB.Rip).up and player.power.energy.actual >= 50 then
         return cast(SB.FerociousBite)
         end        	
 	
@@ -1173,7 +1202,7 @@ end
         end
 
         -- Кусь если не нужно обновлять разорвать в след 5 сек.
-        if castable(SB.FerociousBite, 'target') and -spell(SB.FerociousBite) == 0 and player.power.combopoints.actual >= 5 and target.debuff(SB.Rip).remains > 5 then
+        if castable(SB.FerociousBite, 'target') and -spell(SB.FerociousBite) == 0 and player.power.combopoints.actual >= 5 and target.debuff(SB.Rip).remains > 5 and player.power.energy.actual >= 50 then
             return cast(SB.FerociousBite)
         end
 
@@ -1218,7 +1247,7 @@ end
 local usetrinkets = dark_addon.settings.fetch('KiraFeral_settings_usetrinkets', true)
   local Trinket13 = GetInventoryItemID("player", 13)
   local Trinket14 = GetInventoryItemID("player", 14)
-  if usetrinkets then
+  if usetrinkets and target.alive and target.enemy and player.alive then
     if GetItemCooldown(Trinket13) == 0 then
       macro('/use 13')
     end
@@ -1474,6 +1503,7 @@ local function interface()
 		    { type = 'rule' },
 		    { type = 'header', text = "            ПОЛЕЗНАЯ ХУЙНЯ." },
 			{ type = 'text', text = '                ' },
+			{ key = 'Rake_AOE', type = 'checkbox', text = 'Глубокие раны АОЕ', desc = 'Юзать раны для АОЕ' },
 			{ key = 'usetrinkets', type = 'checkbox', text = 'АВТО ТРИНЕЧКИ', desc = 'Если есть чо жать', default = true },
 			{ key = 'flex', type = 'checkbox', text = 'Мелд = Баф Доты', desc = 'Только для ночных эльфов. Дать слится с тенью = дать усиленную доту', default = false },
 			{ key = 'flex2', type = 'checkbox', text = 'Калечение', desc = 'Только для пвп, если на цели есть глубокие раны и есть 5кп дает в цель Калечение', default = false },		
@@ -1809,13 +1839,13 @@ local settings = {
         key = 'KiraFeral_settings',
         title = 'Retard cat production',
         width = 350,
-        height = 845,
+        height = 790,
 	--	color = "3cff00",
 		color = "00a2ff",
         resize = true,
         show = false,
         template = {
-            { type = 'header', text = "            Main Settings" },
+            { type = 'header', text = "                                     Main Settings" },
 			        { type = 'rule' },
             { type = 'text', text = 'Choose that build: [1-2] - [Any] - [1] - [1] - [1] - [2] - [2]' },
             { type = 'text', text = 'Any other build = shit. Tested by: RaidBots.com' },
@@ -1825,28 +1855,25 @@ local settings = {
 			{ type = 'text', text = 'Configure PvP kick Target|Focus from settings. (!!Check interrupts enabled to work!!)' },
 			{ type = 'text', text = 'Enable PVE kick from buttun! (*Kick everycast.)' },
             { type = 'rule' },
-            { type = 'header', text = '            Kick' },
-			{ type = 'text', text = '                ' },
+            { type = 'header', text = '                                     Kick' },
             { key = 'intpercentlow', type = 'spinner', text = 'intpercentlow %', default = '50', desc = '', min = 5, max = 50, step = 1 },
             { key = 'intpercenthigh', type = 'spinner', text = 'intpercenthigh %', default = '65', desc = '', min = 51, max = 100, step = 1 },
 		    { type = 'rule' },
-		    { type = 'header', text = "            Usefull stuff." },
-			{ type = 'text', text = '                ' },
+		    { type = 'header', text = "                                     Usefull stuff." },
+			{ key = 'Rake_AOE', type = 'checkbox', text = 'Rake AOE', desc = 'Use Rake to AOE' },
 			{ key = 'usetrinkets', type = 'checkbox', text = 'Auto Trinkets', desc = 'If u had ofc.', default = true },
 			{ key = 'flex', type = 'checkbox', text = 'Meld = Do Rake', desc = 'ONLY NIGHT ELF. Do meld then rake.', default = false },
 			{ key = 'flex2', type = 'checkbox', text = 'Maim', desc = 'Only for pvp, if target had Rake and player has 5KP do Maim', default = false },		
 			{ key = 'flex3', type = 'checkbox', text = 'Mighty Bash', desc = 'Only for pvp, if the target in 5 meters do Mighty Bash', default = false },					
 					    { type = 'rule' },
-						{ type = 'header', text = "            Save Ur Ass!" },
-			{ type = 'text', text = '                ' },
+						{ type = 'header', text = "                                     Save Ur Ass!" },
 			{ key = 'BearForm', type = 'spinner', text = 'Auto Bear Form', desc = 'On HP %', default = 7, min = 1, max = 100, step = 1 }, 
 			{ key = 'Renewal', type = 'spinner', text = 'Renewal', desc = 'On HP %', default = 30, min = 1, max = 100, step = 1 }, 
 			{ key = "healthstone", type = "checkspin", text = "Warlock food", desc = "On HP %", default_check = false, default_spin = 30, min = 5, max = 100, step = 1 },
 			{ key = "Instincts", type = "spinner", text = "Instincts", desc = "On HP %", default = 40, min = 1, max = 100, step = 1 },
 			{ key = "potion", type = "checkspin", text = "Coastal Rejuvenation Potion", desc = "On HP %", default_check = false, default_spin = 30, min = 5, max = 100, step = 1 },  
 		    { type = 'rule' },
-			{ type = 'header', text = "            Move Ur Ass." },
-			{ type = 'text', text = '                ' },
+			{ type = 'header', text = "                                     Move Ur Ass." },
 			
 			{ key = 'charge', type = 'dropdown', text = 'Charge.', desc = 'If [2-3]', default = 'shift',
 				list = {
@@ -1905,9 +1932,9 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
         resize = true,
         show = false,
         template = {
-            { type = 'header', text = "            Configure target kick!" },
+            { type = 'header', text = "                         Configure target kick!" },
 			{ type = 'rule' },
-			{ type = 'header', text = "            Mage" },
+			{ type = 'header', text = "                                     Mage" },
 			{ key = 'Kick0', type = 'checkbox', text = 'Sheep', desc = '', default = false },
 			{ key = 'Kick20', type = 'checkbox', text = 'Glacial Spike', desc = '', default = false },
 			{ key = 'Kick10', type = 'checkbox', text = 'Ray of Frost', desc = '', default = false },
@@ -1917,12 +1944,12 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
 			{ key = 'Kick19', type = 'checkbox', text = 'Greater pyroblast', desc = '', default = false },
 			{ key = 'Kick7', type = 'checkbox', text = 'Evocation', desc = '', default = false },
 			{ type = 'rule' },
-			{ type = 'header', text = "            Priest." },
+			{ type = 'header', text = "                                     Priest." },
 			{ key = 'Kick3', type = 'checkbox', text = 'Penance', desc = '', default = false },
 			{ key = 'Kick5', type = 'checkbox', text = 'Divine Hymn', desc = '', default = false },
 			{ key = 'Kick16', type = 'checkbox', text = 'Mind control', desc = '', default = false },
 			{ type = 'rule' },
-			{ type = 'header', text = "            Druid." },
+			{ type = 'header', text = "                                     Druid." },
 			{ key = 'Kick6', type = 'checkbox', text = 'Tranquility', desc = '', default = false },
 			{ key = 'Kick23', type = 'checkbox', text = 'Hibernate', desc = '', default = false },
 			{ key = 'Kick14', type = 'checkbox', text = 'Cyclone', desc = '', default = false },
@@ -1930,28 +1957,28 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
 			--{ key = 'Kick26', type = 'checkbox', text = 'Восстановление', desc = '', default = false },
 			--{ key = 'regrowhealth', type = 'spinner', text = 'Минимум % хп цели', default = '30', desc = 'Что бы кикнуть ей восстановление', min = 5, max = 30, step = 1 },
 			{ type = 'rule' },
-			{ type = 'header', text = "            Monk." },
+			{ type = 'header', text = "                                     Monk." },
 			{ key = 'Kick1', type = 'checkbox', text = 'Soothing Mist', desc = '', default = false},
 			{ key = 'Kick9', type = 'checkbox', text = 'Essence Font', desc = '', default = false },
 			{ key = 'Kick25', type = 'checkbox', text = 'Vivify', desc = '', default = false },
 			{ key = 'Kick22', type = 'checkbox', text = 'Effuse', desc = '', default = false },
 			{ type = 'rule' },
-			{ type = 'header', text = "            Warlock." },
+			{ type = 'header', text = "                                     Warlock." },
 			{ key = 'Kick15', type = 'checkbox', text = 'Shadowfury', desc = '', default = false },			
 			{ key = 'Kick4', type = 'checkbox', text = 'Fear', desc = '', default = false },			
 			{ key = 'Kick12', type = 'checkbox', text = 'Chaos Bolt', desc = '', default = false },
 			{ key = 'Kick21', type = 'checkbox', text = 'Cataclysm', desc = '', default = false },
 			{ type = 'rule' },
-			{ type = 'header', text = "            Shaman." },
+			{ type = 'header', text = "                                     Shaman." },
 			{ key = 'Kick13', type = 'checkbox', text = 'Hex|Frog', desc = '', default = false },
 			{ key = 'Kick2', type = 'checkbox', text = 'Lightning Lasso', desc = '', default = false },
 			{ type = 'rule' },
-			{ type = 'header', text = "            Paladin." },
+			{ type = 'header', text = "                                     Paladin." },
 			{ key = 'Kick26', type = 'checkbox', text = 'Holy Light', desc = '', default = false },
 			{ key = 'Kick27', type = 'checkbox', text = 'Flash of Light', desc = '', default = false },
 			{ key = 'Kick28', type = 'checkbox', text = 'Repentance', desc = '', default = false },
 			{ type = 'rule' },
-			{ type = 'header', text = "            DH." },
+			{ type = 'header', text = "                                     DH." },
 			{ key = 'Kick11', type = 'checkbox', text = 'Yes. Just yes. LoL. Kick Eyes.', desc = 'p.s not tested may not work.', default = false },
 			{ type = 'rule' },
 
@@ -1990,9 +2017,9 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
         resize = true,
         show = false,
         template = {
-            { type = 'header', text = "            Configure focus kick!" },
+            { type = 'header', text = "                         Configure focus kick!" },
 			{ type = 'rule' },
-			{ type = 'header', text = "            Mage" },
+			{ type = 'header', text = "                                     Mage" },
 			{ key = 'KickFocus0', type = 'checkbox', text = 'Sheep', desc = '', default = false },
 			{ key = 'KickFocus20', type = 'checkbox', text = 'Glacial Spike', desc = '', default = false },
 			{ key = 'KickFocus10', type = 'checkbox', text = 'Ray of Frost', desc = '', default = false },
@@ -2002,12 +2029,12 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
 			{ key = 'KickFocus19', type = 'checkbox', text = 'Greater pyroblast', desc = '', default = false },
 			{ key = 'KickFocus7', type = 'checkbox', text = 'Evocation', desc = '', default = false },
 			{ type = 'rule' },
-			{ type = 'header', text = "            Priest." },
+			{ type = 'header', text = "                                     Priest." },
 			{ key = 'KickFocus3', type = 'checkbox', text = 'Penance', desc = '', default = false },
 			{ key = 'KickFocus5', type = 'checkbox', text = 'Divine Hymn', desc = '', default = false },
 			{ key = 'KickFocus16', type = 'checkbox', text = 'Mind Control', desc = '', default = false },
 			{ type = 'rule' },
-			{ type = 'header', text = "            Druid." },
+			{ type = 'header', text = "                                     Druid." },
 			{ key = 'KickFocus6', type = 'checkbox', text = 'Tranquility', desc = '', default = false },
 			{ key = 'KickFocus23', type = 'checkbox', text = 'Hibernate', desc = '', default = false },
 			{ key = 'KickFocus14', type = 'checkbox', text = 'Cyclone', desc = '', default = false },
@@ -2015,28 +2042,28 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
 			--{ key = 'KickFocus26', type = 'checkbox', text = 'Восстановление', desc = '', default = false },
 			--{ key = 'regrowhealth', type = 'spinner', text = 'Минимум % хп цели', default = '30', desc = 'Что бы кикнуть ей восстановление', min = 5, max = 30, step = 1 },
 			{ type = 'rule' },
-			{ type = 'header', text = "            Monk." },
+			{ type = 'header', text = "                                     Monk." },
 			{ key = 'KickFocus1', type = 'checkbox', text = 'Soothing Mist', desc = '', default = false},
 			{ key = 'KickFocus9', type = 'checkbox', text = 'Essence Font', desc = '', default = false },
 			{ key = 'KickFocus25', type = 'checkbox', text = 'Vivify', desc = '', default = false },
 			{ key = 'KickFocus22', type = 'checkbox', text = 'Effuse', desc = '', default = false },
 			{ type = 'rule' },
-			{ type = 'header', text = "            Warlock." },
+			{ type = 'header', text = "                                     Warlock." },
 			{ key = 'KickFocus15', type = 'checkbox', text = 'Shadowfury', desc = '', default = false },			
 			{ key = 'KickFocus4', type = 'checkbox', text = 'Fear', desc = '', default = false },			
 			{ key = 'KickFocus12', type = 'checkbox', text = 'Chaos bolt', desc = '', default = false },
 			{ key = 'KickFocus21', type = 'checkbox', text = 'Cataclysm', desc = '', default = false },
 			{ type = 'rule' },
-			{ type = 'header', text = "            Shaman." },
+			{ type = 'header', text = "                                     Shaman." },
 			{ key = 'KickFocus13', type = 'checkbox', text = 'Hex|Frog', desc = '', default = false },
-			{ key = 'KickFocus2', type = 'checkbox', text = 'Лассо молний', desc = '', default = false },
+			{ key = 'KickFocus2', type = 'checkbox', text = 'Lightning Lasso', desc = '', default = false },
 			{ type = 'rule' },
-			{ type = 'header', text = "            Paladin." },
+			{ type = 'header', text = "                                     Paladin." },
 			{ key = 'KickFocus26', type = 'checkbox', text = 'Holy Light', desc = '', default = false },
 			{ key = 'KickFocus27', type = 'checkbox', text = 'Flash of Light', desc = '', default = false },
 			{ key = 'KickFocus28', type = 'checkbox', text = 'Repentance', desc = '', default = false },
 			{ type = 'rule' },
-			{ type = 'header', text = "            DH." },
+			{ type = 'header', text = "                                     DH." },
 			{ key = 'KickFocus11', type = 'checkbox', text = 'Yes. Just yes. LoL. Kick Eyes.', desc = 'p.s not tested may not work.', default = false },
 			{ type = 'rule' },
 
