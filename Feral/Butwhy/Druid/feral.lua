@@ -430,10 +430,22 @@ local Renewal = dark_addon.settings.fetch("KiraFeral_settings_Renewal", 41)
 			return  cast(SB.Incarnation, 'target')	
 		end
         -- Кусь что бы продлить разорвать
+  --      if castable(SB.FerociousBite, 'target') and -spell(SB.FerociousBite) == 0 and player.power.combopoints.actual >= 5 and target.debuff(SB.Rip).up and player.power.energy.actual >= 50 then
+   --     return cast(SB.FerociousBite)
+   ---     end       
+		
+	local Felroci2 = dark_addon.settings.fetch('KiraFeral_settings_Felroci', true)
+  if Felroci2 == true and target.alive and target.enemy and player.alive then
         if castable(SB.FerociousBite, 'target') and -spell(SB.FerociousBite) == 0 and player.power.combopoints.actual >= 5 and target.debuff(SB.Rip).up and player.power.energy.actual >= 50 then
         return cast(SB.FerociousBite)
-        end        	
-	
+        end 
+  end
+ if Felroci2 == false and target.alive and target.enemy and player.alive then
+        if castable(SB.FerociousBite, 'target') and -spell(SB.FerociousBite) == 0 and player.power.combopoints.actual >= 5 and target.debuff(SB.Rip).up then
+        return cast(SB.FerociousBite)
+        end 
+  end
+  
 	    if flex3 and castable(SB.MightyBash, 'target') and -spell(SB.MightyBash) == 0 and target.distance < 8 then
         return cast(SB.MightyBash, target)
         end  
@@ -1202,9 +1214,37 @@ end
         end
 
         -- Кусь если не нужно обновлять разорвать в след 5 сек.
-        if castable(SB.FerociousBite, 'target') and -spell(SB.FerociousBite) == 0 and player.power.combopoints.actual >= 5 and target.debuff(SB.Rip).remains > 5 and player.power.energy.actual >= 50 then
+       -- if castable(SB.FerociousBite, 'target') and -spell(SB.FerociousBite) == 0 and player.power.combopoints.actual >= 5 and target.debuff(SB.Rip).remains > 5 and player.power.energy.actual >= 50 then
+   --         return cast(SB.FerociousBite)
+       -- end
+local Felroci = dark_addon.settings.fetch('KiraFeral_settings_Felroci', true)
+  if Felroci == true and target.alive and target.enemy and player.alive then
+if castable(SB.FerociousBite, 'target') and -spell(SB.FerociousBite) == 0 and player.power.combopoints.actual >= 5 and target.debuff(SB.Rip).remains > 5 and player.power.energy.actual >= 50 then
             return cast(SB.FerociousBite)
         end
+  end
+ if Felroci == false and target.alive and target.enemy and player.alive then
+if castable(SB.FerociousBite, 'target') and -spell(SB.FerociousBite) == 0 and player.power.combopoints.actual >= 5 and target.debuff(SB.Rip).remains > 5 then
+            return cast(SB.FerociousBite)
+        end
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         -- Жестокий удар когтями что бы стакать поинты
 		if castable(SB.BrutalSlash, 'target') and -spell(SB.BrutalSlash) == 0 and player.power.combopoints.actual <= 4 then
@@ -1860,6 +1900,7 @@ local settings = {
             { key = 'intpercenthigh', type = 'spinner', text = 'intpercenthigh %', default = '65', desc = '', min = 51, max = 100, step = 1 },
 		    { type = 'rule' },
 		    { type = 'header', text = "                                     Usefull stuff." },
+			{ key = 'Felroci', type = 'checkbox', text = 'Ferocious Bite only if 50 or more energy', desc = '', default = true },
 			{ key = 'Rake_AOE', type = 'checkbox', text = 'Rake AOE', desc = 'Use Rake to AOE' },
 			{ key = 'usetrinkets', type = 'checkbox', text = 'Auto Trinkets', desc = 'If u had ofc.', default = true },
 			{ key = 'flex', type = 'checkbox', text = 'Meld = Do Rake', desc = 'ONLY NIGHT ELF. Do meld then rake.', default = false },
