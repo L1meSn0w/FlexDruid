@@ -428,7 +428,7 @@ default = "dropdown_test",
 	    end
 
 Or just:
---  { key = 'Rake_AOE', type = 'checkbox', text = 'Rake AOE', desc = 'Use Rake to AOE' },
+ { key = 'Rake_AOE', type = 'checkbox', text = 'Rake AOE', desc = 'Use Rake to AOE' },
 
 		local userakeaoe = dark_addon.settings.fetch('KiraFeral_settings_Rake_AOE', true)
 		  if userakeaoe and target.alive and target.enemy and player.alive and target.distance < 8 then
