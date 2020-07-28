@@ -1384,7 +1384,7 @@ frame:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 20, "O
 	end
 	end
 	
-	if toggle('beartest', false) and talent(3, 2) and not tank.alive then
+	if toggle('beartest', false) and talent(3, 2) and not focus.alive then
 if castable(SB.BearForm, 'player') and not -buff(SB.BearForm) then
 return cast(SB.BearForm, 'player')
 end
@@ -1843,7 +1843,7 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
     })
 		    dark_addon.interface.buttons.add_toggle({
         name = 'beartest',
-        label = 'Потанчить если танк умер. [вкл|выкл]',
+        label = 'Потанчить если танк (focus) умер. [вкл|выкл]',
         font = 'dark_addon_icon',
         on = {
             label = dark_addon.interface.icon('bone'),
@@ -2199,7 +2199,7 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
     })
 		    dark_addon.interface.buttons.add_toggle({
         name = 'beartest',
-        label = 'Tank if tank die. [On|Off]',
+        label = 'Tank if tank (Focus) die. [On|Off]',
         font = 'dark_addon_icon',
         on = {
             label = dark_addon.interface.icon('bone'),
