@@ -1,120 +1,25 @@
 local dark_addon = dark_interface
 local SB = dark_addon.rotation.spellbooks.druid
-local DI = dark_addon.rotation.dispellbooks.dispel
-
-SB.Refreshment = 167152
-SB.Drink = 274914
-SB.ReplenishmentDebuff = 252753
-SB.Regrowth = 8936
-SB.SolarWrathResto = 5176
-SB.GiftOftheNaaru = 59544
-SB.AncestralCall = 274738
-SB.LightsJudgement = 255647
-SB.ConcentratedFlame = 295373
-
-SB.Barkskin = 22812
-SB.BearForm = 5487
-SB.CatForm = 768
-SB.CenarionWard = 102351
-SB.Clearcasting = 16870
-SB.Efflorescence = 145205
-SB.EntanglingRoots = 339
-SB.FerociousBite = 22568
-SB.Flourish = 197721
-SB.Growl = 6795
-SB.Hibernate = 2637
-SB.IncarnationTreeofLife = 33891
-SB.Innervate = 29166
-SB.Ironbark = 102342
-SB.Lifebloom = 33763
-SB.LunarEmpowerment = 164547
-SB.LunarStrike = 197628
-SB.Mangle = 33917
-SB.MassEntanglement = 102359
-SB.MightyBash = 5211
-SB.Moonfire = 8921
-SB.MoonkinForm = 197625
-SB.NaturesCure = 88423
-SB.Prowl = 5215
-SB.Rake = 1822
-SB.Rebirth = 20484
-SB.Regrowth = 8936
-SB.Rejuvenation = 774
-SB.Renewal = 108238
-SB.Revitalize = 212040
-SB.Revive = 50769
-SB.Rip = 1079
-SB.Shred = 5221
-SB.SolarEmpowerment = 164545
-SB.SolarWrath = 5176
-SB.Soothe = 2908
-SB.Starsurge = 197626
-SB.Sunfire = 93402
-SB.Swiftmend = 18562
-SB.Swipe = 213764
-SB.TigerDash = 252216
-SB.Tranquility = 740
-SB.TravelForm = 783
-SB.Typhoon = 132469
-SB.UrsolsVortex = 102793
-SB.WildCharge = 102401
-SB.WildGrowth = 48438
-
-SB.Refreshment = 167152
-SB.Drink = 274914
-SB.ReplenishmentDebuff = 252753
-SB.GiftOftheNaaru = 59544
-SB.AncestralCall = 274738
-SB.LightsJudgement = 255647
-
-SB.ConcentratedFlame = 295373
-SB.OverchargeMana = 296072
 
 --Start Dispel Function
 local function dispel()
 
   --Nature's Cure
-  --local ncdelay = math.random(0.5,2)
+  local ncdelay = math.random(0.5,2)
 
- -- if toggle("dispel", false) then
-  --  local unit = group.dispellable(SB.NaturesCure)
-  --  if unit and unit.castable(SB.NaturesCure) then
---		print("Скинул " .. name .. " с союзника!")
-  --      return cast(SB.NaturesCure, unit)
-  --  end
- -- end
- if toggle("dispel", false) then
-  if castable(SB.NaturesCure) then
-      for i = 1, 2 do
-    local name, _, _, count, debuff_type, _, _, _, _, spell_id = UnitDebuff("party1", i) 
-	local name2, _, _, count, debuff_type, _, _, _, _, spell_id = UnitDebuff("party2", i) 
-	local name3, _, _, count, debuff_type, _, _, _, _, spell_id = UnitDebuff("party3", i) 
-	local name4, _, _, count, debuff_type, _, _, _, _, spell_id = UnitDebuff("party4", i) 
-	local name5, _, _, count, debuff_type, _, _, _, _, spell_id = UnitDebuff("party5", i) 
-    if name and DI[spell_id] then
-	print("Скинул " .. name .. " с цели!")
-      return cast(SB.NaturesCure)
-	      end
-	      if name2 and DI[spell_id] then
-	print("Скинул " .. name .. " с цели!")
-      return cast(SB.NaturesCure)
-	      end
-	      if name3 and DI[spell_id] then
-	print("Скинул " .. name .. " с цели!")
-      return cast(SB.NaturesCure)
-	      end
-	      if name4 and DI[spell_id] then
-	print("Скинул " .. name .. " с цели!")
-      return cast(SB.NaturesCure)
-	      end
-	      if name5 and DI[spell_id] then
-	print("Скинул " .. name .. " с цели!")
-      return cast(SB.NaturesCure)
+  if toggle("dispel", false) then
+    local unit = group.dispellable(SB.NaturesCure)
+    if unit and unit.castable(SB.NaturesCure) then
+        return cast(SB.NaturesCure, unit)
     end
   end
-end
-end
-
+  
+  if toggle("dispel", false) then
+    local unit2 = target.dispellable(SB.Soothe)
+    if unit2 and unit2.castable(SB.Soothe) then
+        return cast(SB.Soothe, unit2)
+    end
+  end 
 
   --Soothe
   -- if target.castable(SB.Soothe) then
@@ -236,7 +141,7 @@ setfenv(defensives, dark_addon.environment.env)
 --Start DPS Function
 local function dps()
 
-  local useconcflame = dark_addon.settings.fetch('rexdru_settings2_useconcflame', true)
+
   local dpsplayermana = dark_addon.settings.fetch("rexdru_settings2_dpsplayermana", 65)
   local dpsgrouphealth = dark_addon.settings.fetch("rexdru_settings2_dpsgrouphealth", 65)
   local affinity = dark_addon.settings.fetch("rexdru_settings2_affinity")
@@ -252,10 +157,6 @@ local function dps()
     auto_attack()
   end
 
-    --Essences - Concentrated Flame
-    if useconcflame and castable(SB.ConcentratedFlame) and -spell(SB.ConcentratedFlame) == 0 then
-      return cast(SB.ConcentratedFlame, target)
-    end
 
     if affinity == "balance" then
 
@@ -379,7 +280,7 @@ local function healing(combat)
     local lifebloom = dark_addon.settings.fetch("rexdru_settings_lifebloom")
     local lbplayerpercent = dark_addon.settings.fetch("rexdru_settings_lbplayerpercent", 50)
     local overmana = dark_addon.settings.fetch('rexdru_settings_useovermana', true)
-
+	local useconcflame = dark_addon.settings.fetch('rexdru_settings2_useconcflame', true)
     --Efflorescence
     if (effkey == "shift" and modifier.shift) or (effkey == "control" and modifier.control) or (effkey == "alt" and modifier.alt) and not lastcast(SB.Efflorescence) then
       return cast(SB.Efflorescence, "ground")
@@ -455,7 +356,9 @@ local function healing(combat)
       if player.buff(SB.Clearcasting).up and not player.moving then
         return cast(SB.Regrowth, lowest)
       end
-
+    if useconcflame and castable(SB.ConcentratedFlame) and -spell(SB.ConcentratedFlame) == 0 then
+      return cast(SB.ConcentratedFlame, lowest)
+    end
       --Use Swiftmend on a player that just took heavy damage. If not in immediate danger, use Rejuvenation first.
       if lowest.castable(SB.Swiftmend) and lowest.health.percent <= swiftmendpercent then
         return cast(SB.Swiftmend, lowest)
@@ -542,52 +445,52 @@ end
 local function interface()
   local settings = {
     key = "rexdru_settings",
-    title = "НастройОЧКА",
+    title = "Settings",
     width = 275,
     height = 700,
-    color = "1F8FB5",
+    color = "ef6c00",
     resize = true,
     show = false,
     template = {
-      { type = "header", text = "Кирасака перевёл.", align = "center" },
-      { type = 'text', text = 'Все изменения применяется сразу!', align = "center" },
-      { type = 'text', text = 'Таланты: 1 1 1 3 2 3 1', align = "center" },
-      { type = 'text', text = 'Юзлесс кнопки - БУРСТ, АОЕ', align = "center" },                      
+      { type = "header", text = "Rex's Restoration Druid", align = "center" },
+      { type = 'text', text = 'Suggested Talents - 1 1 1 3 2 3 1', align = "center" },
+      { type = 'text', text = 'Toggles not used on UI - Cooldowns, Multi-target', align = "center" },                      
       { type = "rule" },
-      { type = 'header', text = 'Хилим Дауна-Танка', align = "center" },
-      { key = 'tankrejuve', type = 'spinner', text = 'Обновление', desc = 'Минимум % хп для каста', default = 90, min = 1, max = 100, step = 1 },      
-      { key = 'tankregrowth', type = 'spinner', text = 'Восстановление', desc = 'Минимум % хп для каста', default = 80, min = 1, max = 100, step = 1 },    
+      { type = 'header', text = 'Tank Healing', align = "center" },
+      { key = 'tankrejuve', type = 'spinner', text = 'Rejuvenation', desc = 'Health Percent to cast at', default = 90, min = 1, max = 100, step = 1 },      
+      { key = 'tankregrowth', type = 'spinner', text = 'Regrowth', desc = 'Health Percent to cast at', default = 80, min = 1, max = 100, step = 1 },    
       { type = "rule" },
-      { type = 'header', text = 'Лечим 4х долбоёбов помимо танка', align = "center" },
-      { key = 'effkey', type = 'dropdown', text = 'Кнопочка что бы обоссаца лужой.', desc = '', default = 'control',
+      { type = 'header', text = 'Group Healing', align = "center" },
+      { key = 'effkey', type = 'dropdown', text = 'Key to use for Efflorescence', desc = '', default = 'control',
       list = {
         { key = 'control', text = 'CTRL' },
         { key = 'alt', text = 'ALT' },
         { key = 'shift', text = 'SHIFT' },
       } },
-      { key = 'lifebloom', type = 'dropdown', text = 'Жизнецвет приоритет цель', desc = '', default = 'tank',
+      { key = 'lifebloom', type = 'dropdown', text = 'Lifebloom preferred target', desc = '', default = 'tank',
       list = {
-        { key = 'tank', text = 'Даун-Танк' },
-        { key = 'lowest', text = 'Лоу хп игрок' },
+        { key = 'tank', text = 'Tank' },
+        { key = 'lowest', text = 'Lowest' },
       } },
-      { key = "lbplayerpercent", type = "spinner", text = "Фотосинтез Жизнецвет", desc = "Перекинуть на себя на % хп", default = 50, min = 1, max = 100, step = 1 },    
-      { key = 'grouprejuve', type = 'spinner', text = 'Обновление', desc = 'Минимум % хп для каста', default = 90, min = 1, max = 100, step = 1 },      
-      { key = 'groupregrowth', type = 'spinner', text = 'Восстановление', desc = 'Минимум % хп для каста', default = 80, min = 1, max = 100, step = 1 },                     
-      { key = "ironbark", type = "checkspin", text = "Железная кора", desc = "Минимум хп челика для каста", default_check = true, default_spin = 30, min = 1, max = 100, step = 1 },
-      { key = "swiftmend", type = "spinner", text = "Быстрое восстановление", desc = "Минимум % хп для каста", default = 50, min = 1, max = 100, step = 1 },      
-      { key = "wgpercent", type = "spinner", text = "Буйный Рост", desc = "Минимум % хп для каста", default = 70, min = 1, max = 100, step = 1 },
-      { key = "wgtargets", type = "spinner", text = "Буйный Рост кол-в целей", desc = "Минимум целей", default = 3, min = 1, max = 40, step = 1 },
-      { key = "tranqpercent", type = "spinner", text = "Транквила", desc = "Минимум % хп целей", default = 50, min = 1, max = 100, step = 1 },
-      { key = "tranqtargets", type = "spinner", text = "Транквила кол-в целей", desc = "Минимум целей", default = 3, min = 1, max = 40, step = 1 },
-      { key = "innervate", type = "checkspin", text = "Озарение", desc = "На % маны кастануть", default_check = true, default_spin = 90, min = 1, max = 100, step = 1 }, 
+	  { key = 'useconcflame', type = 'checkbox', text = 'Auto Use Concentrated Flame Essence on lowest', desc = '', default = true },
+      { key = "lbplayerpercent", type = "spinner", text = "Photosynthesis Lifebloom", desc = "Switch to Player when Lowest Health Percent at", default = 50, min = 1, max = 100, step = 1 },    
+      { key = 'grouprejuve', type = 'spinner', text = 'Rejuvenation', desc = 'Health Percent to cast at', default = 90, min = 1, max = 100, step = 1 },      
+      { key = 'groupregrowth', type = 'spinner', text = 'Regrowth', desc = 'Health Percent to cast at', default = 80, min = 1, max = 100, step = 1 },                     
+      { key = "ironbark", type = "checkspin", text = "Ironbark", desc = "Lowest Group Member - Health Percent to cast at", default_check = true, default_spin = 30, min = 1, max = 100, step = 1 },
+      { key = "swiftmend", type = "spinner", text = "Swiftmend", desc = "Lowest Group Member - Health Percent to cast at", default = 50, min = 1, max = 100, step = 1 },      
+      { key = "wgpercent", type = "spinner", text = "Wild Growth", desc = "Lowest Group Member - Health Percent to cast at", default = 70, min = 1, max = 100, step = 1 },
+      { key = "wgtargets", type = "spinner", text = "Wild Growth Targets", desc = "Minimum number of group targets", default = 3, min = 1, max = 40, step = 1 },
+      { key = "tranqpercent", type = "spinner", text = "Tranquility", desc = "Lowest Group Member - Health Percent to cast at", default = 50, min = 1, max = 100, step = 1 },
+      { key = "tranqtargets", type = "spinner", text = "Tranquility Targets", desc = "Minimum number of group targets", default = 3, min = 1, max = 40, step = 1 },
+      { key = "innervate", type = "checkspin", text = "Innervate", desc = "Mana Percent to cast at", default_check = true, default_spin = 90, min = 1, max = 100, step = 1 }, 
       { type = "rule" },
-      { type = "header", text = "Настакать для входящего урона", align = "center" },
-      { key = 'useovermana', type = 'dropdown', text = 'Мейн эссенция: Перегрузка маны', desc = '', default = 'cooldown',
+      { type = "header", text = "Ramp Up for Incoming Damage", align = "center" },
+      { key = 'useovermana', type = 'dropdown', text = 'Major Essence: Overcharge Mana', desc = '', default = 'cooldown',
       list = {
-        { key = 'cooldown', text = 'на перезарядке' },
-        { key = 'rampup', text = 'с Настакиванием' },
+        { key = 'cooldown', text = 'on Cooldown' },
+        { key = 'rampup', text = 'with Ramp Up' },
       } },
-      { key = 'ohshitkey', type = 'dropdown', text = 'Настакиваем ', desc = 'Спамим Обновление и Буйный Рост на пати', default = 'alt',
+      { key = 'ohshitkey', type = 'dropdown', text = 'Ramp Up by Holding key ', desc = 'will spam Rejuvenation and Wild Growth on group', default = 'alt',
       list = {
         { key = 'control', text = 'CTRL' },
         { key = 'alt', text = 'ALT' },
@@ -599,41 +502,39 @@ local function interface()
 
   local settings2 = {
     key = "rexdru_settings2",
-    title = "НастройОЧКА ДПСА | ЛИЧных сейвов",
+    title = "Settings",
     width = 275,
     height = 700,
-    color = "1F8FB5",
+    color = "ef6c00",
     resize = true,
     show = false,
     template = {
-      { type = "header", text = "Кирасака перевёл.", align = "center" },
-      { type = 'text', text = 'Все изменения применяется сразу!', align = "center" },
-      { type = 'text', text = 'Таланты: 1 1 1 3 2 3 1', align = "center" },
-      { type = 'text', text = 'Юзлесс кнопки - БУРСТ, АОЕ', align = "center" },                           
+      { type = "header", text = "Rex's Restoration Druid", align = "center" },
+      { type = 'text', text = 'Suggested Talents - 1 1 1 3 2 3 1', align = "center" },
+      { type = 'text', text = 'Toggles not used on UI - Colldowns, Multi-target', align = "center" },                           
       { type = "rule" },
-      { type = 'header', text = 'НАСТРОЙКИ ДПС', align = "center" },
-      { key = 'affinity', type = 'dropdown', text = 'Какое родство юзается', desc = '', default = 'balance',
+      { type = 'header', text = 'DPS Settings', align = "center" },
+      { key = 'affinity', type = 'dropdown', text = 'Affinity to use', desc = '', default = 'balance',
       list = {
-        { key = 'balance', text = 'Балонка' },
-        { key = 'feral', text = 'Фекал' },
+        { key = 'balance', text = 'Balance' },
+        { key = 'feral', text = 'Feral' },
       } },
-      { key = 'useconcflame', type = 'checkbox', text = 'Авто юзать эсенцию Сосредоточенный огонь', desc = '', default = true },
-      { key = "dpsplayermana", type = "spinner", text = "Кол-в маны в %", desc = "Минимум маны для ДПС мода", default = 65, min = 1, max = 100, step = 1 },
-      { key = "dpsgrouphealth", type = "spinner", text = "Минимальный % хп уч. группы", desc = "Минимальный % хп челика в пати для ДПС мода", default = 65, min = 1, max = 100, step = 1 },                  
+      { key = "dpsplayermana", type = "spinner", text = "Player Mana Threshold", desc = "Minimum Player Mana - Mana Percent to allow DPS", default = 65, min = 1, max = 100, step = 1 },
+      { key = "dpsgrouphealth", type = "spinner", text = "Group Health Threshold", desc = "Lowest Group Member - Health Percent to allow DPS", default = 65, min = 1, max = 100, step = 1 },                  
       { type = "rule" },
-      { type = 'header', text = 'Основные Настройки', align = "center" },      
-      { key = 'usetrinkets', type = 'checkbox', text = 'Авто юзать триньки', desc = '', default = true },
+      { type = 'header', text = 'General Settings', align = "center" },      
+      { key = 'usetrinkets', type = 'checkbox', text = 'Auto Use Trinkets', desc = '', default = true },
       { type = "rule" },      
-      { type = "header", text = "Собственные сейвы", align = "center" },
-      { key = "barkskinpercent", type = "spinner", text = "Дубовая кожа", desc = "На сколько % хп кастовать", default = 60, min = 1, max = 100, step = 1 },
-      { key = "healthstone", type = "checkspin", text = "Огурцы лока", desc = "На сколько % хп кастовать", default_check = false, default_spin = 30, min = 5, max = 100, step = 1 },
-      { key = "potion", type = "checkspin", text = "Глубоководное лечебное зелье", desc = "На сколько % хп кастовать", default_check = false, default_spin = 30, min = 5, max = 100, step = 1 },      
+      { type = "header", text = "Personal Defensive Settings", align = "center" },
+      { key = "barkskinpercent", type = "spinner", text = "Barkskin", desc = "Health Percent to cast at", default = 60, min = 1, max = 100, step = 1 },
+      { key = "healthstone", type = "checkspin", text = "Healthstone", desc = "Health Percent to cast at", default_check = false, default_spin = 30, min = 5, max = 100, step = 1 },
+      { key = "potion", type = "checkspin", text = "Abyssal Healing Potion", desc = "Health Percent to cast at", default_check = false, default_spin = 30, min = 5, max = 100, step = 1 },      
       { type = "rule" },
-      { type = 'header', text = 'Кикай касты ака гладиатор', align = "center" },
-      { key = 'intpercentlow', type = 'spinner', text = 'Минимум % каста', default = '50', desc = 'low% cast time to interrupt at', min = 5, max = 50, step = 1 },
-      { key = 'intpercenthigh', type = 'spinner', text = 'Максимум % каста', default = '65', desc = 'high% cast time to interrupt at', min = 51, max = 100, step = 1 },
-      { key = 'typhoonint', type = 'checkbox', text = 'Тайфун', desc = 'Юзать тайфун для кика каста', default = false },
-      { key = 'mightybashint', type = 'checkbox', text = 'Мощное оглушение', desc = 'Мощное оглушение для кика каста', default = false },      
+      { type = 'header', text = 'Interrupt Settings', align = "center" },
+      { key = 'intpercentlow', type = 'spinner', text = 'Interrupt Low %', default = '50', desc = 'low% cast time to interrupt at', min = 5, max = 50, step = 1 },
+      { key = 'intpercenthigh', type = 'spinner', text = 'Interrupt High %', default = '65', desc = 'high% cast time to interrupt at', min = 51, max = 100, step = 1 },
+      { key = 'typhoonint', type = 'checkbox', text = 'Typhoon', desc = 'Use as interrupt', default = false },
+      { key = 'mightybashint', type = 'checkbox', text = 'Mighty Bash', desc = 'Use as interrupt', default = false },      
     }
   }
   configWindow2 = dark_addon.interface.builder.buildGUI(settings2)
@@ -646,23 +547,23 @@ local function interface()
 --   )
 
   dark_addon.interface.buttons.add_toggle(
-    { name = "dispel", label = "Диспелим ебать. (вкл|выкл)",
-    on = { label = "ДИСП ВКЛ", color = dark_addon.interface.color.green, color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_orange, 0.7) },
-    off = { label = "ДИСП ВЫКЛ", color = dark_addon.interface.color.red, color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_grey, 0.5) }
+    { name = "dispel", label = "Nature's Cure",
+    on = { label = "Dispel ON", color = dark_addon.interface.color.orange, color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_orange, 0.7) },
+    off = { label = "Dispel OFF", color = dark_addon.interface.color.grey, color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_grey, 0.5) }
     }
   )
 
   dark_addon.interface.buttons.add_toggle(
-    { name = "dps", label = "Ебашим палкой его. (Дпс мод вкл|выкл)",
-    on = { label = "ДПС ВКЛ", color = dark_addon.interface.color.green, color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_orange, 0.7) },
-    off = { label = "ДПС ВЫКЛ", color = dark_addon.interface.color.red, color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_grey, 0.5) }
+    { name = "dps", label = "Use Damage Spells",
+    on = { label = "DPS ON", color = dark_addon.interface.color.orange, color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_orange, 0.7) },
+    off = { label = "DPS OFF", color = dark_addon.interface.color.grey, color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_grey, 0.5) }
     }
   )
 
   dark_addon.interface.buttons.add_toggle(
-    { name = "settings", label = "Настройки хила", font = "dark_addon_icon",
-    on = { label = dark_addon.interface.icon("cog"), color = dark_addon.interface.color.teal, color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_orange, 0.7) },
-    off = { label = dark_addon.interface.icon("cog"), color = dark_addon.interface.color.teal,  color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_grey, 0.5) },
+    { name = "settings", label = "Healing Settings", font = "dark_addon_icon",
+    on = { label = dark_addon.interface.icon("cog"), color = dark_addon.interface.color.orange, color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_orange, 0.7) },
+    off = { label = dark_addon.interface.icon("cog"), color = dark_addon.interface.color.grey,  color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_grey, 0.5) },
     
     callback = function(self)
     if configWindow.parent:IsShown() then
@@ -675,12 +576,12 @@ local function interface()
   )
 
   dark_addon.interface.buttons.add_toggle(
-    { name = "settings2", label = "Настроечки ДПС модаm, Кик кастов, и Сейвов Личных.", font = "dark_addon_icon",
-    on = { label = dark_addon.interface.icon("cog"), color = dark_addon.interface.color.teal, color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_orange, 0.7) },
-    off = { label = dark_addon.interface.icon("cog"), color = dark_addon.interface.color.teal,  color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_grey, 0.5) },
+    { name = "settings2", label = "DPS & Utility Settings", font = "dark_addon_icon",
+    on = { label = dark_addon.interface.icon("cog"), color = dark_addon.interface.color.orange, color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_orange, 0.7) },
+    off = { label = dark_addon.interface.icon("cog"), color = dark_addon.interface.color.grey,  color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_grey, 0.5) },
     
     callback = function(self)
-    if configWindow2.parent:IsShown() then	
+    if configWindow2.parent:IsShown() then
       configWindow2.parent:Hide()
     else
       configWindow2.parent:Show()
@@ -690,13 +591,75 @@ local function interface()
   )
 
 end
+
 dark_addon.rotation.register(
-        {
-          spec = dark_addon.rotation.classes.druid.restoration,
-          name = "Healer",
-          label = "Rex profile, translated by kirasaka.",
-          combat = combat,
-          resting = resting,
-          interface = interface
-        }
+    {
+    spec = dark_addon.rotation.classes.druid.restoration,
+    name = "RexRestDru",
+    label = "Rex's Restoration Druid",
+    combat = combat,
+    resting = resting,
+    interface = interface
+    }
 )
+
+--Spellbook
+SB.Barkskin = 22812
+SB.BearForm = 5487
+SB.CatForm = 768
+SB.CenarionWard = 102351
+SB.Clearcasting = 16870
+SB.Efflorescence = 145205
+SB.EntanglingRoots = 339
+SB.FerociousBite = 22568
+SB.Flourish = 197721
+SB.Growl = 6795
+SB.Hibernate = 2637
+SB.IncarnationTreeofLife = 33891
+SB.Innervate = 29166
+SB.Ironbark = 102342
+SB.Lifebloom = 33763
+SB.LunarEmpowerment = 164547
+SB.LunarStrike = 197628
+SB.Mangle = 33917
+SB.MassEntanglement = 102359
+SB.MightyBash = 5211
+SB.Moonfire = 8921
+SB.MoonkinForm = 197625
+SB.NaturesCure = 88423
+SB.Prowl = 5215
+SB.Rake = 1822
+SB.Rebirth = 20484
+SB.Regrowth = 8936
+SB.Rejuvenation = 774
+SB.Renewal = 108238
+SB.Revitalize = 212040
+SB.Revive = 50769
+SB.Rip = 1079
+SB.Shred = 5221
+SB.SolarEmpowerment = 164545
+SB.SolarWrath = 5176
+SB.Soothe = 2908
+SB.Starsurge = 197626
+SB.Sunfire = 93402
+SB.Swiftmend = 18562
+SB.Swipe = 213764
+SB.TigerDash = 252216
+SB.Tranquility = 740
+SB.TravelForm = 783
+SB.Typhoon = 132469
+SB.UrsolsVortex = 102793
+SB.WildCharge = 102401
+SB.WildGrowth = 48438
+
+--Racials
+SB.Refreshment = 167152
+SB.Drink = 274914
+SB.ReplenishmentDebuff = 252753
+SB.GiftOftheNaaru = 59544
+SB.AncestralCall = 274738
+SB.LightsJudgement = 255647
+
+--Essences
+SB.ConcentratedFlame = 295373
+SB.OverchargeMana = 296072
