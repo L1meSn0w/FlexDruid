@@ -423,7 +423,16 @@ dark_addon.on_ready(function()
       end
     end
   })
-
+    dark_addon.commands.register({
+    command = {'hide', 'show'},
+    arguments = { },
+    text = 'Скрыть/Показать интерфейс аддона',
+    callback = function()
+      if container_frame:IsShown() then container_frame:Hide()
+      else container_frame:Show() end
+      return true
+    end
+  })
   dark_addon.interface.buttons.add_toggle({
     core = true,
     name = 'master_toggle',
@@ -672,6 +681,16 @@ dark_addon.on_ready(function()
         buttons_frame:Hide()
         container_frame.text:Show()
       end
+      return true
+    end
+  })
+    dark_addon.commands.register({
+    command = {'hide', 'show'},
+    arguments = { },
+    text = 'show/hide window',
+    callback = function()
+      if container_frame:IsShown() then container_frame:Hide()
+      else container_frame:Show() end
       return true
     end
   })
