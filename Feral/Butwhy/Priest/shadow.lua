@@ -736,9 +736,6 @@ end
    if Dispersion and -player.health <= Dispersion then
         return cast(SB.Dispersion)
       end
-    if castable(SB.ShadowForm) and not player.buff(ShadowForm)  then
-            return cast(SB.ShadowForm)
-        end		
 
         -- Rotation --
 		-- Shadowfiend  DarkAscension
