@@ -711,16 +711,6 @@ end
 
     if player.alive and target.alive and target.enemy and not player.channeling() then
 
-        -- Interrupt --
-        if castable(SB.Silence) and target.interrupt(50) then
-            return cast(SB.Silence, 'target')
-        end
-		
-		-- Modifiers --
-		-- Shadow Crash (Shift)
-	--	if castable(SB.ShadowCrash) and modifier.shift then
-	--		return cast(SB.ShadowCrash, 'ground')
-	--	end
 		
 if (mousecrash == "shift" and modifier.shift) or (mousecrash == "control" and modifier.control) or (mousecrash == "alt" and modifier.alt) then 
 return cast(SB.ShadowCrash, 'ground')
@@ -746,7 +736,9 @@ end
    if Dispersion and -player.health <= Dispersion then
         return cast(SB.Dispersion)
       end
-		
+    if castable(SB.ShadowForm) and not player.buff(ShadowForm)  then
+            return cast(SB.ShadowForm)
+        end		
 
         -- Rotation --
 		-- Shadowfiend  DarkAscension
@@ -905,6 +897,8 @@ end
 if usenottankgrip == true and player.health.percent < nottankgrip then
 return cast(SB.LeapofFaith, lowest)
 end	
+
+
 end --combat 
 
 local function resting()
