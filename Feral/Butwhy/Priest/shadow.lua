@@ -927,6 +927,10 @@ end
 if LevitateBuff == true and IsFalling and player.buff(SB.Levitate).down then
 return cast(SB.Levitate, 'player')
 end
+
+if castable(SB.ShadowForm) and player.buff(SB.ShadowForm).down then
+return cast(SB.ShadowForm)
+end
 end --resting
 
 local function interface()
