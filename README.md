@@ -308,20 +308,20 @@ default = "dropdown_test",
 
 -  can an ability be made to execute if the target is a boss? (https://wow.gamepedia.com/UnitId)
 
-		local ValidClassification = {
-    	['worldboss'] = true,
-  	  ['rareelite'] = true,
-   	 ['elite'] = true,
-  	  ['rare'] = true,
-  	  ['normal'] = false,
-  	  ['trivial'] = false,
-  	  ['minus'] = false
-	}
+				local ValidClassification = {
+  			  	['worldboss'] = true,
+  				  ['rareelite'] = true,
+  			 	 ['elite'] = true,
+  			  ['rare'] = true,
+  				  ['normal'] = false,
+  			  ['trivial'] = false,
+  			  ['minus'] = false
+					}
 
-		local function ValidCDTarget(unit)
-		    if type(unit) == 'table' then unit = unit.unitID end
-		   return ValidClassification[UnitClassification(unit)] and UnitLevel(unit) > UnitLevel('player')
-		end
+				local function ValidCDTarget(unit)
+				    if type(unit) == 'table' then unit = unit.unitID end
+				   return ValidClassification[UnitClassification(unit)] and UnitLevel(unit) > UnitLevel('player')
+					end
 
 
 
