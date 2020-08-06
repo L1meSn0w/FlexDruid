@@ -894,7 +894,6 @@
 		local boostspeed = dark_addon.settings.fetch('KiraFeral_settings_boostspeed', true)
 		local shieldonly = dark_addon.settings.fetch('KiraFeral_settings_shieldonly', true)
 		local LevitateBuff = dark_addon.settings.fetch('KiraFeral_settings_LevitateBuff', true)
-		
 		if target.alive and target.enemy and player.alive and not player.channeling() then
 		
 			-- Shadow Word Pain to start combat
@@ -923,15 +922,6 @@
 	return cast(SB.ShadowForm)
 	end
 	
-	  if player.alive then
-    if nameplates == true  and seeplates == '0' then
-       SetCVar("nameplateShowEnemies",1)
-    end
-
-    if nameplates == false and seeplates == '1' then
-       SetCVar("nameplateShowEnemies",0)
-    end
-  end
 	
 	end --resting
 
@@ -966,6 +956,7 @@
 	-- 										Kick cast settings will be here soon..... 
 				{ type = 'rule' },
 				{ type = 'header', text = "USEFUL STUFF.", align = 'CENTER' },
+
 				{ key = 'LevitateBuff', type = 'checkbox', text = 'Levitate Buff', desc = 'Update Levitate buff if not in combat.', default = false },
 				{ key = 'powerword', type = 'checkbox', text = 'Power Word: Fortitude', desc = 'Use Power Word: Fortitude?', default = false },
 				{ key = 'boostspeed', type = 'checkbox', text = 'Use shield to speed up movment', desc = '', default = false },
@@ -1302,6 +1293,7 @@
 	-- 										Kick cast settings will be here soon..... 
 				{ type = 'rule' },
 				{ type = 'header', text = "USEFUL STUFF.", align = 'CENTER' },
+
 				{ key = 'LevitateBuff', type = 'checkbox', text = 'Levitate Buff', desc = 'Update Levitate buff if not in combat.', default = false },
 				{ key = 'powerword', type = 'checkbox', text = 'Power Word: Fortitude', desc = 'Use Power Word: Fortitude?', default = false },
 				{ key = 'boostspeed', type = 'checkbox', text = 'Use shield to speed up movment', desc = '', default = false },
