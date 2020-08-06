@@ -1378,7 +1378,7 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
 		-- 				TOGGLE something
 		    dark_addon.interface.buttons.add_toggle({
         name = 'Opener',
-        label = 'Cast SWP on clicked target to start combat. [On|Off]',
+        label = 'Cast SWP on choosen target to start combat. [On|Off]',
         font = 'dark_addon_icon',
         on = {
             label = dark_addon.interface.icon('toggle-on'),
