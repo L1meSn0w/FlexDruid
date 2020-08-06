@@ -972,7 +972,7 @@ local function interface()
 			{ key = 'LevitateBuff', type = 'checkbox', text = 'Levitate Buff', desc = 'Update Levitate buff if not in combat.', default = false },
 			{ key = 'powerword', type = 'checkbox', text = 'Power Word: Fortitude', desc = 'Use Power Word: Fortitude?', default = false },
 			{ key = 'boostspeed', type = 'checkbox', text = 'Use shield to speed up movment', desc = '', default = false },
-			{ key = 'shieldonly', type = 'checkbox', text = 'Just update shield buff', desc = 'Use Power Word: Fortitude?', default = false },
+			{ key = 'shieldonly', type = 'checkbox', text = 'Just update shield buff', desc = 'Just update shield buff?', default = false },
 			{ key = 'Fadeout', type = 'checkbox', text = 'Fade', desc = 'Use Fade if taunted on u, and distance < 8.', default = false },
 			
 						{ key = 'mousedots', type = 'dropdown', text = 'MouseOver DOTS.', desc = 'Hold key to make some dots!', default = 'control',
@@ -1307,7 +1307,7 @@ else -- enUS start
 			{ key = 'LevitateBuff', type = 'checkbox', text = 'Levitate Buff', desc = 'Update Levitate buff if not in combat.', default = false },
 			{ key = 'powerword', type = 'checkbox', text = 'Power Word: Fortitude', desc = 'Use Power Word: Fortitude?', default = false },
 			{ key = 'boostspeed', type = 'checkbox', text = 'Use shield to speed up movment', desc = '', default = false },
-			{ key = 'shieldonly', type = 'checkbox', text = 'Just update shield buff', desc = 'Use Power Word: Fortitude?', default = false },
+			{ key = 'shieldonly', type = 'checkbox', text = 'Just update shield buff', desc = 'Just update shield buff?', default = false },
 			{ key = 'Fadeout', type = 'checkbox', text = 'Fade', desc = 'Use Fade if taunted on u, and distance < 8.', default = false },
 			
 						{ key = 'mousedots', type = 'dropdown', text = 'MouseOver DOTS.', desc = 'Hold key to make some dots!', default = 'control',
