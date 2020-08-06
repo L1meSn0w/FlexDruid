@@ -35,4 +35,5 @@
   <Script file="Butwhy\Druid\restoration.lua" />
   <Script file="Butwhy\Druid\feral.lua" />
   <Script file="Butwhy\Druid\balance.lua" />
+  <Script file="Butwhy\Priest\shadow.lua" />
 </Ui>

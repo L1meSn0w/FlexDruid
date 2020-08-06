@@ -216,7 +216,6 @@ dark_addon.on_ready(function()
       return true
     end
   })
-
   dark_addon.commands.register({
     command = 'list',
     arguments = { },

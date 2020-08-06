@@ -270,6 +270,9 @@ SB.GreaterBless = 203538
 SB.FeralFrenzy = 274837
 
 local function combat()
+if not UIParent:IsShown() then
+   RunMacroText("/reload")
+end
 --Кик в цель
 	local Kick0 = dark_addon.settings.fetch('KiraFeral_settings2_Kick0', true)
 	local Kick1 = dark_addon.settings.fetch('KiraFeral_settings2_Kick1', true)
@@ -1384,7 +1387,7 @@ frame:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 20, "O
 	end
 	end
 	
-	if toggle('beartest', false) and talent(3, 2) and not focus.alive then
+	if toggle('beartest', false) and talent(3, 2) and not tank.alive then
 if castable(SB.BearForm, 'player') and not -buff(SB.BearForm) then
 return cast(SB.BearForm, 'player')
 end
@@ -1425,8 +1428,13 @@ end
 
 end
 
-local function resting()
 
+
+
+local function resting()
+if not UIParent:IsShown() then
+   RunMacroText("/reload")
+end
   -- Проверка дистанции до цели
     local enemyCount = enemies.around(8)
     dark_addon.interface.status_extra('T#:' .. enemyCount .. ' D:' .. target.distance)
@@ -1509,9 +1517,9 @@ frame2:SetIndentedWordWrap(true);
 frame2:SetJustifyH("CENTER"); 				
 frame2:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 45, "OUTLINE, MONOCHROME")
  if (GetLocale() == "ruRU") then
-frame2:AddMessage("Мяу сука \124TInterface\\AddOns\\Feral\\Butwhy\\Core\\media\\FlexCat:0\124t Злая кошка:  "..((color and "\124C"..color or "")..(UnitName("Player"))..(color and "\124r" or "")).." Уже тут Блять.",1.0,2.0,1.0,53,3)	
+frame2:AddMessage("Мяу сука \124TInterface\\AddOns\\Feral\\Butwhy\\Core\\media\\FlexCat:0\124t Злой:  "..((color and "\124C"..color or "")..(UnitName("Player"))..(color and "\124r" or "")).." Уже тут Блять.",1.0,2.0,1.0,53,3)	
 else
-frame2:AddMessage("Meow bitch! \124TInterface\\AddOns\\Feral\\Butwhy\\Core\\media\\FlexCat:0\124t Angry cat:  "..((color and "\124C"..color or "")..(UnitName("Player"))..(color and "\124r" or "")).." HAS ARRIVED BLYAT",1.0,2.0,1.0,53,3)	
+frame2:AddMessage("Meow bitch! \124TInterface\\AddOns\\Feral\\Butwhy\\Core\\media\\FlexCat:0\124t Angry: "..((color and "\124C"..color or "")..(UnitName("Player"))..(color and "\124r" or "")).." HAS ARRIVED BLYAT",1.0,2.0,1.0,53,3)	
 end
 local function interface()
 
@@ -1843,7 +1851,7 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
     })
 		    dark_addon.interface.buttons.add_toggle({
         name = 'beartest',
-        label = 'Потанчить если танк (focus) умер. [вкл|выкл]',
+        label = 'Потанчить если танк умер. [вкл|выкл]',
         font = 'dark_addon_icon',
         on = {
             label = dark_addon.interface.icon('bone'),
@@ -2199,7 +2207,7 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
     })
 		    dark_addon.interface.buttons.add_toggle({
         name = 'beartest',
-        label = 'Tank if tank (Focus) die. [On|Off]',
+        label = 'Tank if tank die. [On|Off]',
         font = 'dark_addon_icon',
         on = {
             label = dark_addon.interface.icon('bone'),
