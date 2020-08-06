@@ -59,7 +59,9 @@
 		local usenottankgrip = dark_addon.settings.fetch("KiraFeral_settings_nottankgrip.check", true)
 		local nottankgrip = dark_addon.settings.fetch("KiraFeral_settings_nottankgrip.spin", 25)		
 		local intpercentlow = dark_addon.settings.fetch('KiraFeral_settings_intpercentlow',10)
-		local intpercenthigh = dark_addon.settings.fetch('KiraFeral_settings_intpercenthigh',65)	
+		local intpercenthigh = dark_addon.settings.fetch('KiraFeral_settings_intpercenthigh',65)
+		local healthstone = dark_addon.settings.fetch('KiraFeral_settings_healthstone.check', true)
+		local healthstonepercent = dark_addon.settings.fetch('KiraFeral_settings_healthstone.spin', 20)		
 		local enemyrangedCount = enemies.count(function (unit)
 			return unit.alive and unit.combat and unit.distance == target.distance 
 		end)
@@ -725,9 +727,7 @@
 	   if Dispersion and -player.health <= Dispersion then
 			return cast(SB.Dispersion)
 		  end
-
-			-- Rotation --
-			-- Shadowfiend  DarkAscension
+		  
 			if toggle("cooldowns", false) then
 			if castable(SB.ShadowFiend) then
 				return cast(SB.ShadowFiend, 'target')
@@ -883,11 +883,13 @@
 	if usenottankgrip == true and player.health.percent < nottankgrip then
 	return cast(SB.LeapofFaith, lowest)
 	end	
-
-
+  if healthstone == true and GetItemCooldown(5512) == 0 and player.health.percent < healthstonepercent and GetItemCount(5512) >= 1  then
+    macro('/use Healthstone')
+  end
 	end --combat 
 
 	local function resting()
+	  	dark_addon.interface.status_extra(' |cff5BFF33   Target Distance:|r ' .. target.distance .. ' |cff5BFF33   Focus distance:|r ' .. focus.distance)
 		local powerword = dark_addon.settings.fetch('KiraFeral_settings_powerword', true)
 		local boostspeed = dark_addon.settings.fetch('KiraFeral_settings_boostspeed', true)
 		local shieldonly = dark_addon.settings.fetch('KiraFeral_settings_shieldonly', true)
@@ -920,6 +922,17 @@
 	if castable(SB.ShadowForm) and player.buff(SB.ShadowForm).down then
 	return cast(SB.ShadowForm)
 	end
+	
+	  if player.alive then
+    if nameplates == true  and seeplates == '0' then
+       SetCVar("nameplateShowEnemies",1)
+    end
+
+    if nameplates == false and seeplates == '1' then
+       SetCVar("nameplateShowEnemies",0)
+    end
+  end
+	
 	end --resting
 
 	local function interface()
@@ -929,7 +942,7 @@
 			key = 'KiraFeral_settings',
 			title = 'GACHI bible production',
 			width = 350,
-			height = 802,
+			height = 835,
 		--	color = "3cff00",
 			color = "00a2ff",
 			resize = true,
@@ -986,6 +999,7 @@
 				{ key = 'Dispersion', type = 'spinner', text = 'AUTO Dispersion', desc = 'AUTO Dispersion ON  HP% ', default = 25, min = 1, max = 100, step = 1 }, 
 				
 				{ key = "VampiricEmbrace", type = "checkspin", text = "Vampiric Embrace", desc = "AUTO Vampiric Embrace ON  HP%", default_check = false, default_spin = 40, min = 5, max = 100, step = 1 },
+        { key = 'healthstone', type = 'checkspin', text = 'Healthstone', desc = 'Health Percent to cast at', default_check = true, default_spin = 50, min = 5, max = 100, step = 5 },
 				{ type = 'rule' },	
 				
 						{ type = 'header', text = "Just for rofl...", align = 'CENTER' },
@@ -1264,7 +1278,7 @@
 			key = 'KiraFeral_settings',
 			title = 'GACHI bible production',
 			width = 350,
-			height = 823,
+			height = 835,
 		--	color = "3cff00",
 			color = "00a2ff",
 			resize = true,
@@ -1321,6 +1335,7 @@
 				{ key = 'Dispersion', type = 'spinner', text = 'AUTO Dispersion', desc = 'AUTO Dispersion ON  HP% ', default = 25, min = 1, max = 100, step = 1 }, 
 				
 				{ key = "VampiricEmbrace", type = "checkspin", text = "Vampiric Embrace", desc = "AUTO Vampiric Embrace ON  HP%", default_check = false, default_spin = 40, min = 5, max = 100, step = 1 },
+				{ key = 'healthstone', type = 'checkspin', text = 'Healthstone', desc = 'Health Percent to cast at', default_check = false, default_spin = 35, min = 5, max = 100, step = 5 },
 				{ type = 'rule' },	
 				
 						{ type = 'header', text = "Just for rofl...", align = 'CENTER' },
