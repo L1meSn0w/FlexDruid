@@ -1,11 +1,11 @@
 # FlexDruid
-- Profiles:
+- Re-Writed Profiles:
 	1. Priest
 	2. Feral
 	
-- CopyPasted:
-		3. Restoration
-		4. Balance
+- CopyPasted Profiles:
+1. Restoration
+2. Balance
 
 
 
