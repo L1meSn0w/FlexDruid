@@ -36,9 +36,15 @@
 
 	SB.WeakenedSoul = 6788
 	SB.DarkVoid = 263346
+-- essences 
 	SB.ConcentratedFlame = 295373
 	SB.WorldveinResonance = 295186
-
+	SB.FocusedAzeriteBeam = 299338 
+	SB.GuardianofAzeroth = 299358 
+	SB.TheUnboundForce = 299378
+	--SB.MomentofGlory = 311303
+	SB.MemoryofLucidDreams = 299374
+	
 	local function combat()
 	if UIParent:IsShown() then
 	   RunMacroText("/script UIErrorsFrame:Hide()")
@@ -737,8 +743,6 @@
 				return cast(SB.Mindbender, 'target')
 			end
 			end
-		
-		
 		if  talent(7,2) then 
 		if toggle("cooldowns", false) and castable(SB.DarkAscension, 'target') then
 			return cast(SB.DarkAscension, 'target')
@@ -818,6 +822,30 @@
 		if castable(SB.ShadowWordDeath) and -spell(SB.ShadowWordDeath) == 0 then
 		return cast(SB.ShadowWordDeath)
 		end
+		
+		
+		if castable(SB.MemoryofLucidDreams) and -spell(SB.MemoryofLucidDreams) == 0 then
+			return cast(SB.MemoryofLucidDreams, 'target')
+		end	
+	
+	--	if castable(SB.MomentofGlory) and -spell(SB.MomentofGlory) == 0 then
+		--	return cast(SB.MomentofGlory)
+	---	end		
+		
+		if castable(SB.TheUnboundForce) and -spell(SB.TheUnboundForce) == 0 then
+			return cast(SB.TheUnboundForce, 'target')
+		end
+
+		if castable(SB.GuardianofAzeroth) and -spell(SB.GuardianofAzeroth) == 0 then
+			return cast(SB.GuardianofAzeroth, 'target')
+		end
+		
+
+		if castable(SB.FocusedAzeriteBeam) and -spell(SB.FocusedAzeriteBeam) == 0 then
+			return cast(SB.FocusedAzeriteBeam, 'target')
+		end
+		
+		
 		if castable(SB.ConcentratedFlame) and -spell(SB.ConcentratedFlame) == 0 then
 			return cast(SB.ConcentratedFlame, 'target')
 		end
