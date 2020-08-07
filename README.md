@@ -523,6 +523,7 @@ In settings tab add:
 
 
 
+- For some math visit http://lua-users.org/wiki/MathLibraryTutorial
 
 # Code snippets 
 - Code snippets 
