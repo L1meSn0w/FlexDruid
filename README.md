@@ -233,6 +233,8 @@ Example:
 # Interface
 ## Buttons
 - commands
+/fd hide
+/fd show
 /fd move
 /fd size button_size
 /fd resize button_size
