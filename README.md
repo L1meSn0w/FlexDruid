@@ -1,3 +1,16 @@
+#FlexDruid
+- Profiles:
+	1. Priest
+	2. Feral
+- CopyPasted:
+	3. Restoration
+	4. Balance
+
+
+
+#Api stuff Down Below
+
+
 # DarkRotations Readme
 #### [Environment](#Environment)
 #### [Interface](#Interface)
