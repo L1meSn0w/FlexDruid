@@ -33,7 +33,9 @@
 	local holylight = dark_addon.rotation.spellbooks.holyli
 	local repentr = dark_addon.rotation.spellbooks.repa
 	local race = UnitRace('player')
-
+	
+	SB.Shadowfiend = 34433
+	SB.DarkAscension = 280711
 	SB.WeakenedSoul = 6788
 	SB.DarkVoid = 263346
 -- essences 
@@ -63,7 +65,11 @@
 		local usetankgrip = dark_addon.settings.fetch("KiraFeral_settings_tankgrip.check", true)
 		local tankgrip = dark_addon.settings.fetch("KiraFeral_settings_tankgrip.spin", 25)
 		local usenottankgrip = dark_addon.settings.fetch("KiraFeral_settings_nottankgrip.check", true)
-		local nottankgrip = dark_addon.settings.fetch("KiraFeral_settings_nottankgrip.spin", 25)		
+		local nottankgrip = dark_addon.settings.fetch("KiraFeral_settings_nottankgrip.spin", 25)	
+
+		local useGreaterFade = dark_addon.settings.fetch("KiraFeral_settings_GreaterFade.check", true)
+		local GreaterFade = dark_addon.settings.fetch("KiraFeral_settings_GreaterFade.spin", 25)	
+		
 		local intpercentlow = dark_addon.settings.fetch('KiraFeral_settings_intpercentlow',10)
 		local intpercenthigh = dark_addon.settings.fetch('KiraFeral_settings_intpercenthigh',65)
 		local healthstone = dark_addon.settings.fetch('KiraFeral_settings_healthstone.check', true)
@@ -71,7 +77,10 @@
 		local enemyrangedCount = enemies.count(function (unit)
 			return unit.alive and unit.combat and unit.distance == target.distance 
 		end)
-		dark_addon.interface.status_extra('T#:' .. enemyrangedCount .. ' D:' .. target.distance)
+		local enemyCount = enemies.around(8)
+		if enemyCount == 0 then enemyCount = 1 
+		end
+		dark_addon.interface.status_extra('TCount:' .. enemyrangedCount .. ' TDist:' .. target.distance)
 
 	 if toggle('interrupts', false) then
 		if Kick0 == true then
@@ -914,10 +923,129 @@
   if healthstone == true and GetItemCooldown(5512) == 0 and player.health.percent < healthstonepercent and GetItemCount(5512) >= 1  then
     macro('/use Healthstone')
   end
+  
+  
+  
+  		if enemyCount >= 2 then
+		if castable(SB.Psyfiend) then   	-- if 2 or more targets near cast psyfiend.
+		return cast(SB.Psyfiend, 'ground')
+		end
+		end
+		
+  	if useGreaterFade == true and player.health.percent < GreaterFade then
+	return cast(SB.GreaterFade, player)
+	end	
+  
+  
+  
+      -- VoidShift
+	local VoidShift = dark_addon.settings.fetch('KiraFeral_settings_VoidShift', true)
+	
+    if player.alive and player.health.percent <= 30 then
+      
+    if VoidShift == "VoidShiftlowest" and castable(SB.VoidShift) then
+        return cast(SB.VoidShift, lowest)
+    end
+	
+	if VoidShift == "Random" and castable(SB.VoidShift) then
+		RunMacroText('/targetfriend')
+		if UnitIsFriend("player", "target") then
+        return cast(SB.VoidShift, "target")
+    end
+	
+end
+end
+  
+  
+  -----------------------------------------------------------SHITCODE-LikeEverywhere-------------------------------------------------------------------------------
+  
+  if toggle("GUI", false) then
+local playerhealth = math.ceil(player.health.percent)
+local targethealth = math.ceil(target.health.percent)
+local frame3 = HealthFrame or CreateFrame("ScrollingMessageFrame", "HealthFrame", UIParent)
+frame3:SetPoint("CENTER", 30,540)
+frame3:SetSize(900, 100)
+frame3:SetTimeVisible(2.0);
+frame3:SetMaxLines(1);
+frame3:SetFontObject(ChatFontNormal);
+frame3:SetIndentedWordWrap(true);
+frame3:SetJustifyH("CENTER"); 				
+frame3:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if target.alive and player.alive and UnitExists("target") then 
+frame3:AddMessage(" |cff00fff2 Target|r|cff5BFF33 Health:|r"..  targethealth .. " |cff00fff2 left|r")	
+else
+end	   
+
+local focusdistance = focus.distance
+local targetdistance = target.distance
+local frame4 = DistanceFrame or CreateFrame("ScrollingMessageFrame", "DistanceFrame", UIParent)
+frame4:SetPoint("CENTER", 30,510)
+frame4:SetSize(900, 100)
+frame4:SetTimeVisible(2.0);
+frame4:SetMaxLines(1);
+frame4:SetFontObject(ChatFontNormal);
+frame4:SetIndentedWordWrap(true);
+frame4:SetJustifyH("CENTER"); 				
+frame4:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if target.alive and player.alive and UnitExists("target") then 
+frame4:AddMessage(" |cff00fff2 Target|r|cffffdf52 Distance:|r"..  targetdistance.. "|cff00fff2 yd|r")	
+else
+end	
+
+
+
+local frame5 = KickFrame or CreateFrame("ScrollingMessageFrame", "KickFrame", UIParent)
+frame5:SetPoint("CENTER", -100,480)
+frame5:SetSize(900, 100)
+frame5:SetTimeVisible(1.0);
+frame5:SetMaxLines(1);
+frame5:SetFontObject(ChatFontNormal);
+frame5:SetIndentedWordWrap(true);
+frame5:SetJustifyH("CENTER"); 				
+frame5:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("KickALL", false)  then 
+frame5:AddMessage(" |cff00fff2 Pve Kick |r|cff5BFF33enabled|r")	
+else
+end	
+
+local frame6 = PvPKickFrame or CreateFrame("ScrollingMessageFrame", "PvPKickFrame", UIParent)
+frame6:SetPoint("CENTER", 200,480)
+frame6:SetSize(900, 100)
+frame6:SetTimeVisible(1.0);
+frame6:SetMaxLines(1);
+frame6:SetFontObject(ChatFontNormal);
+frame6:SetIndentedWordWrap(true);
+frame6:SetJustifyH("CENTER"); 				
+frame6:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("interrupts", false)  then 
+frame6:AddMessage(" |cff00fff2 PvP Kick|r|cff5BFF33 enabled|r")	
+else
+end	
+
+local frame7 = CoolDownsFrame or CreateFrame("ScrollingMessageFrame", "CoolDownsFrame", UIParent)
+frame7:SetPoint("CENTER", 70,455)
+frame7:SetSize(900, 100)
+frame7:SetTimeVisible(1.0);
+frame7:SetMaxLines(1);
+frame7:SetFontObject(ChatFontNormal);
+frame7:SetIndentedWordWrap(true);
+frame7:SetJustifyH("CENTER"); 				
+frame7:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("cooldowns", false)  then 
+frame7:AddMessage(" |cff00fff2 CoolDowns |r|cff5BFF33 enabled|r")	
+else
+end	
+
+
+
+end -- gui end
 	end --combat 
 
+
+
+
+
 	local function resting()
-	  	dark_addon.interface.status_extra(' |cff5BFF33   Target Distance:|r ' .. target.distance .. ' |cff5BFF33   Focus distance:|r ' .. focus.distance)
 		local powerword = dark_addon.settings.fetch('KiraFeral_settings_powerword', true)
 		local boostspeed = dark_addon.settings.fetch('KiraFeral_settings_boostspeed', true)
 		local shieldonly = dark_addon.settings.fetch('KiraFeral_settings_shieldonly', true)
@@ -948,9 +1076,89 @@
 
 	if castable(SB.ShadowForm) and player.buff(SB.ShadowForm).down then
 	return cast(SB.ShadowForm)
-	end
+	end	
 	
 	
+	
+  -----------------------------------------------------------SHITCODE-LikeEverywhere-------------------------------------------------------------------------------
+  
+  if toggle("GUI", false) then
+local playerhealth = math.ceil(player.health.percent)
+local targethealth = math.ceil(target.health.percent)
+local frame3 = HealthFrame or CreateFrame("ScrollingMessageFrame", "HealthFrame", UIParent)
+frame3:SetPoint("CENTER", 30,540)
+frame3:SetSize(900, 100)
+frame3:SetTimeVisible(2.0);
+frame3:SetMaxLines(1);
+frame3:SetFontObject(ChatFontNormal);
+frame3:SetIndentedWordWrap(true);
+frame3:SetJustifyH("CENTER"); 				
+frame3:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if target.alive and player.alive and UnitExists("target") then 
+frame3:AddMessage(" |cff00fff2 Target|r|cff5BFF33 Health:|r"..  targethealth .. " |cff00fff2 left|r")	
+else
+end	   
+
+local focusdistance = focus.distance
+local targetdistance = target.distance
+local frame4 = DistanceFrame or CreateFrame("ScrollingMessageFrame", "DistanceFrame", UIParent)
+frame4:SetPoint("CENTER", 30,510)
+frame4:SetSize(900, 100)
+frame4:SetTimeVisible(2.0);
+frame4:SetMaxLines(1);
+frame4:SetFontObject(ChatFontNormal);
+frame4:SetIndentedWordWrap(true);
+frame4:SetJustifyH("CENTER"); 				
+frame4:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if target.alive and player.alive and UnitExists("target") then 
+frame4:AddMessage(" |cff00fff2 Target|r|cffffdf52 Distance:|r"..  targetdistance.. "|cff00fff2 yd|r")	
+else
+end	
+
+
+
+local frame5 = KickFrame or CreateFrame("ScrollingMessageFrame", "KickFrame", UIParent)
+frame5:SetPoint("CENTER", -100,480)
+frame5:SetSize(900, 100)
+frame5:SetTimeVisible(1.0);
+frame5:SetMaxLines(1);
+frame5:SetFontObject(ChatFontNormal);
+frame5:SetIndentedWordWrap(true);
+frame5:SetJustifyH("CENTER"); 				
+frame5:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("KickALL", false)  then 
+frame5:AddMessage(" |cff00fff2 Pve Kick |r|cff5BFF33enabled|r")	
+else
+end	
+
+local frame6 = PvPKickFrame or CreateFrame("ScrollingMessageFrame", "PvPKickFrame", UIParent)
+frame6:SetPoint("CENTER", 200,480)
+frame6:SetSize(900, 100)
+frame6:SetTimeVisible(1.0);
+frame6:SetMaxLines(1);
+frame6:SetFontObject(ChatFontNormal);
+frame6:SetIndentedWordWrap(true);
+frame6:SetJustifyH("CENTER"); 				
+frame6:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("interrupts", false)  then 
+frame6:AddMessage(" |cff00fff2 PvP Kick|r|cff5BFF33 enabled|r")	
+else
+end	
+
+local frame7 = CoolDownsFrame or CreateFrame("ScrollingMessageFrame", "CoolDownsFrame", UIParent)
+frame7:SetPoint("CENTER", 70,455)
+frame7:SetSize(900, 100)
+frame7:SetTimeVisible(1.0);
+frame7:SetMaxLines(1);
+frame7:SetFontObject(ChatFontNormal);
+frame7:SetIndentedWordWrap(true);
+frame7:SetJustifyH("CENTER"); 				
+frame7:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("cooldowns", false)  then 
+frame7:AddMessage(" |cff00fff2 CoolDowns |r|cff5BFF33 enabled|r")	
+else
+end	
+end -- gui end
 	end --resting
 
 	local function interface()
@@ -1025,7 +1233,14 @@
 						
 			  { key = 'tankgrip', type = 'checkspin', text = '[TANK] Leap of Faith', desc = 'Health Percent to cast at', default_check = false, default_spin = 25, min = 1, max = 100, step = 1 }, 
 			  { key = 'nottankgrip', type = 'checkspin', text = '[GROUP] Leap of Faith', desc = 'Health Percent to cast at', default_check = false, default_spin = 25, min = 1, max = 100, step = 1 },   					
-						
+			  { key = 'GreaterFade', type = 'checkspin', text = 'Greater Fade', desc = 'Health Percent to cast at', default_check = false, default_spin = 25, min = 1, max = 100, step = 1 },						
+			  { type = "header", text = "Void Shift Settings", align = "center" },
+      { key = 'VoidShift', type = 'dropdown', text = 'Void Shift', desc = 'if 30% hp cast on: ?. *Need to test.', default = 'NoNe',
+      list = {
+        { key = 'Random', text = 'on Friend' },
+        { key = 'VoidShiftlowest', text = 'On lowest' },
+        { key = 'NoNe', text = 'Disabled' },
+      } },							
 						
 						{ type = 'rule' },	
 				{ type = 'text', text = 'ATTENTION U CANT BIND 3 BUTTONS ON SAME KEY!!!!', align = 'CENTER' },						
@@ -1104,7 +1319,21 @@
 			},
 		})
 		
-		
+				dark_addon.interface.buttons.add_toggle({
+			name = 'GUI',
+			label = 'Show some info. [On|Off]',
+			font = 'dark_addon_icon',
+			on = {
+				label = dark_addon.interface.icon('toggle-on'),
+				color = dark_addon.interface.color.green,
+				color2 = dark_addon.interface.color.green
+			},
+			off = {
+				label = dark_addon.interface.icon('toggle-off'),
+				color = dark_addon.interface.color.red,
+				color2 = dark_addon.interface.color.dark_grey
+			},
+		})
 				local settings2 = {
 			key = 'KiraFeral_settings2',
 			title = 'GACHI bible production',
@@ -1297,7 +1526,7 @@
 			key = 'KiraFeral_settings',
 			title = 'GACHI bible production',
 			width = 350,
-			height = 865,
+			height = 955,
 		--	color = "3cff00",
 			color = "00a2ff",
 			resize = true,
@@ -1358,12 +1587,18 @@
 				{ key = 'healthstone', type = 'checkspin', text = 'Healthstone', desc = 'Health Percent to cast at', default_check = false, default_spin = 35, min = 5, max = 100, step = 5 },
 				{ type = 'rule' },	
 				
-						{ type = 'header', text = "Just for rofl...", align = 'CENTER' },
+						{ type = 'header', text = "Some other usefull stuff...", align = 'CENTER' },
 						
 			  { key = 'tankgrip', type = 'checkspin', text = '[TANK] Leap of Faith', desc = 'Health Percent to cast at', default_check = false, default_spin = 25, min = 1, max = 100, step = 1 }, 
 			  { key = 'nottankgrip', type = 'checkspin', text = '[GROUP] Leap of Faith', desc = 'Health Percent to cast at', default_check = false, default_spin = 25, min = 1, max = 100, step = 1 },   					
-						
-						
+			  { key = 'GreaterFade', type = 'checkspin', text = 'Greater Fade', desc = 'Health Percent to cast at', default_check = false, default_spin = 25, min = 1, max = 100, step = 1 },						
+			  { type = "header", text = "Void Shift Settings", align = "center" },
+      { key = 'VoidShift', type = 'dropdown', text = 'Void Shift', desc = 'if 30% hp cast on: ?. *Need to test.', default = 'NoNe',
+      list = {
+        { key = 'Random', text = 'on Friend' },
+        { key = 'VoidShiftlowest', text = 'On lowest' },
+        { key = 'NoNe', text = 'Disabled' },
+      } },			
 						{ type = 'rule' },	
 				{ type = 'text', text = 'ATTENTION U CANT BIND 3 BUTTONS ON SAME KEY!!!!', align = 'CENTER' },						
 			
@@ -1440,7 +1675,21 @@
 				color2 = dark_addon.interface.color.dark_grey
 			},
 		})
-		
+				dark_addon.interface.buttons.add_toggle({
+			name = 'GUI',
+			label = 'Show some info. [On|Off]',
+			font = 'dark_addon_icon',
+			on = {
+				label = dark_addon.interface.icon('toggle-on'),
+				color = dark_addon.interface.color.green,
+				color2 = dark_addon.interface.color.green
+			},
+			off = {
+				label = dark_addon.interface.icon('toggle-off'),
+				color = dark_addon.interface.color.red,
+				color2 = dark_addon.interface.color.dark_grey
+			},
+		})		
 		
 				local settings2 = {
 			key = 'KiraFeral_settings2',
