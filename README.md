@@ -1,7 +1,7 @@
 # FlexDruid
 - Re-Writed Profiles:
-	1. Priest
-	2. Feral
+1. Priest
+2. Feral
 	
 - CopyPasted Profiles:
 1. Restoration
