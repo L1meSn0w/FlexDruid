@@ -4,8 +4,8 @@
 	2. Feral
 	
 - CopyPasted:
-	3. Restoration
-	4. Balance
+		3. Restoration
+		4. Balance
 
 
 
