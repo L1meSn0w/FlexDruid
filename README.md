@@ -8,10 +8,7 @@
 
 
 
-#Api stuff Down Below
-
-
-# DarkRotations Readme
+# Api stuff Down Below
 #### [Environment](#Environment)
 #### [Interface](#Interface)
 #### [Buttons](#Buttons)
