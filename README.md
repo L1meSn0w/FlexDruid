@@ -2,6 +2,7 @@
 - Profiles:
 	1. Priest
 	2. Feral
+	
 - CopyPasted:
 	3. Restoration
 	4. Balance
