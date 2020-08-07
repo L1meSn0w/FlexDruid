@@ -940,13 +940,13 @@
   
       -- VoidShift
 	local VoidShift = dark_addon.settings.fetch('KiraFeral_settings_VoidShift', true)
-	
-    if player.alive and player.health.percent <= 30 then
-      
-    if VoidShift == "VoidShiftlowest" and castable(SB.VoidShift) then
+	    if player.alive and player.health.percent >= 70 then
+	    if VoidShift == "VoidShiftlowest" and castable(SB.VoidShift) then
         return cast(SB.VoidShift, lowest)
     end
+	end
 	
+    if player.alive and player.health.percent <= 30 then
 	if VoidShift == "Random" and castable(SB.VoidShift) then
 		RunMacroText('/targetfriend')
 		if UnitIsFriend("player", "target") then
@@ -1035,9 +1035,6 @@ if toggle("cooldowns", false)  then
 frame7:AddMessage(" |cff00fff2 CoolDowns |r|cff5BFF33 enabled|r")	
 else
 end	
-
-
-
 end -- gui end
 	end --combat 
 
@@ -1176,74 +1173,74 @@ end -- gui end
 			template = {
 				{ type = 'header', text = "SETTINGS",		align = 'CENTER',},
 						{ type = 'rule' },
-				{ type = 'text', text = 'Myth+: [3] - [1] - [2-3] - [DownBelow] - [1-3] - [1] - [1-2]', align = 'CENTER' },
-				{ type = 'text', text = 'Heavy AoE: [3] - [1] - [3] - [DownBelow] - [3] - [1] - [1]', align = 'CENTER' },
-				{ type = 'text', text = 'SingleTarget: [3] - [1] - [1] - [DownBelow] - [1-3] - [1] - [1]', align = 'CENTER' },
-				{ type = 'text', text = 'Builds by: icy-veins.com', align = 'CENTER'},
-				{ type = 'text', text = 'Support all talents exept:  [6-3] bc usless shit. (Change my mind.)', align = 'CENTER' },
-				{ type = 'text', text = 'Talent: [4-3] Req., to kick some stuff in pvp. [Not Work in pve]', align = 'CENTER' },
-				{ type = 'text', text = 'Talent: [4-2] Req., to kick stuff in pve.', align = 'CENTER' },
-				{ type = 'text', text = 'ALT = Mdispell| Shift = ShadowCrash| Ctrl = MouseOver DOTS.', align = 'CENTER' },
+				{ type = 'text', text = 'Миф+: [3] - [1] - [2-3] - [Внизу] - [1-3] - [1] - [1-2]', align = 'CENTER' },
+				{ type = 'text', text = 'Сильное АОЕ: [3] - [1] - [3] - [Внизу] - [3] - [1] - [1]', align = 'CENTER' },
+				{ type = 'text', text = 'Соло-цель: [3] - [1] - [1] - [Внизу] - [1-3] - [1] - [1]', align = 'CENTER' },
+				{ type = 'text', text = 'Билды сделаны: icy-veins.com', align = 'CENTER'},
+				{ type = 'text', text = 'Поддерживает все таланты кроме:  [6-3] ибо мусор. (Change my mind.)', align = 'CENTER' },
+				{ type = 'text', text = 'Талант: [4-3] Обяз., для пвп кик-каста. [Не пашет в пве]', align = 'CENTER' },
+				{ type = 'text', text = 'Талант: [4-2] Обяз., для пве кик-каста.', align = 'CENTER' },
+				{ type = 'text', text = 'ALT = МассДиспел| Shift = Темное сокрушение| Ctrl = Дотнуть цель под курсором.', align = 'CENTER' },
 				{ type = 'rule' },
-				{ type = 'header', text = 'Kick Cast',  align = 'CENTER'},
-				{ type = 'text', text = 'Welcome.', align = 'CENTER' },
-				{ type = 'text', text = 'Toggle Interrupts, then hit 2 books buttons.', align = 'CENTER' },
-				{ type = 'text', text = 'Now set-up what u want to kick!', align = 'CENTER' },
+				{ type = 'header', text = 'Кик каста',  align = 'CENTER'},
+				{ type = 'text', text = 'Дарова.', align = 'CENTER' },
+				{ type = 'text', text = 'Включи kick cast, потом нажми на две книжки.', align = 'CENTER' },
+				{ type = 'text', text = 'Теперь настраивай что кикать!', align = 'CENTER' },
 	-- 										Kick cast settings will be here soon..... 
 				{ type = 'rule' },
-				{ type = 'header', text = "USEFUL STUFF.", align = 'CENTER' },
+				{ type = 'header', text = "Полезная хуета.", align = 'CENTER' },
 
-				{ key = 'LevitateBuff', type = 'checkbox', text = 'Levitate Buff', desc = 'Update Levitate buff if not in combat.', default = false },
-				{ key = 'powerword', type = 'checkbox', text = 'Power Word: Fortitude', desc = 'Use Power Word: Fortitude?', default = false },
-				{ key = 'boostspeed', type = 'checkbox', text = 'Use shield to speed up movment', desc = '', default = false },
-				{ key = 'shieldonly', type = 'checkbox', text = 'Just update shield buff', desc = 'Just update shield buff?', default = false },
-				{ key = 'Fadeout', type = 'checkbox', text = 'Fade', desc = 'Use Fade if taunted on u, and distance < 8.', default = false },
+				{ key = 'LevitateBuff', type = 'checkbox', text = 'Левитация', desc = 'Обновлять баф если не в бою.', default = false },
+				{ key = 'powerword', type = 'checkbox', text = 'Баф на хп', desc = 'Обновлять?', default = false },
+				{ key = 'boostspeed', type = 'checkbox', text = 'Щиток для поднятия хасты', desc = '', default = false },
+				{ key = 'shieldonly', type = 'checkbox', text = 'Просто обновлять щиток.', desc = '', default = false },
+				{ key = 'Fadeout', type = 'checkbox', text = 'Уход в тень', desc = 'Если агро на тебе и мобы в радиусе <= 8 yd.', default = false },
 				
-							{ key = 'mousedots', type = 'dropdown', text = 'MouseOver DOTS.', desc = 'Hold key to make some dots!', default = 'control',
+							{ key = 'mousedots', type = 'dropdown', text = 'Доты под курсор.', desc = 'Зажми - наведи - дотнет!', default = 'control',
 					list = {
 								{ key = 'control', text = 'CTRL' },
 								{ key = 'alt', text = 'ALT' },
 								{ key = 'shift', text = 'SHIFT' },
 							} },
 				
-							{ key = 'mousecrash', type = 'dropdown', text = 'MouseOver CRASH.', desc = 'Hold key to CRASH THEIR ASS!', default = 'shift',
+							{ key = 'mousecrash', type = 'dropdown', text = 'Сокрушение под курсор.', desc = 'Зажми что сокрушить анус!', default = 'shift',
 					list = {
 								{ key = 'control', text = 'CTRL' },
 								{ key = 'alt', text = 'ALT' },
 								{ key = 'shift', text = 'SHIFT' },
 							} },
-							{ key = 'mousedispell', type = 'dropdown', text = 'MouseOver MASS DISPELL.', desc = 'Hold key to clean anus!', default = 'alt',
+							{ key = 'mousedispell', type = 'dropdown', text = 'Масс диспел под курсор.', desc = 'Зажми что бы отчистить анус!', default = 'alt',
 					list = {
 								{ key = 'control', text = 'CTRL' },
 								{ key = 'alt', text = 'ALT' },
 								{ key = 'shift', text = 'SHIFT' },
 							} },
 				
-				{ key = 'intpercentlow', type = 'spinner', text = 'Pve kick intpercentlow %', default = '50', desc = '', min = 5, max = 50, step = 1 },
-				{ key = 'intpercenthigh', type = 'spinner', text = 'Pve kick intpercenthigh %', default = '65', desc = '', min = 51, max = 100, step = 1 },
+				{ key = 'intpercentlow', type = 'spinner', text = 'Пве кик миним % каста', default = '50', desc = '', min = 5, max = 50, step = 1 },
+				{ key = 'intpercenthigh', type = 'spinner', text = 'Пве кик макс % каста', default = '65', desc = '', min = 51, max = 100, step = 1 },
 							{ type = 'rule' },
-							{ type = 'header', text = "SAVE ASS!", align = 'CENTER' },
-				{ key = 'Dispersion', type = 'spinner', text = 'AUTO Dispersion', desc = 'AUTO Dispersion ON  HP% ', default = 25, min = 1, max = 100, step = 1 }, 
+							{ type = 'header', text = "СПАСИИОТСОСИ!", align = 'CENTER' },
+				{ key = 'Dispersion', type = 'spinner', text = 'АвтоТучка', desc = 'На % Хп ', default = 25, min = 1, max = 100, step = 1 }, 
 				
-				{ key = "VampiricEmbrace", type = "checkspin", text = "Vampiric Embrace", desc = "AUTO Vampiric Embrace ON  HP%", default_check = false, default_spin = 40, min = 5, max = 100, step = 1 },
-        { key = 'healthstone', type = 'checkspin', text = 'Healthstone', desc = 'Health Percent to cast at', default_check = true, default_spin = 50, min = 5, max = 100, step = 5 },
+				{ key = "VampiricEmbrace", type = "checkspin", text = "Пососать хп с целей", desc = "На % Хп", default_check = false, default_spin = 40, min = 5, max = 100, step = 1 },
+        { key = 'healthstone', type = 'checkspin', text = 'Камень лока', desc = 'На % Хп', default_check = true, default_spin = 50, min = 5, max = 100, step = 5 },
 				{ type = 'rule' },	
 				
-						{ type = 'header', text = "Just for rofl...", align = 'CENTER' },
+						{ type = 'header', text = "Чисто полезный стаф...", align = 'CENTER' },
 						
-			  { key = 'tankgrip', type = 'checkspin', text = '[TANK] Leap of Faith', desc = 'Health Percent to cast at', default_check = false, default_spin = 25, min = 1, max = 100, step = 1 }, 
-			  { key = 'nottankgrip', type = 'checkspin', text = '[GROUP] Leap of Faith', desc = 'Health Percent to cast at', default_check = false, default_spin = 25, min = 1, max = 100, step = 1 },   					
-			  { key = 'GreaterFade', type = 'checkspin', text = 'Greater Fade', desc = 'Health Percent to cast at', default_check = false, default_spin = 25, min = 1, max = 100, step = 1 },						
-			  { type = "header", text = "Void Shift Settings", align = "center" },
-      { key = 'VoidShift', type = 'dropdown', text = 'Void Shift', desc = 'if 30% hp cast on: ?. *Need to test.', default = 'NoNe',
+			  { key = 'tankgrip', type = 'checkspin', text = '[TANK] хукнуть лоу хп танка', desc = 'На % Хп', default_check = false, default_spin = 25, min = 1, max = 100, step = 1 }, 
+			  { key = 'nottankgrip', type = 'checkspin', text = '[GROUP] хукнуть лоу хп пати', desc = 'На % Хп', default_check = false, default_spin = 25, min = 1, max = 100, step = 1 },   					
+			  { key = 'GreaterFade', type = 'checkspin', text = 'Улучшенный уход в тень', desc = 'На % Хп', default_check = false, default_spin = 25, min = 1, max = 100, step = 1 },						
+			  { type = "header", text = "Вхождение в Бездну настройка", align = "center" },
+      { key = 'VoidShift', type = 'dropdown', text = 'Вхождение в Бездну', desc = 'Если 30% хп кастануть на челика рядом, если >= 70% хп то на лоу хп челика. *Не проверен.', default = 'NoNe',
       list = {
-        { key = 'Random', text = 'on Friend' },
-        { key = 'VoidShiftlowest', text = 'On lowest' },
-        { key = 'NoNe', text = 'Disabled' },
+        { key = 'Random', text = 'на рандом челика рядом.' },
+        { key = 'VoidShiftlowest', text = 'На лоу хп челика' },
+        { key = 'NoNe', text = 'Выключить' },
       } },							
 						
 						{ type = 'rule' },	
-				{ type = 'text', text = 'ATTENTION U CANT BIND 3 BUTTONS ON SAME KEY!!!!', align = 'CENTER' },						
+				{ type = 'text', text = 'ВНИМАНИЕ ВЫ НЕ МОЖЕТЕ БИНДИТЬ 2-3 КНОПКИ НА ОДИН И ТОТ ЖЕ БИНД!!!!', align = 'CENTER' },						
 				{ type = 'text', text = 'P.s Мне лень переводить это щас, может позже. ;D', align = 'CENTER' },	
 		}
 		}
@@ -1593,7 +1590,7 @@ end -- gui end
 			  { key = 'nottankgrip', type = 'checkspin', text = '[GROUP] Leap of Faith', desc = 'Health Percent to cast at', default_check = false, default_spin = 25, min = 1, max = 100, step = 1 },   					
 			  { key = 'GreaterFade', type = 'checkspin', text = 'Greater Fade', desc = 'Health Percent to cast at', default_check = false, default_spin = 25, min = 1, max = 100, step = 1 },						
 			  { type = "header", text = "Void Shift Settings", align = "center" },
-      { key = 'VoidShift', type = 'dropdown', text = 'Void Shift', desc = 'if 30% hp cast on: ?. *Need to test.', default = 'NoNe',
+      { key = 'VoidShift', type = 'dropdown', text = 'Void Shift', desc = 'if 30% hp cast on random, if more 70% cast on low HP guy. *Need to test.', default = 'NoNe',
       list = {
         { key = 'Random', text = 'on Friend' },
         { key = 'VoidShiftlowest', text = 'On lowest' },
@@ -1877,7 +1874,6 @@ end -- gui end
 				color2 = dark_addon.interface.color.dark_grey
 			},
 		})
-
 	end -- get locale end
 
 		
