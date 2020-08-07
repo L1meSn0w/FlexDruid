@@ -233,9 +233,9 @@ Example:
 # Interface
 ## Buttons
 - commands
-/dr move
-/dr size button_size
-/dr resize button_size
+/fd move
+/fd size button_size
+/fd resize button_size
 
 - button_toggle
 -- master_toggle
