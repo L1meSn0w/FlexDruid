@@ -91,7 +91,10 @@ dark_addon.rotation.spellbooks.druid = {
 }
 
 dark_addon.rotation.spellbooks.priest = {	
+  VoidShift = 108968,
+  Psyfiend = 211522,
   ArcaneInt = 1459,
+  GreaterFade = 213602,
   AngelicFeather = 121536,
   Apotheosis = 200183,
   Atonement = 194384,
