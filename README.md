@@ -7,7 +7,27 @@
 1. Restoration
 2. Balance
 
+## Macros
+- Some macro for Feral:
 
+		PVP Kick: /fd toggle interrupts 
+		PVE Kick: /fd toggle KickALL
+		Cooldowns: /fd toggle cooldowns
+		Dispel adds: /fd toggle dispel
+		PvP no Roots.: /fd toggle FormIt
+		BattleRess (by Focus!): /fd toggle Battleress
+		Tank if tank dies: /fd toggle beartest
+		Announce: /fd toggle Announce
+
+- Some macro for Priest:
+
+		PVP Kick: /fd toggle interrupts 
+		PVE Kick: /fd toggle KickALL
+		Cooldowns: /fd toggle cooldowns
+		Text GUI: /fd toggle GUI
+		Party Dispel: /fd toggle frienddispel
+		Dispel adds: /fd toggle dispel
+		Opener: /fd toggle Opener
 
 # Api stuff Down Below
 #### [Environment](#Environment)
