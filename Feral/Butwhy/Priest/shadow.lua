@@ -745,21 +745,25 @@
 		  
 			if toggle("cooldowns", false) then
 			if castable(SB.ShadowFiend) then
+				PlaySound(76298)
 				return cast(SB.ShadowFiend, 'target')
 			end
 			else 
 				if castable(SB.Mindbender) then
+				PlaySound(76298)
 				return cast(SB.Mindbender, 'target')
 			end
 			end
 		if  talent(7,2) then 
 		if toggle("cooldowns", false) and castable(SB.DarkAscension, 'target') then
+		PlaySound(103231)
 			return cast(SB.DarkAscension, 'target')
 		end
 		end
 		
 		if  talent(7,3) then 
 		if toggle("cooldowns", false) and castable(SB.SurrendertoMadness, 'target') then
+		PlaySound(103231)
 			return cast(SB.SurrendertoMadness, 'target')
 		end
 		end
@@ -778,8 +782,10 @@
 		if not talent(3,2) then 
 		if (mousedots == "shift" and modifier.shift) or (mousedots == "control" and modifier.control) or (mousedots == "alt" and modifier.alt) then 
 		if mouseover.debuff(SB.ShadowPain).down and -spell(SB.ShadowPain) == 0  then
+		PlaySound(113377)
 			 return cast(SB.ShadowPain, "mouseover")
 		else if mouseover.debuff(SB.VampiricTouch).down and -spell(SB.VampiricTouch) == 0 then
+		PlaySound(113377)
 		return cast(SB.VampiricTouch, "mouseover")
 	end
 	end
@@ -787,6 +793,7 @@
 		else 
 		if talent(3,2) and (mousedots == "shift" and modifier.shift) or (mousedots == "control" and modifier.control) or (mousedots == "alt" and modifier.alt) then 
 		if mouseover.debuff(SB.VampiricTouch).down or mouseover.debuff(SB.ShadowPain).down and -spell(SB.VampiricTouch) == 0 then
+		PlaySound(113377)
 		return cast(SB.VampiricTouch, "mouseover")
 	end
 	end
@@ -829,6 +836,7 @@
 				return cast(SB.MindFlay, 'target')
 			end
 		if castable(SB.ShadowWordDeath) and -spell(SB.ShadowWordDeath) == 0 then
+		PlaySound(103147)
 		return cast(SB.ShadowWordDeath)
 		end
 		
@@ -861,8 +869,7 @@
 		if castable(SB.WorldveinResonance) and -spell(SB.WorldveinResonance) == 0 and target.distance < 5 then
 			return cast(SB.WorldveinResonance, 'target')
 		end   
-		end
-		
+		end		
 	if toggle("dispel", false) and target.enemy and target.alive then
 	  if castable(SB.DispelMagic) then
 		  for i = 1, 2 do
@@ -1047,13 +1054,21 @@ end -- gui end
 		local boostspeed = dark_addon.settings.fetch('KiraFeral_settings_boostspeed', true)
 		local shieldonly = dark_addon.settings.fetch('KiraFeral_settings_shieldonly', true)
 		local LevitateBuff = dark_addon.settings.fetch('KiraFeral_settings_LevitateBuff', true)
+
+
+if not player.alive then
+PlaySound(11803)
+end
+
 		if target.alive and target.enemy and player.alive and not player.channeling() then
 		
 			-- Shadow Word Pain to start combat
 		   if toggle("Opener", false) then
 		   if castable(SB.ShadowPain) then
+				PlaySound(103041)
 				return cast(SB.ShadowPain, 'target')
 			end
+			
 		end
 		end
 
@@ -1156,6 +1171,21 @@ frame7:AddMessage(" |cff00fff2 CoolDowns |r|cff5BFF33 enabled|r")
 else
 end	
 end -- gui end
+
+
+
+
+
+local cat1 = CreateFrame("MessageFrame",nil,UIParent)
+cat1:SetFrameStrata("BACKGROUND")
+cat1:SetWidth(64)
+cat1:SetHeight(64) 
+local tac2 = cat1:CreateTexture(nil,"BACKGROUND")
+tac2:SetTexture("Interface\\AddOns\\Feral\\Butwhy\\Core\\media\\FlexPriest")
+tac2:SetAllPoints(cat1)
+cat1.texture = tac
+cat1:SetPoint("BOTTOMRIGHT",0,0)
+cat1:Show()
 	end --resting
 
 	local function interface()
