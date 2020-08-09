@@ -2380,7 +2380,7 @@ local settings = {
             { type = 'text', text = 'Any other build = shit. Tested by: RaidBots.com' },
             { type = 'text', text = 'Support all talents exept:  [3-3] and [4-2] [4-3]' },
             { type = 'text', text = 'Talent: [6-1] required, if u wanna tank while ur tank rip.' },
-            { type = 'text', text = 'Support all dps Azerite Talents, exept: Conflict and Ripple.' },
+            { type = 'text', text = 'Support all dps Azerite Talents, exept: Ripple.' },
             { type = 'text', text = 'ALT = Tiger Dash | Shift = Charge | Ctrl = Dash.' },
 			{ type = 'text', text = 'Configure PvP kick Target|Focus from settings. (!!Check interrupts enabled to work!!)' },
 			{ type = 'text', text = 'Enable PVE kick from buttun! (*Kick everycast.)' },
