@@ -17,7 +17,7 @@
 		PvP no Roots.: /fd toggle FormIt
 		BattleRess (by Focus!): /fd toggle Battleress
 		Tank if tank dies: /fd toggle beartest
-		Announce: /fd toggle Announce
+		Announce: /fd toggle Information
 
 - Some macro for Priest:
 
