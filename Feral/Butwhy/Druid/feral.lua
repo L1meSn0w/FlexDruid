@@ -1532,51 +1532,170 @@ local usetrinkets = dark_addon.settings.fetch('KiraFeral_settings_usetrinkets', 
       return cast(SB.SurvivalInstincts)
     end
 	
-	if toggle("Announce", false) then
-local frame = TestMessage or CreateFrame("ScrollingMessageFrame", "TestMessage", UIParent)
-local guid,name,_,class,color=UnitGUID("target"),UnitName("target")
-if guid then
-    _,class=GetPlayerInfoByGUID(guid)
-end
- if class then
- color = RAID_CLASS_COLORS[class].colorStr
-end
-frame:SetPoint("CENTER", -42,643)
-frame:SetSize(400, 460)
-frame:SetTimeVisible(12.0);
-frame:SetMaxLines(3);
-frame:SetFontObject(ChatFontNormal);
-frame:SetIndentedWordWrap(true);
-frame:SetJustifyH("LEFT"); 				
-frame:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 20, "OUTLINE, MONOCHROME")
+if toggle("Information", false) then
+	 
  if (GetLocale() == "ruRU") then
+ 
+ 
+local playerhealth = math.ceil(player.health.percent)
+local targethealth = math.ceil(target.health.percent)
+local frame3 = HealthFrame or CreateFrame("ScrollingMessageFrame", "HealthFrame", UIParent)
+frame3:SetPoint("CENTER", 30,540)
+frame3:SetSize(900, 100)
+frame3:SetTimeVisible(2.0);
+frame3:SetMaxLines(1);
+frame3:SetFontObject(ChatFontNormal);
+frame3:SetIndentedWordWrap(true);
+frame3:SetJustifyH("CENTER"); 				
+frame3:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if target.alive and player.alive and UnitExists("target") then 
+frame3:AddMessage(" |cff00fff2 Хп|r|cff5BFF33 цели:|r"..  targethealth .. " |cff00fff2 ост.|r")	
+else
+end	   
+
+local focusdistance = focus.distance
+local targetdistance = target.distance
+local frame4 = DistanceFrame or CreateFrame("ScrollingMessageFrame", "DistanceFrame", UIParent)
+frame4:SetPoint("CENTER", 30,510)
+frame4:SetSize(900, 100)
+frame4:SetTimeVisible(2.0);
+frame4:SetMaxLines(1);
+frame4:SetFontObject(ChatFontNormal);
+frame4:SetIndentedWordWrap(true);
+frame4:SetJustifyH("CENTER"); 				
+frame4:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if target.alive and player.alive and UnitExists("target") then 
+frame4:AddMessage(" |cff00fff2 Расст.|r|cffffdf52 до цели:|r"..  targetdistance.. "|cff00fff2 yd|r")	
+else
+end	
+
+
+
+local frame5 = KickFrame or CreateFrame("ScrollingMessageFrame", "KickFrame", UIParent)
+frame5:SetPoint("CENTER", -100,480)
+frame5:SetSize(900, 100)
+frame5:SetTimeVisible(1.0);
+frame5:SetMaxLines(1);
+frame5:SetFontObject(ChatFontNormal);
+frame5:SetIndentedWordWrap(true);
+frame5:SetJustifyH("CENTER"); 				
+frame5:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("KickALL", false)  then 
+frame5:AddMessage(" |cff00fff2 Pve кик |r|cff5BFF33 включен|r")	
+else
+end	
+
+local frame6 = PvPKickFrame or CreateFrame("ScrollingMessageFrame", "PvPKickFrame", UIParent)
+frame6:SetPoint("CENTER", 200,480)
+frame6:SetSize(900, 100)
+frame6:SetTimeVisible(1.0);
+frame6:SetMaxLines(1);
+frame6:SetFontObject(ChatFontNormal);
+frame6:SetIndentedWordWrap(true);
+frame6:SetJustifyH("CENTER"); 				
+frame6:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("interrupts", false)  then 
+frame6:AddMessage(" |cff00fff2 PvP кик|r|cff5BFF33 включен|r")	
+else
+end	
+
+local frame7 = CoolDownsFrame or CreateFrame("ScrollingMessageFrame", "CoolDownsFrame", UIParent)
+frame7:SetPoint("CENTER", 70,455)
+frame7:SetSize(900, 100)
+frame7:SetTimeVisible(1.0);
+frame7:SetMaxLines(1);
+frame7:SetFontObject(ChatFontNormal);
+frame7:SetIndentedWordWrap(true);
+frame7:SetJustifyH("CENTER"); 				
+frame7:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("cooldowns", false)  then 
+frame7:AddMessage(" |cff00fff2 Бурсты |r|cff5BFF33 включены|r")	
+else
+end	
 	
-	if lastcast(SB.Renewal) then
-	return frame:AddMessage("Очко почти порвано кастую \124TInterface\\ICONS\\spell_nature_natureblessing:0\124t  не ори! -- "..((color and "\124C"..color or "")..(UnitName("Player"))..(color and "\124r" or "")).."!!",1.0,2.0,1.0,53,3)
-	end
 	
-	if lastcast(SB.BearForm)  then
-	return frame:AddMessage("Последняя попытка защитить очко кастую \124TInterface\\ICONS\\ability_racial_bearform:0\124t !!! -- "..((color and "\124C"..color or "")..(UnitName("Player"))..(color and "\124r" or "")).."!!",1.0,2.0,1.0,53,3)
-	end
-	
-	if lastcast(SB.SurvivalInstincts) then
-	return frame:AddMessage("Тебя ебут? Ну давай сейвим твой ass ДАЮ \124TInterface\\ICONS\\ability_druid_tigersroar:0\124t !!! -- "..((color and "\124C"..color or "")..(UnitName("Player"))..(color and "\124r" or "")).."!!",1.0,2.0,1.0,53,3)
-	end
 	
 	else
 	
-	if lastcast(SB.Renewal) then
-	return frame:AddMessage("Wow  \124TInterface\\ICONS\\spell_nature_natureblessing:0\124t  shut up u still alive! -- "..((color and "\124C"..color or "")..(UnitName("Player"))..(color and "\124r" or "")).."!!",1.0,2.0,1.0,53,3)
-	end
 	
-	if lastcast(SB.BearForm)  then
-	return frame:AddMessage("Last try to save ur anus \124TInterface\\ICONS\\ability_racial_bearform:0\124t !!! -- "..((color and "\124C"..color or "")..(UnitName("Player"))..(color and "\124r" or "")).."!!",1.0,2.0,1.0,53,3)
-	end
 	
-	if lastcast(SB.SurvivalInstincts) then
-	return frame:AddMessage("Wow save ur life with \124TInterface\\ICONS\\ability_druid_tigersroar:0\124t !!! -- "..((color and "\124C"..color or "")..(UnitName("Player"))..(color and "\124r" or "")).."!!",1.0,2.0,1.0,53,3)
-	end
 	
+local playerhealth = math.ceil(player.health.percent)
+local targethealth = math.ceil(target.health.percent)
+local frame3 = HealthFrame or CreateFrame("ScrollingMessageFrame", "HealthFrame", UIParent)
+frame3:SetPoint("CENTER", 30,540)
+frame3:SetSize(900, 100)
+frame3:SetTimeVisible(2.0);
+frame3:SetMaxLines(1);
+frame3:SetFontObject(ChatFontNormal);
+frame3:SetIndentedWordWrap(true);
+frame3:SetJustifyH("CENTER"); 				
+frame3:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if target.alive and player.alive and UnitExists("target") then 
+frame3:AddMessage(" |cff00fff2 Target|r|cff5BFF33 Health:|r"..  targethealth .. " |cff00fff2 left|r")	
+else
+end	   
+
+local focusdistance = focus.distance
+local targetdistance = target.distance
+local frame4 = DistanceFrame or CreateFrame("ScrollingMessageFrame", "DistanceFrame", UIParent)
+frame4:SetPoint("CENTER", 30,510)
+frame4:SetSize(900, 100)
+frame4:SetTimeVisible(2.0);
+frame4:SetMaxLines(1);
+frame4:SetFontObject(ChatFontNormal);
+frame4:SetIndentedWordWrap(true);
+frame4:SetJustifyH("CENTER"); 				
+frame4:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if target.alive and player.alive and UnitExists("target") then 
+frame4:AddMessage(" |cff00fff2 Target|r|cffffdf52 Distance:|r"..  targetdistance.. "|cff00fff2 yd|r")	
+else
+end	
+
+
+
+local frame5 = KickFrame or CreateFrame("ScrollingMessageFrame", "KickFrame", UIParent)
+frame5:SetPoint("CENTER", -100,480)
+frame5:SetSize(900, 100)
+frame5:SetTimeVisible(1.0);
+frame5:SetMaxLines(1);
+frame5:SetFontObject(ChatFontNormal);
+frame5:SetIndentedWordWrap(true);
+frame5:SetJustifyH("CENTER"); 				
+frame5:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("KickALL", false)  then 
+frame5:AddMessage(" |cff00fff2 Pve Kick |r|cff5BFF33enabled|r")	
+else
+end	
+
+local frame6 = PvPKickFrame or CreateFrame("ScrollingMessageFrame", "PvPKickFrame", UIParent)
+frame6:SetPoint("CENTER", 200,480)
+frame6:SetSize(900, 100)
+frame6:SetTimeVisible(1.0);
+frame6:SetMaxLines(1);
+frame6:SetFontObject(ChatFontNormal);
+frame6:SetIndentedWordWrap(true);
+frame6:SetJustifyH("CENTER"); 				
+frame6:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("interrupts", false)  then 
+frame6:AddMessage(" |cff00fff2 PvP Kick|r|cff5BFF33 enabled|r")	
+else
+end	
+
+local frame7 = CoolDownsFrame or CreateFrame("ScrollingMessageFrame", "CoolDownsFrame", UIParent)
+frame7:SetPoint("CENTER", 70,455)
+frame7:SetSize(900, 100)
+frame7:SetTimeVisible(1.0);
+frame7:SetMaxLines(1);
+frame7:SetFontObject(ChatFontNormal);
+frame7:SetIndentedWordWrap(true);
+frame7:SetJustifyH("CENTER"); 				
+frame7:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("cooldowns", false)  then 
+frame7:AddMessage(" |cff00fff2 CoolDowns |r|cff5BFF33 enabled|r")	
+else
+end	
+ 
 	end
 	end
 	
@@ -1628,6 +1747,173 @@ local function resting()
 if not UIParent:IsShown() then
    RunMacroText("/reload")
 end
+if toggle("Information", false) then
+	 
+ if (GetLocale() == "ruRU") then
+ 
+ 
+local playerhealth = math.ceil(player.health.percent)
+local targethealth = math.ceil(target.health.percent)
+local frame3 = HealthFrame or CreateFrame("ScrollingMessageFrame", "HealthFrame", UIParent)
+frame3:SetPoint("CENTER", 30,540)
+frame3:SetSize(900, 100)
+frame3:SetTimeVisible(2.0);
+frame3:SetMaxLines(1);
+frame3:SetFontObject(ChatFontNormal);
+frame3:SetIndentedWordWrap(true);
+frame3:SetJustifyH("CENTER"); 				
+frame3:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if target.alive and player.alive and UnitExists("target") then 
+frame3:AddMessage(" |cff00fff2 Хп|r|cff5BFF33 цели:|r"..  targethealth .. " |cff00fff2 ост.|r")	
+else
+end	   
+
+local focusdistance = focus.distance
+local targetdistance = target.distance
+local frame4 = DistanceFrame or CreateFrame("ScrollingMessageFrame", "DistanceFrame", UIParent)
+frame4:SetPoint("CENTER", 30,510)
+frame4:SetSize(900, 100)
+frame4:SetTimeVisible(2.0);
+frame4:SetMaxLines(1);
+frame4:SetFontObject(ChatFontNormal);
+frame4:SetIndentedWordWrap(true);
+frame4:SetJustifyH("CENTER"); 				
+frame4:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if target.alive and player.alive and UnitExists("target") then 
+frame4:AddMessage(" |cff00fff2 Расст.|r|cffffdf52 до цели:|r"..  targetdistance.. "|cff00fff2 yd|r")	
+else
+end	
+
+
+
+local frame5 = KickFrame or CreateFrame("ScrollingMessageFrame", "KickFrame", UIParent)
+frame5:SetPoint("CENTER", -100,480)
+frame5:SetSize(900, 100)
+frame5:SetTimeVisible(1.0);
+frame5:SetMaxLines(1);
+frame5:SetFontObject(ChatFontNormal);
+frame5:SetIndentedWordWrap(true);
+frame5:SetJustifyH("CENTER"); 				
+frame5:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("KickALL", false)  then 
+frame5:AddMessage(" |cff00fff2 Pve кик |r|cff5BFF33 включен|r")	
+else
+end	
+
+local frame6 = PvPKickFrame or CreateFrame("ScrollingMessageFrame", "PvPKickFrame", UIParent)
+frame6:SetPoint("CENTER", 200,480)
+frame6:SetSize(900, 100)
+frame6:SetTimeVisible(1.0);
+frame6:SetMaxLines(1);
+frame6:SetFontObject(ChatFontNormal);
+frame6:SetIndentedWordWrap(true);
+frame6:SetJustifyH("CENTER"); 				
+frame6:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("interrupts", false)  then 
+frame6:AddMessage(" |cff00fff2 PvP кик|r|cff5BFF33 включен|r")	
+else
+end	
+
+local frame7 = CoolDownsFrame or CreateFrame("ScrollingMessageFrame", "CoolDownsFrame", UIParent)
+frame7:SetPoint("CENTER", 70,455)
+frame7:SetSize(900, 100)
+frame7:SetTimeVisible(1.0);
+frame7:SetMaxLines(1);
+frame7:SetFontObject(ChatFontNormal);
+frame7:SetIndentedWordWrap(true);
+frame7:SetJustifyH("CENTER"); 				
+frame7:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("cooldowns", false)  then 
+frame7:AddMessage(" |cff00fff2 Бурсты |r|cff5BFF33 включены|r")	
+else
+end	
+	
+	
+	
+	else
+	
+	
+	
+	
+local playerhealth = math.ceil(player.health.percent)
+local targethealth = math.ceil(target.health.percent)
+local frame3 = HealthFrame or CreateFrame("ScrollingMessageFrame", "HealthFrame", UIParent)
+frame3:SetPoint("CENTER", 30,540)
+frame3:SetSize(900, 100)
+frame3:SetTimeVisible(2.0);
+frame3:SetMaxLines(1);
+frame3:SetFontObject(ChatFontNormal);
+frame3:SetIndentedWordWrap(true);
+frame3:SetJustifyH("CENTER"); 				
+frame3:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if target.alive and player.alive and UnitExists("target") then 
+frame3:AddMessage(" |cff00fff2 Target|r|cff5BFF33 Health:|r"..  targethealth .. " |cff00fff2 left|r")	
+else
+end	   
+
+local focusdistance = focus.distance
+local targetdistance = target.distance
+local frame4 = DistanceFrame or CreateFrame("ScrollingMessageFrame", "DistanceFrame", UIParent)
+frame4:SetPoint("CENTER", 30,510)
+frame4:SetSize(900, 100)
+frame4:SetTimeVisible(2.0);
+frame4:SetMaxLines(1);
+frame4:SetFontObject(ChatFontNormal);
+frame4:SetIndentedWordWrap(true);
+frame4:SetJustifyH("CENTER"); 				
+frame4:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if target.alive and player.alive and UnitExists("target") then 
+frame4:AddMessage(" |cff00fff2 Target|r|cffffdf52 Distance:|r"..  targetdistance.. "|cff00fff2 yd|r")	
+else
+end	
+
+
+
+local frame5 = KickFrame or CreateFrame("ScrollingMessageFrame", "KickFrame", UIParent)
+frame5:SetPoint("CENTER", -100,480)
+frame5:SetSize(900, 100)
+frame5:SetTimeVisible(1.0);
+frame5:SetMaxLines(1);
+frame5:SetFontObject(ChatFontNormal);
+frame5:SetIndentedWordWrap(true);
+frame5:SetJustifyH("CENTER"); 				
+frame5:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("KickALL", false)  then 
+frame5:AddMessage(" |cff00fff2 Pve Kick |r|cff5BFF33enabled|r")	
+else
+end	
+
+local frame6 = PvPKickFrame or CreateFrame("ScrollingMessageFrame", "PvPKickFrame", UIParent)
+frame6:SetPoint("CENTER", 200,480)
+frame6:SetSize(900, 100)
+frame6:SetTimeVisible(1.0);
+frame6:SetMaxLines(1);
+frame6:SetFontObject(ChatFontNormal);
+frame6:SetIndentedWordWrap(true);
+frame6:SetJustifyH("CENTER"); 				
+frame6:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("interrupts", false)  then 
+frame6:AddMessage(" |cff00fff2 PvP Kick|r|cff5BFF33 enabled|r")	
+else
+end	
+
+local frame7 = CoolDownsFrame or CreateFrame("ScrollingMessageFrame", "CoolDownsFrame", UIParent)
+frame7:SetPoint("CENTER", 70,455)
+frame7:SetSize(900, 100)
+frame7:SetTimeVisible(1.0);
+frame7:SetMaxLines(1);
+frame7:SetFontObject(ChatFontNormal);
+frame7:SetIndentedWordWrap(true);
+frame7:SetJustifyH("CENTER"); 				
+frame7:SetFont("Interface\\Addons\\Feral\\Butwhy\\core\\media\\19180.otf", 25, "OUTLINE, MONOCHROME")
+if toggle("cooldowns", false)  then 
+frame7:AddMessage(" |cff00fff2 CoolDowns |r|cff5BFF33 enabled|r")	
+else
+end	
+ 
+	end
+	end
+
   -- Проверка дистанции до цели
     local enemyCount = enemies.around(8)
     dark_addon.interface.status_extra('T#:' .. enemyCount .. ' D:' .. target.distance)
@@ -1733,6 +2019,7 @@ local function interface()
             { type = 'text', text = 'Любой другой билд = мусор. Проверено: RaidBots.com' },
             { type = 'text', text = 'Таланты поддерживаются все кроме:  [3-3] и [4-2] [4-3]' },
             { type = 'text', text = 'Талант: [6-1] Необходим, если вы хотите юзать медведя когда танк умер.' },
+            { type = 'text', text = 'Бурст\Дпс азерит поддерживается весь кроме: Ряби и конфликта.' },
             { type = 'text', text = 'ALT = Рывок Тигра | Shift = Рывок | Ctrl = Порыв.' },
 			{ type = 'text', text = 'Пвп кик каста цель\фокус, нужно настроить в панели! (!!Проверь включен-ли кик каста на панели!!).' },
 			{ type = 'text', text = 'Пве кик каста, нужно включить кнопкой! (*Кикает всё что можно)' },
@@ -2060,8 +2347,8 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
 			
 			
 			dark_addon.interface.buttons.add_toggle({
-        name = 'Announce',
-        label = 'Анонсы! [вкл|выкл]',
+        name = 'Information',
+        label = 'Информация! [вкл|выкл]',
         font = 'dark_addon_icon',
         on = {
             label = dark_addon.interface.icon('hand-point-up'),
@@ -2093,6 +2380,7 @@ local settings = {
             { type = 'text', text = 'Any other build = shit. Tested by: RaidBots.com' },
             { type = 'text', text = 'Support all talents exept:  [3-3] and [4-2] [4-3]' },
             { type = 'text', text = 'Talent: [6-1] required, if u wanna tank while ur tank rip.' },
+            { type = 'text', text = 'Support all dps Azerite Talents, exept: Conflict and Ripple.' },
             { type = 'text', text = 'ALT = Tiger Dash | Shift = Charge | Ctrl = Dash.' },
 			{ type = 'text', text = 'Configure PvP kick Target|Focus from settings. (!!Check interrupts enabled to work!!)' },
 			{ type = 'text', text = 'Enable PVE kick from buttun! (*Kick everycast.)' },
@@ -2416,8 +2704,8 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
 			
 			
 			dark_addon.interface.buttons.add_toggle({
-        name = 'Announce',
-        label = 'Announce! [On|Off]',
+        name = 'Information',
+        label = 'Information! [On|Off]',
         font = 'dark_addon_icon',
         on = {
             label = dark_addon.interface.icon('hand-point-up'),
