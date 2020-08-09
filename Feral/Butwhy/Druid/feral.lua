@@ -34,6 +34,52 @@ local flashl = dark_addon.rotation.spellbooks.flashlig
 local holylight = dark_addon.rotation.spellbooks.holyli
 local repentr = dark_addon.rotation.spellbooks.repa
 local _, Feral = ...
+-- essences 
+
+
+	SB.AnimaofDeath1 = 294926
+		SB.AnimaofDeath2 = 300002				--- Draw upon your vitality to sear your foes, dealing 10% of your maximum health in Fire damage to all nearby enemies and heal for 10% of your maximum health per enemy hit, up to 50% of your maximum health.
+			SB.AnimaofDeath3 = 300003
+
+	SB.BloodoftheEnemy1 = 297108
+		SB.BloodoftheEnemy2 = 298273			--- The Heart of Azeroth erupts violently, dealing 18094 Shadow damage to enemies within 12 yds. You gain 25% critical strike chance against the targets for 10 sec, and increases your critical hit damage by 25% for 5 sec.
+			SB.BloodoftheEnemy3 = 298277
+
+	SB.ReapingFlames1 = 310690
+		SB.ReapingFlames2 = 311194 --- Burn your target with a bolt of Azerite, dealing 0 Fire damage. If the target has less than 20% health or more than 80% health, the cooldown is reduced by 30 sec. If Reaping Flames kills an enemy, its cooldown is lowered to 5 sec and it will deal 100% increased damage on its next use.
+			SB.ReapingFlames3 = 311195
+
+	SB.GuardianofAzeroth1 = 295840
+		SB.GuardianofAzeroth2 = 299355 --- Call upon Azeroth to summon a Guardian of Azeroth for 30 sec who impales your target with spikes of Azerite every 2.5 sec that deal [0 * (1 + Versatility) * (1.25)] Fire damage. Every 8 sec, the Guardian launches a volley of Azerite Spikes at its target, dealing 8 Fire damage to all nearby enemies. Each time the Guardian of Azeroth casts a spell, you gain 2% Haste, stacking up to 5 times. This effect ends when the Guardian of Azeroth despawns.
+			SB.GuardianofAzeroth3 = 299358
+	
+	SB.FocusedAzeriteBeam1 = 295258
+		SB.FocusedAzeriteBeam2 = 299336 --- Focus excess Azerite energy into the Heart of Azeroth, then expel that energy outward, dealing 92680 Fire damage to all enemies in front of you over 3 sec.
+			SB.FocusedAzeriteBeam3 = 299338
+	
+	SB.MemoryofLucidDreams1 = 298357
+		SB.MemoryofLucidDreams2 = 299372 --- Clear your mind and attune yourself with the Heart of Azeroth, increasing your [Mana][Energy][Maelstrom] generation rate by 100% and your Leech by 0 for 15 sec.
+			SB.MemoryofLucidDreams3 = 299374
+	
+	SB.PurifyingBlast1 = 295337
+		SB.PurifyingBlast2 = 299345 --- Call down a purifying beam upon the target area, dealing [4112 * (1 + Versatility) * 7] Fire damage over 6 sec. Has a low chance to immediately annihilate any specimen deemed unworthy by MOTHER.When an enemy dies within the beam, your damage is increased by 10% for 8 sec. Any Aberration struck by the beam is stunned for 3 sec.
+			SB.PurifyingBlast3 = 299347
+	
+	SB.MomentofGlory1 = 311203
+		SB.MomentofGlory2 = 311302 --- Release a wave of energy from your Heart of Azeroth, increasing the damage all party members within 15 yds deal with Azerite Essences by 45% and their Speed by 3 for the next 20 sec.
+			SB.MomentofGlory3 = 311303
+	
+	SB.ConcentratedFlame1 = 295373
+		SB.ConcentratedFlame2 = 299349 --- Blast your target with a ball of concentrated flame
+			SB.ConcentratedFlame3 = 299353
+	
+	SB.TheUnboundForce1 = 298452
+		SB.TheUnboundForce2 = 299376 --- Unleash the forces within the Heart of Azeroth, causing shards of Azerite to strike your target for 13017.88515 Fire damage over 2 sec. This damage is increased by 300% if it critically strikes.
+			SB.TheUnboundForce3 = 299378
+	
+	SB.WorldveinResonance1 = 295186
+		SB.WorldveinResonance2 = 298628 --- Concentrate energy into the Heart of Azeroth, immediately causing 3 Lifeblood Shards to erupt from the nearby ground for 18 sec, and incease the primary stat gained from Lifeblood Shards by 300% for 18 sec.
+			SB.WorldveinResonance3 = 299334
 
 -- Книга заклинаний
 SB.Renewal = 108238
@@ -268,6 +314,7 @@ SB.GroundTotem = 8178
 SB.UberStrike = 167385
 SB.GreaterBless = 203538
 SB.FeralFrenzy = 274837
+SB.Iris = 299336
 
 local function combat()
 if not UIParent:IsShown() then
@@ -400,13 +447,159 @@ local Renewal = dark_addon.settings.fetch("KiraFeral_settings_Renewal", 41)
    if castable(SB.CatForm) and not -buff(SB.CatForm) and not -buff(SB.BearForm) then
  		return cast(SB.CatForm, 'player')
     end 
-   --Эссенции
-    if castable(SB.ConcentratedFlame) and -spell(SB.ConcentratedFlame) == 0 then
-        return cast(SB.ConcentratedFlame, 'target')
+	
+	
+   --Essence start
+   	local delay = 0
+   
+   --burst essences
+
+	--1
+
+    if toggle("cooldowns", false) and castable(SB.GuardianofAzeroth1) and -spell(SB.GuardianofAzeroth1) == 0 then
+    return cast(SB.GuardianofAzeroth1, 'target')
+    end 
+	    if toggle("cooldowns", false) and castable(SB.GuardianofAzeroth2) and -spell(SB.GuardianofAzeroth2) == 0 then
+        return cast(SB.GuardianofAzeroth2, 'target')
+		end 
+		    if toggle("cooldowns", false) and castable(SB.GuardianofAzeroth3) and -spell(SB.GuardianofAzeroth3) == 0 then
+			return cast(SB.GuardianofAzeroth3, 'target')
+			end 
+	
+	--2
+	
+    if toggle("cooldowns", false) and castable(SB.MemoryofLucidDreams1) and -spell(SB.MemoryofLucidDreams1) == 0 then
+    return cast(SB.MemoryofLucidDreams1, 'target')
+    end 
+	    if toggle("cooldowns", false) and castable(SB.MemoryofLucidDreams2) and -spell(SB.MemoryofLucidDreams2) == 0 then
+        return cast(SB.MemoryofLucidDreams2, 'target')
+		end 
+		    if toggle("cooldowns", false) and castable(SB.MemoryofLucidDreams3) and -spell(SB.MemoryofLucidDreams3) == 0 then
+			return cast(SB.MemoryofLucidDreams3, 'target')
+			end 
+
+	--3 uncomment to cast (req. 8.3.0+ patch)
+		-- if delay < GetTime() then
+	-- if toggle("cooldowns", false) and castable(SB.MomentofGlory1) then
+    -- return cast(SB.MomentofGlory1, 'player')
+    -- end 
+	    -- if toggle("cooldowns", false) and castable(SB.MomentofGlory2) and -spell(SB.MomentofGlory2) == 0 then
+        -- return cast(SB.MomentofGlory2, 'target')
+		-- end 
+		    -- if toggle("cooldowns", false) and castable(SB.MomentofGlory3) and -spell(SB.MomentofGlory3) == 0 then
+			-- return cast(SB.MomentofGlory3, 'target')
+			-- end 
+		-- delay = GetTime() + 1.5
+	-- end	
+			
+	--4
+	
+    if toggle("cooldowns", false) and castable(SB.WorldveinResonance1) and -spell(SB.WorldveinResonance1) == 0 then
+    return cast(SB.WorldveinResonance1, 'target')
+    end 
+	    if toggle("cooldowns", false) and castable(SB.WorldveinResonance2) and -spell(SB.WorldveinResonance2) == 0 then
+        return cast(SB.WorldveinResonance2, 'target')
+		end 
+		    if toggle("cooldowns", false) and castable(SB.WorldveinResonance3) and -spell(SB.WorldveinResonance3) == 0 then
+			return cast(SB.WorldveinResonance3, 'target')
+			end 
+
+	
+	
+	
+	--damage essences
+	
+	
+	
+	--1 
+	
+	 if castable(SB.AnimaofDeath1) and -spell(SB.AnimaofDeath1) == 0 then
+        return cast(SB.AnimaofDeath1, 'target')
     end
-    if castable(SB.WorldveinResonance) and -spell(SB.WorldveinResonance) == 0 and target.distance < 5 then
-        return cast(SB.WorldveinResonance, 'target')
-    end    
+			 if castable(SB.AnimaofDeath2) and -spell(SB.AnimaofDeath2) == 0 then
+        return cast(SB.AnimaofDeath2, 'target')
+    end
+				 if castable(SB.AnimaofDeath3) and -spell(SB.AnimaofDeath3) == 0 then
+        return cast(SB.AnimaofDeath3, 'target')
+    end
+	
+	--2 
+	
+	 if castable(SB.BloodoftheEnemy1) and -spell(SB.BloodoftheEnemy1) == 0 then
+        return cast(SB.BloodoftheEnemy1, 'target')
+    end
+			 if castable(SB.BloodoftheEnemy2) and -spell(SB.BloodoftheEnemy2) == 0 then
+        return cast(SB.BloodoftheEnemy2, 'target')
+    end
+				 if castable(SB.BloodoftheEnemy3) and -spell(SB.BloodoftheEnemy3) == 0 then
+        return cast(SB.BloodoftheEnemy3, 'target')
+    end
+	
+		
+	--3  uncomment to cast (req. 8.3.0+ patch)
+	
+	 -- if castable(SB.ReapingFlames1) and -spell(SB.ReapingFlames1) == 0 then
+        -- return cast(SB.ReapingFlames1, 'target')
+    -- end
+			 -- if castable(SB.ReapingFlames2) and -spell(SB.ReapingFlames2) == 0 then
+        -- return cast(SB.ReapingFlames2, 'target')
+    -- end
+				 -- if castable(SB.ReapingFlames3) and -spell(SB.ReapingFlames3) == 0 then
+        -- return cast(SB.ReapingFlames3, 'target')
+    -- end
+	
+	--4
+	if delay < GetTime() then
+	 if castable(SB.FocusedAzeriteBeam1) and -spell(SB.FocusedAzeriteBeam1) == 0 then
+        return cast(SB.FocusedAzeriteBeam1, 'target')
+    end
+			 if castable(SB.FocusedAzeriteBeam2) and -spell(SB.FocusedAzeriteBeam2) == 0 then
+        return cast(SB.FocusedAzeriteBeam2, 'target')
+    end
+				 if castable(SB.FocusedAzeriteBeam3) and -spell(SB.FocusedAzeriteBeam3) == 0 then
+        return cast(SB.FocusedAzeriteBeam3, 'target')
+    end
+	 delay = GetTime() + 1.4
+end	
+	--5
+	
+	 if castable(SB.PurifyingBlast1) and -spell(SB.PurifyingBlast1) == 0 then
+        return cast(SB.PurifyingBlast1, 'target')
+    end
+			 if castable(SB.PurifyingBlast2) and -spell(SB.PurifyingBlast2) == 0 then
+        return cast(SB.PurifyingBlast2, 'target')
+    end
+				 if castable(SB.PurifyingBlast3) and -spell(SB.PurifyingBlast3) == 0 then
+        return cast(SB.PurifyingBlast3, 'target')
+    end
+	
+	--6
+	
+	 if castable(SB.ConcentratedFlame1) and -spell(SB.ConcentratedFlame1) == 0 then
+        return cast(SB.ConcentratedFlame1, 'target')
+    end
+			 if castable(SB.ConcentratedFlame2) and -spell(SB.ConcentratedFlame2) == 0 then
+        return cast(SB.ConcentratedFlame2, 'target')
+    end
+				 if castable(SB.ConcentratedFlame3) and -spell(SB.ConcentratedFlame3) == 0 then
+        return cast(SB.ConcentratedFlame3, 'target')
+    end
+	
+	--7
+			
+	 if castable(SB.TheUnboundForce1) and -spell(SB.TheUnboundForce1) == 0 then
+        return cast(SB.TheUnboundForce1, 'target')
+    end
+			 if castable(SB.TheUnboundForce2) and -spell(SB.TheUnboundForce2) == 0 then
+        return cast(SB.TheUnboundForce2, 'target')
+    end
+				 if castable(SB.TheUnboundForce3) and -spell(SB.TheUnboundForce3) == 0 then
+        return cast(SB.TheUnboundForce3, 'target')
+    end
+	
+		
+	
+	-- end essences 
 	
 	if castable(SB.FeralFrenzy) and  -spell(SB.FeralFrenzy) == 0 and player.power.combopoints.actual <= 3 and player.power.energy.actual >= 25 and target.debuff(SB.Rip).up  then
 		return cast(SB.FeralFrenzy,  'target')
