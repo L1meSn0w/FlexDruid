@@ -1532,18 +1532,6 @@ end
 end -- combat end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 local function resting()
   	local Feint = dark_addon.settings.fetch("KiraFeral_settings_Feint", 40)
 	local Distract = dark_addon.settings.fetch("KiraFeral_settings_Distract")
@@ -1601,12 +1589,6 @@ end
         return cast(SB.Feint)
 		end
 
-
-
-
-
-
-
 local axe = CreateFrame("MessageFrame",nil,UIParent)
 axe:SetFrameStrata("BACKGROUND")
 axe:SetWidth(64)
@@ -1660,6 +1642,7 @@ local settings = {
 							{ key = 'control', text = 'CTRL' },
 							{ key = 'alt', text = 'ALT' },
 							{ key = 'shift', text = 'SHIFT' },
+							{ key = 'disabled', text = 'disabled' },		
 					    } },
 		
 		
@@ -1677,6 +1660,7 @@ local settings = {
 							{ key = 'control', text = 'CTRL' },
 							{ key = 'alt', text = 'ALT' },
 							{ key = 'shift', text = 'SHIFT' },
+							{ key = 'disabled', text = 'disabled' },
 					    } },
 			
 			{ key = 'BladeRush', type = 'dropdown', text = 'Blade Rush.', desc = 'Not in combat, from not combat state.', default = 'alt',
@@ -1684,6 +1668,7 @@ local settings = {
 							{ key = 'control', text = 'CTRL' },
 							{ key = 'alt', text = 'ALT' },
 							{ key = 'shift', text = 'SHIFT' },
+							{ key = 'disabled', text = 'disabled' },
 					    } },
 		
             { type = 'text', text = 'Attention u cant bind 3 keys on same bind!!!!' },						
@@ -1893,20 +1878,6 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
             end
         end
     })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	    local settings2 = {
         key = 'KiraFeral_settings2',
