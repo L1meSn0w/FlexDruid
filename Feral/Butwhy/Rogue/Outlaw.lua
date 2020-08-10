@@ -60,6 +60,53 @@
 	local WarStomp = dark_addon.rotation.WarStomp
 
 	SB.Trinket = 208683
+	SB.Vanish = 1856
+	SB.Ambush = 8676
+	SB.CheapShot = 1833
+	SB.PreyontheWeak = 131511
+	SB.KillingSpree = 51690
+	SB.BladeRush = 271877
+	SB.BladeFlurry = 13877
+	SB.RolltheBones = 193316
+	SB.GhostlyStrike = 196937
+	SB.AdrenalineRush = 13750
+	SB.MarkedforDeath = 137619
+	SB.BetweentheEyes = 199804
+	SB.RuthlessPrecision = 193357
+	SB.AceUpYourSleeve = 278676
+	SB.Deadshot = 272935
+	SB.Dispatch = 2098
+	SB.PistolShot = 185763
+	SB.Opportunity = 195627
+	SB.SinisterStrike = 193315
+	SB.SnakeEyes = 275846
+	SB.SliceandDice = 5171
+	SB.DeeperStratagem = 193531
+	SB.TrueBearing = 193359
+	SB.SkullandCrossbones = 199603
+	SB.GrandMelee = 193358
+	SB.Broadside = 193356
+	SB.BuriedTreasure = 199600
+	SB.LoadedDice = 256170
+	SB.Vigor = 14983
+	SB.CombatPotency = 61329
+	SB.RestlessBlades = 79096
+	SB.Bloodlust = 2825
+	SB.Heroism = 32182
+	SB.TimeWarp = 80353
+	SB.Ruthlessness = 14161
+	SB.Sprint = 2983
+	SB.GrapplingHook = 195457
+	SB.Feint = 1966
+	SB.Elusiveness = 79008
+	SB.CloakofShadows = 31224
+	SB.CheatDeath = 31230
+	SB.CrimsonVial = 185311
+	SB.Riposte = 199754
+	SB.Stealth = 1784
+	SB.Kick = 1766
+	SB.Gouge = 1776
+	SB.Blind = 2094
 
 	SB.AnimaofDeath1 = 294926
 		SB.AnimaofDeath2 = 300002				--- Draw upon your vitality to sear your foes, dealing 10% of your maximum health in Fire damage to all nearby enemies and heal for 10% of your maximum health per enemy hit, up to 50% of your maximum health.
@@ -105,10 +152,91 @@
 		SB.WorldveinResonance2 = 298628 --- Concentrate energy into the Heart of Azeroth, immediately causing 3 Lifeblood Shards to erupt from the nearby ground for 18 sec, and incease the primary stat gained from Lifeblood Shards by 300% for 18 sec.
 			SB.WorldveinResonance3 = 299334
 
+	SB.TricksOfTheTrade = 57934
+
+local function GroupType()
+    return IsInRaid() and "raid" or IsInGroup() and "party" or "solo"
+end
+local group_type = GroupType()
+
+local function findTank()
+    local members = GetNumGroupMembers()
+    local group_type = GroupType()
+
+    if group_type ~= "solo" then
+        for i = 1, (members - 1) do
+            local unit = group_type .. i
+            if (UnitGroupRolesAssigned(unit) == "TANK") and not UnitCanAttack("player", unit) and not UnitIsDeadOrGhost(unit)
+            then
+                return unit
+            end
+        end
+    end
+    return "player"
+end
 	
+--Start Roll the Bones Function
+local function RolltheBones()
+
+  --Roll the Bones Buff Count
+  local rtbcount, rpcount, gmcount, bscount, skcount, btcount, tbcount = 0, 0, 0, 0, 0, 0, 0
+  if player.buff(SB.RuthlessPrecision).up then rpcount = 1 else rpcount = 0 end
+  if player.buff(SB.GrandMelee).up then gmcount = 1 else gmcount = 0 end
+  if player.buff(SB.Broadside).up then bscount = 1 else bscount = 0 end
+  if player.buff(SB.SkullandCrossbones).up then skcount = 1 else skcount = 0 end
+  if player.buff(SB.BuriedTreasure).up then btcount = 1 else btcount = 0 end
+  if player.buff(SB.TrueBearing).up then tbcount = 1 else tbcount = 0 end
+  rtbcount = rpcount + gmcount + bscount + skcount + btcount + tbcount
+  local smartrtb = dark_addon.settings.fetch('outrog_settings_smartrtb', true)
+
+  -- local function hasazeritetrait(powerid)
+  --   local isSelected        
+  --   for _, itemLocation in AzeriteUtil.EnumerateEquipedAzeriteEmpoweredItems() do
+  --     isSelected = C_AzeriteEmpoweredItem.IsPowerSelected(itemLocation, powerid)
+  --     if isSelected then return true end
+  --   end
+  --     return false
+  --   end
+  
+  -- local deadshottrait = hasazeritetrait(129)
+  -- local aceupyoursleevetrait = hasazeritetrait(411)
+
+  --The basic rule to satisfy regarding  Roll the Bones is to re-cast it and fish for 2+ buffs if:
+  --you have 1 buff and  Loaded Dice available OR
+  --you have 1 buff and it is not  Ruthless Precision or  Grand Melee.
+  --In the event that you do not have  Loaded Dice available, re-roll  Roll the Bones for 2+ buffs or  Ruthless Precision or  Grand Melee.
+
+  --Cast 4-5 Combo Point Roll the Bones (see dedicated Roll the Bones section for details).
+  if smartrtb then
+    if (rtbcount < 2) and not (player.buff(SB.GrandMelee).up or player.buff(SB.RuthlessPrecision).up) then
+      if castable(SB.RolltheBones) and -spell(SB.RolltheBones) == 0 and player.power.combopoints.actual >= 4 and not talent(6,3) then
+        return cast(SB.RolltheBones, 'target')
+      end
+    end
+  end
+  if not smartrtb and (rtbcount == 0 or (player.buff(SB.RuthlessPrecision).up and player.buff(SB.RuthlessPrecision).remains < 4) or (player.buff(SB.GrandMelee).up and player.buff(SB.GrandMelee).remains < 4) 
+  or (player.buff(SB.Broadside).up and player.buff(SB.Broadside).remains < 4) or (player.buff(SB.SkullandCrossbones).up and player.buff(SB.SkullandCrossbones).remains < 4)
+  or (player.buff(SB.BuriedTreasure).up and player.buff(SB.BuriedTreasure).remains < 4) or (player.buff(SB.TrueBearing).up and player.buff(SB.TrueBearing).remains < 4)) then
+    if castable(SB.RolltheBones) and -spell(SB.RolltheBones) == 0 and player.power.combopoints.actual >= 4 and not talent(6,3) then
+      return cast(SB.RolltheBones, 'target')
+    end
+  end    
+
+  -- if deadshottrait or aceupyoursleevetrait then
+  --   --Cast 4-5 Combo Point Roll the Bones (see dedicated Roll the Bones section for details).
+  --   if castable(SB.RolltheBones) and -spell(SB.RolltheBones) == 0 and player.power.combopoints.actual >= 4 and not talent(6,3) 
+  --   and ((rtbcount < 2 and player.buff(SB.LoadedDice).up) or (rtbcount < 2 and player.buff(SB.RuthlessPrecision).down)) then
+  --     return cast(SB.RolltheBones, 'target')
+  --   end
+  -- end 
+
+end
+setfenv(RolltheBones, dark_addon.environment.env)
+--End Roll the Bones Function
 
 
 local function combat()
+  if target.alive and target.enemy and player.alive and not player.channeling() then
 	local Kick0 = dark_addon.settings.fetch('KiraFeral_settings2_Kick0', true)
 	local Kick1 = dark_addon.settings.fetch('KiraFeral_settings2_Kick1', true)
 	local Kick2 = dark_addon.settings.fetch('KiraFeral_settings2_Kick2', true)
@@ -198,8 +326,10 @@ local function combat()
 	local usetrinkets = dark_addon.settings.fetch('KiraFeral_settings_usetrinkets', true)
     local Trinket13 = GetInventoryItemID("player", 13)
     local Trinket14 = GetInventoryItemID("player", 14)
-	
-
+	  local rip = dark_addon.settings.fetch('KiraFeral_settings_rip.check', true)
+	  local rippercent = dark_addon.settings.fetch('KiraFeral_settings_rip.spin', 60)
+	  local enemyCount = enemies.around(8)
+	  if enemyCount == 0 then enemyCount = 1 end  
 		
  if toggle('interrupts', false) then
 	if Kick0 == true then
@@ -858,36 +988,81 @@ end
       --  print('Kicked' .. intpercent)
         return cast(SB.Blind, 'target')
     end
-
+	local dispellable_unit = player.removable('disease', 'magic', 'poison') 
   if toggle("dispel", false) then
-   if player.dispellable(SB.CloakOfShadows) then
-        return cast(SB.CloakOfShadows)
-    end
+  if castable(SB.CloakofShadows) and -spell(SB.CloakofShadows) == 0 and dispellable_unit then
+    return cast(SB.CloakofShadows, 'player')
+  end
   end 
- if target.alive and target.enemy and player.alive and not -player.buff(SB.Stealth) then
+  
+ if castable(SB.Riposte) and -spell(SB.Riposte) == 0 and -player.health <= rippercent and rip then
+    return cast(SB.Riposte, 'player')
+  end
+  if target.enemy and target.alive and target.distance < 8 then
     auto_attack()
-end	
+  end
 
-	
-	if target.alive and target.enemy and player.alive then
-	
-				if castable(SB.SinisterStrike) and player.power.energy.actual >= 45 and player.power.combopoints.actual < 5 then 
-				return cast(SB.SinisterStrike, 'target')
-				end
-				
-				
-				if -buff(SB.Opportunity) and castable(SB.PistolShot) then
-					return cast(SB.PistolShot)
-				end
+	if castable(SB.BladeFlurry) and -spell(SB.BladeFlurry) == 0 and enemyCount >= 2 then
+    return cast(SB.BladeFlurry, 'target')
+  end
+   if RolltheBones() then return end
 
-				if toggle('VanishAmbush', false) then 
-				if -buff(SB.Vanishbuff) then 
-				return cast(SB.Ambush, 'target')
-				end
-				end
+	  if castable(SB.GhostlyStrike) and -spell(SB.GhostlyStrike) == 0 and player.power.combopoints.actual <= 4 and talent(1,3) then
+    return cast(SB.GhostlyStrike, 'target')
+  end
+  
+    if castable(SB.BladeRush) and -spell(SB.BladeRush) == 0 and talent(7,2) and player.buff(SB.AdrenalineRush).down then
+    return cast(SB.BladeRush, 'target')
+  end
+  
+  
+  if castable(SB.KillingSpree) and -spell(SB.KillingSpree) == 0 and talent(7,3) then
+    return cast(SB.KillingSpree, 'target')
+  end       
+  
+   if castable(SB.AdrenalineRush) and -spell(SB.AdrenalineRush) == 0 and toggle('cooldowns', false) then
+    return cast(SB.AdrenalineRush, 'target')
+  end
+  if toggle('cooldowns', false) and castable(SB.MarkedforDeath) and -spell(SB.MarkedforDeath) == 0 and player.power.combopoints.actual <= 1 and talent(3,3) then
+    return cast(SB.MarkedforDeath, 'target')
+  end
+			
+  if castable(SB.BetweentheEyes) and -spell(SB.BetweentheEyes) == 0 and player.power.combopoints.actual >= 4 
+  and (player.buff(SB.RuthlessPrecision).up or aceupyoursleevetrait or deadshottrait) then
+    return cast(SB.BetweentheEyes, 'target')
+  end
+  
+    if castable(SB.Dispatch) and -spell(SB.Dispatch) == 0 and player.power.combopoints.actual >= 4 then
+    return cast(SB.Dispatch, 'target')
+  end
+  
+    if castable(SB.PistolShot) and -spell(SB.PistolShot) == 0 and player.buff(SB.Opportunity).up 
+  and (player.power.combopoints.actual <= 3 or (player.power.combopoints.actual <= 2 and talent(1,1))) then
+    return cast(SB.PistolShot, 'target')
+  end
+    if castable(SB.SinisterStrike) and -spell(SB.SinisterStrike) == 0 then
+    return cast(SB.SinisterStrike, 'target')
+  end    
+
+    if castable(SB.SinisterStrike) and -spell(SB.SinisterStrike) == 0 then
+    return cast(SB.SinisterStrike, 'target')
+  end    
+  
+      if dark_addon.settings.fetch('KiraFeral_settings_Tricks') == true then
+        local iTarget = dark_addon.environment.conditions.unit(findTank())
+        if iTarget.unitID ~= "player" and SB.TricksOfTheTrade == 0 and player.buff(SB.Stealth).up then
+            print("Tricks on " .. iTarget.name)
+            return cast(SB.TricksOfTheTrade, iTarget)
+        end
+    end
+
+if toggle('VanishAmbush', false) and -buff(SB.Vanishbuff) then 
+	return cast(SB.Ambush, 'target')
+	end
 
 
 
+if toggle('Essences', false) then 
 --Essence start
    	local delay = 0
    
@@ -1039,78 +1214,12 @@ end
 		
 	
 	-- end essences 
-
-
-				
-				-- if modifier.shift and -spell(SB.Sap) == 0 and mouseover.enemy and mouseover.alive then
-					-- return cast(SB.Sap, 'mouseover')
-				-- end
-		  
-		-- Lets eval our buffs
-
-			  if -player.buff(SB.Ruthlessprecision) then rpb = 1 else rpb = 0 end
-			  if -player.buff(SB.GrandMelee) then gmb = 1 else gmb = 0 end
-			  if -player.buff(SB.Broadside) then bsb = 1 else bsb = 0 end
-			  if -player.buff(SB.SkullandCrossBones) then scb = 1 else scb = 0 end
-			  if -player.buff(SB.BurriedTreasure) then btb = 1 else btb = 0 end
-			  if -player.buff(SB.TrueBearings) then tbd = 1 else tbd = 0 end
-			  rollthebonestotal = rpb + gmb + bsb + scb + btb + tbd
-			  rtbtotal = gmb + rpb
-			--and rollthebonestotal < 2
-			if not talent(6, 3) and castable(SB.RolltheBones) and -spell(SB.RolltheBones) == 0  and player.power.combopoints.actual >= 4 and rtbtotal <= 0 then
-				  rpb = 0
-				  gmb = 0
-				  bsb = 0
-				  scb = 0 
-				  btb = 0
-				  tbd = 0
-				return cast(SB.RolltheBones)
-			  end
+end
 			  
 			if talent(6, 3) and castable(SB.SliceAndDice) and -player.buff(SB.SliceAndDice).down and player.power.combopoints.actual >= 4  then
 			return cast(SB.SliceAndDice)
 			end
 
-			 local inRange = 0
-				for i = 1, 40 do
-				  if UnitExists('nameplate' .. i) and IsSpellInRange('Ambush', 'nameplate' .. i) == 1 and UnitAffectingCombat('nameplate' .. i) then 
-					inRange = inRange + 1
-				  end 
-				end
-
-			  dark_addon.interface.status_extra('|cffFF0000 R#|r' .. dark_addon.version .. '         |cff5BFF33 RTB#|r' .. rollthebonestotal ..  ' |cff5BFF33 T#|r' .. inRange .. ' |cff5BFF33 D#|r ' .. target.distance)
-
-	
- 
- 
-
-			  if castable(SB.GhostlyStrike) and player.power.combopoints.actual < 5 and talent(1,3) then
-				return cast(SB.GhostlyStrike)
-			  end
-
-			  if inRange >= 2 and castable(SB.BladeFlurry) and not -buff(SB.BladeFlurry) and spell(SB.BladeFlurry).charges > 0  then
-				return cast(SB.BladeFlurry, 'target')
-			  end
-
-			  if castable(SB.BladeRush) and talent(7,2) and not -buff(SB.AdrenalineRush) and player.power.energy.actual < 45 then
-				return cast(SB.BladeRush, 'target')
-			  end
-
-			  if castable(SB.KillingSpree) and talent(7,3) and not -buff(SB.AdrenalineRush) then
-				return cast(SB.KillingSpree)
-			  end
-
-			  if toggle('cooldowns', false) and castable(SB.AdrenalineRush) then
-				return cast(SB.AdrenalineRush)
-			  end
-
-			  if toggle('cooldowns', false) and castable(SB.MarkedforDeath) and player.power.combopoints.actual <  2 and talent(3,3) then
-				return cast(SB.MarkedforDeath, 'target')
-			  end
-
-			  if castable(SB.BetweentheEyes) and player.power.combopoints.actual >= 4  and player.buff(SB.Ruthlessprecision) then 
-				return cast(SB.BetweentheEyes, 'target')
-			  end
 			  if usetrinkets and target.alive and target.enemy and player.alive then
 				if GetItemCooldown(Trinket13) == 0 then
 				  macro('/use 13')
@@ -1119,13 +1228,11 @@ end
 				  macro('/use 14')
 				end
 			  end
-				if castable(SB.Dispatch) and player.power.combopoints.actual >= 5 then 
-				return cast(SB.Dispatch, 'target')
-			  end
+
 
 
 				
-end -- if had target end
+-- if had target end
 
 
  if toggle("TrinkIt", false) then
@@ -1418,7 +1525,10 @@ end
       return cast(SB.Distract, 'ground')
 	end	
 	
-	
+        if not player.channeling() and dark_addon.settings.fetch('KiraFeral_settings_autosprint') == true and castable(SB.Sprint) then
+            return cast(SB.Sprint)
+        end
+end	
 end -- combat end
 
 
@@ -1439,8 +1549,13 @@ local function resting()
 	local Distract = dark_addon.settings.fetch("KiraFeral_settings_Distract")
 	local Hook = dark_addon.settings.fetch("KiraFeral_settings_Hook")
 	local BladeRush = dark_addon.settings.fetch("KiraFeral_settings_BladeRush")
+	local enemyCount = enemies.around(8)
+	
+
   if player.alive then 
- 
+         if not player.channeling() and dark_addon.settings.fetch('KiraFeral_settings_autosprint') == true and castable(SB.Sprint) then
+            return cast(SB.Sprint)
+        end
   if not -buff(SB.Stealth) and toggle('use_stealth', false) and player.moving then 
     return cast(SB.Stealth)
   end
@@ -1512,7 +1627,7 @@ local settings = {
         key = 'KiraFeral_settings',
         title = 'Pink Axe settings!',
         width = 350,
-        height = 662,
+        height = 762,
 	--	color = "3cff00",
 		color = "00a2ff",
         resize = true,
@@ -1535,7 +1650,11 @@ local settings = {
             { key = 'intpercenthigh', type = 'spinner', text = 'intpercenthigh %', default = '65', desc = '', min = 51, max = 100, step = 1 },
 		    { type = 'rule' },
 		    { type = 'header', text = "Usefull stuff.",		align = 'CENTER', },
-			{ key = 'usetrinkets', type = 'checkbox', text = 'Auto Trinkets', desc = 'If u had ofc.', default = true },
+            { key = 'autosprint', type = 'checkbox', text = 'Auto sprint', desc = '', default = false },
+            { key = 'Tricks', type = 'checkbox', text = 'Auto Tricks', desc = '', default = false },
+            { key = 'rip', type = 'checkspin', text = 'Riposte', desc = 'Health % to cast at', default_check = false, default_spin = 60, min = 5, max = 100, step = 1 },
+            { key = 'smartrtb', type = 'checkbox', text = 'Smart Roll the Bones', desc = '', default = false },
+			{ key = 'usetrinkets', type = 'checkbox', text = 'Auto Trinkets', desc = 'If u had ofc.', default = false },
 			{ key = 'Distract', type = 'dropdown', text = 'Distract', desc = 'Distract on mouseover.', default = 'control',
 				list = {
 							{ key = 'control', text = 'CTRL' },
@@ -1596,6 +1715,21 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
     })
 
 
+  dark_addon.interface.buttons.add_toggle({
+    name = 'Essences',
+    label = 'Auto use Essences',
+    font = 'dark_addon_icon',
+    on = {
+      label = dark_addon.interface.icon('stars'),
+            color = dark_addon.interface.color.green,
+            color2 = dark_addon.interface.color.green
+    },
+    off = {
+      label = dark_addon.interface.icon('star'),
+      color = dark_addon.interface.color.yellow,
+      color2 = dark_addon.interface.color.orange
+    }
+  })
 
 
   dark_addon.interface.buttons.add_toggle({
@@ -1603,12 +1737,12 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
     label = 'Auto use Stealth',
     font = 'dark_addon_icon',
     on = {
-      label = dark_addon.interface.icon('toggle-on'),
+      label = dark_addon.interface.icon('low-vision'),
             color = dark_addon.interface.color.green,
             color2 = dark_addon.interface.color.green
     },
     off = {
-      label = dark_addon.interface.icon('toggle-off'),
+      label = dark_addon.interface.icon('low-vision'),
       color = dark_addon.interface.color.yellow,
       color2 = dark_addon.interface.color.orange
     }
@@ -1618,12 +1752,12 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
     label = 'Fight! Auto ambush Tar. if not combat.',
     font = 'dark_addon_icon',
     on = {
-      label = dark_addon.interface.icon('toggle-on'),
+      label = dark_addon.interface.icon('skull'),
             color = dark_addon.interface.color.green,
             color2 = dark_addon.interface.color.green
     },
     off = {
-      label = dark_addon.interface.icon('toggle-off'),
+      label = dark_addon.interface.icon('skull'),
       color = dark_addon.interface.color.yellow,
       color2 = dark_addon.interface.color.orange
     }
@@ -1633,12 +1767,12 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
     label = 'PVE Kick, kick everything.',
     font = 'dark_addon_icon',
     on = {
-      label = dark_addon.interface.icon('toggle-on'),
+      label = dark_addon.interface.icon('bow-arrow'),
             color = dark_addon.interface.color.green,
             color2 = dark_addon.interface.color.green
     },
     off = {
-      label = dark_addon.interface.icon('toggle-off'),
+      label = dark_addon.interface.icon('bow-arrow'),
       color = dark_addon.interface.color.yellow,
       color2 = dark_addon.interface.color.orange
     }
