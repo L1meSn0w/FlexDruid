@@ -18,7 +18,6 @@ dark_addon.rotation.spellbooks.druid = {
 	TravelForm = 783,
 	Hibernate = 2637,
 	TigerDash = 252216,
-	
 	-- Balance
 	MoonkinForm = 24858,
 	SolarWrath = 190984,
@@ -195,6 +194,135 @@ dark_addon.rotation.spellbooks.priest = {
 	
 }
 
+dark_addon.rotation.spellbooks.rogue = {
+Distract = 1725,
+Hook = 195457,
+RolltheBones = 193316,
+GhostlyStrike = 196937,
+KillingSpree = 51690,
+AdrenalineRush = 13750,
+BladeRush = 271877,
+MarkedforDeath = 137619,
+BetweentheEyes = 199804,
+Dispatch = 2098,
+Opportunity = 195627,
+PistolShot = 185763,
+SinisterStrike = 193315,
+Stealth = 1784,
+Ambush = 8676,
+CrimsonVile = 185311,
+BladeFlurry = 13877,
+Sap = 6770,
+Gouge = 1776,
+Riposite = 199754,
+Vanishbuff = 11327,
+Deadshot = 272935,
+
+
+-- Interupts
+Kick = 1766,
+Blind = 2094,
+CheapShot = 1833,
+----------------------------------
+RollTheBones = 193316,
+GhostlyStrike = 196937,
+KillingSpree = 51690,
+AdrenalineRush = 13750,
+BladeRush = 271877,
+MarkedforDeath = 137619,
+BetweenTheEyes = 199804,
+Dispatch = 2098,
+Opportunity = 195627,
+PistolShot = 185763,
+SinisterStrike = 193315,
+Stealth = 1784,
+Ambush = 8676,
+SecretTechnique = 280719,
+ShadowBlades = 121471,
+ShadowStrike = 231718,
+ShadowDance = 185313,
+SymbolsOfDeath = 212283,
+Nightblade = 195452,
+Kick = 1766,
+Backstab = 53,
+Eviscerate = 196819,
+ShurikenStorm = 197835,
+Gloomblade = 200758,
+ShrikenTornado = 277925,
+ToxicBlade = 245388,
+Exsanguinate = 200806,
+CrimsonTempest = 121411,
+Garrote = 703,
+Mutilate = 1329,
+Rupture = 1943,
+Vendetta = 79140,
+DancingSteel = 272026,
+SliceAndDice = 5171,
+CloakOfShadows = 31224,
+TricksOfTheTrade = 57934,
+FanOfKnives = 51723,
+Vanish = 1856,
+Feint = 1966,
+Envenom = 32645,
+Gouge = 1776,
+KidneyShot = 408,
+Sprint = 2983,
+Evasion = 5277,
+Riposte = 199754,
+Blind = 2094,
+CrimsonVial = 185311,
+Blindside = 111240,
+DeadlyPoison = 2823,
+Subterfuge = 108208,
+CripplingPoison = 3408,
+Broadside = 193356,
+BuriedTreasure = 199600,
+GrandMelee = 193358,
+RuthlessPrecision = 193357,
+SkullAndCrossbones = 199603,
+BladeFlurry = 13877,
+TrueBearings = 193359,
+WoundPoison = 8679,
+CheapShot = 1833,
+
+
+
+----
+
+Subterfuge = 108208,
+ShroudedSuffocation = 278666,
+Vendetta = 79140,
+Exsanguinate = 200806,
+Vanish = 1856,
+Garrote = 703,
+Rupture = 1943,
+ToxicBlade = 245388,
+CrimsonTempest = 121411,
+Mutilate = 1329,
+FanOfKnives = 51723,
+DeadlyPoison = 2823,
+CripplingPoison = 3408,
+PoisonedKnife = 185565,
+Envenom = 32645,
+KidneyShot = 408,
+
+
+----------------
+
+
+
+-- Roll The Bones Buffs
+Ruthlessprecision = 193357,
+GrandMelee = 193358,
+Broadside = 193356,
+SkullandCrossBones = 199603,
+BurriedTreasure = 199600,
+TrueBearings = 193359,
+
+
+
+  
+}
 
 dark_addon.rotation.dispellbooks.soothe = {
 	-- Soothe
@@ -395,7 +523,7 @@ dark_addon.rotation.spellbooks.h = {
 dark_addon.rotation.spellbooks.cy = {
 [209753] = "Cyclone" --dru
 }
-dark_addon.rotation.spellbooks.s = {
+dark_addon.rotation.spellbooks.sgt = {
 [30283] = "Shadowfury" --lock
 }
 dark_addon.rotation.spellbooks.m = {
@@ -448,6 +576,115 @@ dark_addon.rotation.spellbooks.holyli = {
 dark_addon.rotation.spellbooks.repa = {
 [20066] = "repentance" --pal
 }
+
+
+
+
+--- Trinket boy
+				dark_addon.rotation.Freez = {
+				  [41085] = "Freezing Trap"}
+				  
+				dark_addon.rotation.Fear = {
+				  [5782] = "Fear"}
+				  
+				dark_addon.rotation.Imprison = {
+				  [217832] = "Imprison"}
+				  
+				dark_addon.rotation.Intimidating = {
+				  [5246] = "Intimidating Shout"}
+				  
+				dark_addon.rotation.Psychic = {
+				  [22884] = "Psychic Scream"}
+				  
+				dark_addon.rotation.Rependance = {
+				  [20066] = "Rependance"}
+				  
+				dark_addon.rotation.Blind = {
+				  [2094] = "Blind"}
+				  
+				dark_addon.rotation.Gouge = {
+				  [1776] = "Gouge"}
+				  
+				dark_addon.rotation.Hindrance = {
+				  [183218] = "Hand of Hindrance"}
+				  
+				dark_addon.rotation.Nova = {
+				 [122] = "Frost Nova"}
+				  
+				dark_addon.rotation.Chains = {
+				  [45524] = "Chains of Ice"}
+				  
+				dark_addon.rotation.maim = {
+				  [22570] = "maim"}
+				  
+				dark_addon.rotation.Mortal = {
+				  [6789] = "Mortal Coil"}
+--new
+				dark_addon.rotation.Gnaw = {
+				  [47481] = "Gnaw"}
+
+				dark_addon.rotation.LegSweep = {
+				  [119381] = "Leg Sweep"}
+
+				dark_addon.rotation.HammerofJustice = {
+				  [853] = "Hammer of Justice"}
+
+				dark_addon.rotation.KidneyShot = {
+				  [408] = "Kidney Shot"}
+
+				dark_addon.rotation.CheapShot = {
+				  [1833] = "Cheap Shot"}
+
+				dark_addon.rotation.Shadowfury = {
+				  [30283] = "Shadowfury"}
+
+ 				dark_addon.rotation.AxeToss = {
+				  [89766] = "Axe Toss"}
+
+
+ 				dark_addon.rotation.Shockwave = {
+				  [46968] = "Shockwave"}
+
+ 
+ 				dark_addon.rotation.StormBolt = {
+				  [107570] = "Storm Bolt"}
+
+  				dark_addon.rotation.WarStomp = {
+				  [107570] = "War Stomp"}
+
+ 
+
+
+dark_addon.rotation.polyhex = {
+  [118] = "Polymorph",
+  [161372] = "Polymorph Peacock",
+  [61780] = "Polymorph Turkey",
+  [161353] = "Polymorph Polar Bear",
+  [161354] = "Polymorph Monkey",
+  [161355] = "Polymorph Penguin",
+  [28271] = "Polymorph Turtle",
+  [28272] = "Polymorph Pig",
+  [61305] = "Polymorph Black Cat",
+  [61721] = "Polymorph Rabbit",
+  [277787] = "Polymorph Direhorn",
+  [277792] = "Polymorph BumbleBee",
+  [210873] = "Hex Dinosaur",
+  [211004] = "Hex Spider",
+  [211010] = "Hex Snake",
+  [211015] = "Hex Cockraoch",
+  [269352] = "Hex Dinosaur",
+  [277778] = "Hex Zandalari Tendonripper",
+  [277784] = "Hex White Mongrel",
+  [51514] = "Hex"
+}
+
+
+
+
+
+
+
+
 
 
 
