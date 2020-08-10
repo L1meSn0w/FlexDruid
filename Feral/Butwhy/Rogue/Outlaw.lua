@@ -330,7 +330,7 @@ local function combat()
 	  local rippercent = dark_addon.settings.fetch('KiraFeral_settings_rip.spin', 60)
 	  local enemyCount = enemies.around(8)
 	  if enemyCount == 0 then enemyCount = 1 end  
-		
+
  if toggle('interrupts', false) then
 	if Kick0 == true then
         if target.castable(SB.Kick) then
@@ -1056,13 +1056,7 @@ end
         end
     end
 
-if toggle('VanishAmbush', false) and -buff(SB.Vanishbuff) then 
-	return cast(SB.Ambush, 'target')
-	end
 
-
-
-if toggle('Essences', false) then 
 --Essence start
    	local delay = 0
    
@@ -1163,18 +1157,32 @@ if toggle('Essences', false) then
     -- end
 	
 	--4
-	if delay < GetTime() then
-	 if castable(SB.FocusedAzeriteBeam1) and -spell(SB.FocusedAzeriteBeam1) == 0 then
-        return cast(SB.FocusedAzeriteBeam1, 'target')
-    end
-			 if castable(SB.FocusedAzeriteBeam2) and -spell(SB.FocusedAzeriteBeam2) == 0 then
-        return cast(SB.FocusedAzeriteBeam2, 'target')
-    end
-				 if castable(SB.FocusedAzeriteBeam3) and -spell(SB.FocusedAzeriteBeam3) == 0 then
-        return cast(SB.FocusedAzeriteBeam3, 'target')
-    end
-	 delay = GetTime() + 1.4
+	
+	
+local focused = dark_addon.settings.fetch("KiraFeral_settings_focused")
+	if delay < GetTime() then	
+
+if (focused == "shift" and modifier.shift) or (focused == "control" and modifier.control) or (focused == "alt" and modifier.alt) then 
+
+if castable(SB.FocusedAzeriteBeam1) or castable(SB.FocusedAzeriteBeam2) or castable(SB.FocusedAzeriteBeam3) then
+	return cast(SB.FocusedAzeriteBeam1, 'ground') or cast(SB.FocusedAzeriteBeam2, 'ground') or cast(SB.FocusedAzeriteBeam3, 'ground')
+	end	
 end	
+ delay = GetTime() + 1.4
+end
+
+	-- if delay < GetTime() then
+	 -- if castable(SB.FocusedAzeriteBeam1) and -spell(SB.FocusedAzeriteBeam1) == 0 then
+        -- return cast(SB.FocusedAzeriteBeam1, 'target')
+    -- end
+			 -- if castable(SB.FocusedAzeriteBeam2) and -spell(SB.FocusedAzeriteBeam2) == 0 then
+        -- return cast(SB.FocusedAzeriteBeam2, 'target')
+    -- end
+				 -- if castable(SB.FocusedAzeriteBeam3) and -spell(SB.FocusedAzeriteBeam3) == 0 then
+        -- return cast(SB.FocusedAzeriteBeam3, 'target')
+    -- end
+	 -- delay = GetTime() + 1.4
+-- end	
 	--5
 	
 	 if castable(SB.PurifyingBlast1) and -spell(SB.PurifyingBlast1) == 0 then
@@ -1214,7 +1222,7 @@ end
 		
 	
 	-- end essences 
-end
+
 			  
 			if talent(6, 3) and castable(SB.SliceAndDice) and -player.buff(SB.SliceAndDice).down and player.power.combopoints.actual >= 4  then
 			return cast(SB.SliceAndDice)
@@ -1552,24 +1560,8 @@ local function resting()
     return cast(SB.Ambush, 'target')
   end
 
-if player.alive and target.enemy then 
- local inRange = 0
-    for i = 1, 40 do
-      if UnitExists('nameplate' .. i) and IsSpellInRange('Ambush', 'nameplate' .. i) == 1 and UnitAffectingCombat('nameplate' .. i) then 
-        inRange = inRange + 1
-      end 
-  end
- 
 end
 
-end
-
-
-		if toggle('VanishAmbush', false)  and target.alive and player.alive and   target.enemy  then 
-			if -buff(SB.Vanishbuff) then 
-			return cast(SB.Ambush, 'target')
-			end
-		end
 
 		
 	if (Hook == "shift" and modifier.shift) or (Hook == "control" and modifier.control) or (Hook == "alt" and modifier.alt) and castable(SB.Hook) then
@@ -1644,8 +1636,14 @@ local settings = {
 							{ key = 'shift', text = 'SHIFT' },
 							{ key = 'disabled', text = 'disabled' },		
 					    } },
-		
-		
+			{ key = 'focused', type = 'dropdown', text = 'Focused Azerite Beam', desc = 'On key.', default = 'control',
+				list = {
+							{ key = 'control', text = 'CTRL' },
+							{ key = 'alt', text = 'ALT' },
+							{ key = 'shift', text = 'SHIFT' },
+							{ key = 'disabled', text = 'disabled' },		
+					    } },
+				
 					    { type = 'rule' },
 						{ type = 'header', text = "Save Ur Ass!" ,		align = 'CENTER',},
 			{ key = 'Feint', type = 'spinner', text = 'Auto Feint', desc = 'On HP %', default = 40, min = 1, max = 100, step = 1 }, 
@@ -1763,21 +1761,7 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
     }
   })
 
-     dark_addon.interface.buttons.add_toggle({
-     name = 'VanishAmbush',
-    label = 'Vanish -> Ambush, auto ambush Tar. P.s Manual vanish.',
-    font = 'dark_addon_icon',
-    on = {
-      label = dark_addon.interface.icon('toggle-on'),
-            color = dark_addon.interface.color.green,
-            color2 = dark_addon.interface.color.green
-    },
-    off = {
-      label = dark_addon.interface.icon('toggle-off'),
-      color = dark_addon.interface.color.yellow,
-      color2 = dark_addon.interface.color.orange
-    }
-  })
+  
   
   dark_addon.interface.buttons.add_toggle({
         name = 'dispel',
