@@ -29,6 +29,16 @@
 		Dispel adds: /fd toggle dispel
 		Opener: /fd toggle Opener
 
+- Some macro for OutLaw:
+
+		PVP Kick: /fd toggle interrupts 
+		PVE Kick: /fd toggle KickALL
+		Cooldowns: /fd toggle cooldowns
+		Dispel with cloak: /fd toggle dispel
+		PvP Trinket.: /fd toggle TrinkIt
+
+
+
 # Api stuff Down Below
 #### [Environment](#Environment)
 #### [Interface](#Interface)
