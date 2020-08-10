@@ -36,6 +36,11 @@
 		Cooldowns: /fd toggle cooldowns
 		Dispel with cloak: /fd toggle dispel
 		PvP Trinket.: /fd toggle TrinkIt
+		Opener: /fd toggle Opener
+		Auto-Stealth: /fd toggle use_stealth
+		Vanish -> AmbushTaret: /fd toggle VanishAmbush
+		P.s Click on vanish manually.
+		
 
 
 
