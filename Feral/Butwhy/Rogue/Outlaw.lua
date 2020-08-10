@@ -194,22 +194,12 @@ local function combat()
     local healthstonepercent = dark_addon.settings.fetch("KiraFeral_settings_healthstone.spin", 25)		
 	local intpercentlow = dark_addon.settings.fetch('KiraFeral_settings_intpercentlow',10)
 	local intpercenthigh = dark_addon.settings.fetch('KiraFeral_settings_intpercenthigh',65)		
-    local TrickTarget = dark_addon.settings.fetch("KiraFeral_settings_AutoTricks", "")
 	local Distract = dark_addon.settings.fetch("KiraFeral_settings_Distract")		
 	local usetrinkets = dark_addon.settings.fetch('KiraFeral_settings_usetrinkets', true)
     local Trinket13 = GetInventoryItemID("player", 13)
     local Trinket14 = GetInventoryItemID("player", 14)
 	
-  if toggle("AutoTricks", false) and IsInGroup() and -spell(SB.TricksOfTheTrade) == 0 and target.alive and player.alive and   target.enemy then
-    local iTarget = dark_addon.environment.conditions.unit(findTank(TrickTarget))
-    if iTarget.unitID ~= "player" and iTarget.distance <= 45 then
-      print("AutoTricks on " .. iTarget.name)
-      return cast(SB.TricksOfTheTrade, iTarget)
-    elseif iTarget.unitID == "player" then
-      print("INVALID TRICKTARGET NAME")
-    end
-  end		
-		
+
 		
  if toggle('interrupts', false) then
 	if Kick0 == true then
@@ -1516,41 +1506,6 @@ end
 
 
 
-local function GroupType()
-  return IsInRaid() and "raid" or IsInGroup() and "party" or "solo"
-end
-local function findTank(name)
-  local members = GetNumGroupMembers()
-  local group_type = GroupType()
-
-  if group_type ~= "solo" then
-    if name ~= nil and name ~= "" then
-      for i = 1, (members - 1) do
-        local unit = group_type .. i
-        local unitName, _ = UnitName(unit)
-        if unitName == name then
-          return unit
-        end
-      end
-    end
-
-    for i = 1, (members - 1) do
-      local unit = group_type .. i
-
-      if
-        (UnitGroupRolesAssigned(unit) == "TANK") and not UnitCanAttack("player", unit) and not UnitIsDeadOrGhost(unit)
-       then
-        return unit
-      end
-    end
-  end
-
-  return "player"
-end
-
-
-
-
 function interface()
 
 local settings = {
@@ -1581,7 +1536,6 @@ local settings = {
 		    { type = 'rule' },
 		    { type = 'header', text = "Usefull stuff.",		align = 'CENTER', },
 			{ key = 'usetrinkets', type = 'checkbox', text = 'Auto Trinkets', desc = 'If u had ofc.', default = true },
-			{key = "AutoTricks", type = "input", default = "", text = "Auto-Tricks on tank, or nickname.", desc = ""},
 			{ key = 'Distract', type = 'dropdown', text = 'Distract', desc = 'Distract on mouseover.', default = 'control',
 				list = {
 							{ key = 'control', text = 'CTRL' },
