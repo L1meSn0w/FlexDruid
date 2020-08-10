@@ -196,7 +196,10 @@ local function combat()
 	local intpercenthigh = dark_addon.settings.fetch('KiraFeral_settings_intpercenthigh',65)		
     local TrickTarget = dark_addon.settings.fetch("KiraFeral_settings_AutoTricks", "")
 	local Distract = dark_addon.settings.fetch("KiraFeral_settings_Distract")		
-
+	local usetrinkets = dark_addon.settings.fetch('KiraFeral_settings_usetrinkets', true)
+    local Trinket13 = GetInventoryItemID("player", 13)
+    local Trinket14 = GetInventoryItemID("player", 14)
+	
   if toggle("AutoTricks", false) and IsInGroup() and -spell(SB.TricksOfTheTrade) == 0 and target.alive and player.alive and   target.enemy then
     local iTarget = dark_addon.environment.conditions.unit(findTank(TrickTarget))
     if iTarget.unitID ~= "player" and iTarget.distance <= 45 then
@@ -1118,7 +1121,14 @@ end
 			  if castable(SB.BetweentheEyes) and player.power.combopoints.actual >= 4  and player.buff(SB.Ruthlessprecision) then 
 				return cast(SB.BetweentheEyes, 'target')
 			  end
-
+			  if usetrinkets and target.alive and target.enemy and player.alive then
+				if GetItemCooldown(Trinket13) == 0 then
+				  macro('/use 13')
+				end
+				if GetItemCooldown(Trinket14) == 0 then
+				  macro('/use 14')
+				end
+			  end
 				if castable(SB.Dispatch) and player.power.combopoints.actual >= 5 then 
 				return cast(SB.Dispatch, 'target')
 			  end
@@ -1570,6 +1580,7 @@ local settings = {
             { key = 'intpercenthigh', type = 'spinner', text = 'intpercenthigh %', default = '65', desc = '', min = 51, max = 100, step = 1 },
 		    { type = 'rule' },
 		    { type = 'header', text = "Usefull stuff.",		align = 'CENTER', },
+			{ key = 'usetrinkets', type = 'checkbox', text = 'Auto Trinkets', desc = 'If u had ofc.', default = true },
 			{key = "AutoTricks", type = "input", default = "", text = "Auto-Tricks on tank, or nickname.", desc = ""},
 			{ key = 'Distract', type = 'dropdown', text = 'Distract', desc = 'Distract on mouseover.', default = 'control',
 				list = {
