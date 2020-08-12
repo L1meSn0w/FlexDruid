@@ -236,6 +236,8 @@ setfenv(RolltheBones, dark_addon.environment.env)
 
 
 local function combat()
+  if GroupType() then  end
+  if findTank() then end
   if target.alive and target.enemy and player.alive and not player.channeling() then
 	local Kick0 = dark_addon.settings.fetch('KiraFeral_settings2_Kick0', true)
 	local Kick1 = dark_addon.settings.fetch('KiraFeral_settings2_Kick1', true)
@@ -317,7 +319,7 @@ local function combat()
  	local Trink24 = dark_addon.settings.fetch('KiraFeral_settings5_Trink24', true)
 	local Hook = dark_addon.settings.fetch("KiraFeral_settings_Hook")
 	local Feint = dark_addon.settings.fetch("KiraFeral_settings_Feint", 40)
-	local CrimsonVile = dark_addon.settings.fetch("KiraFeral_settings_CrimsonVile", 35)
+	-- local CrimsonVile = dark_addon.settings.fetch("KiraFeral_settings_CrimsonVile", 35)
 	local usehealthstone = dark_addon.settings.fetch("KiraFeral_settings_healthstone.check", true)
     local healthstonepercent = dark_addon.settings.fetch("KiraFeral_settings_healthstone.spin", 25)		
 	local intpercentlow = dark_addon.settings.fetch('KiraFeral_settings_intpercentlow',10)
@@ -328,9 +330,311 @@ local function combat()
     local Trinket14 = GetInventoryItemID("player", 14)
 	  local rip = dark_addon.settings.fetch('KiraFeral_settings_rip.check', true)
 	  local rippercent = dark_addon.settings.fetch('KiraFeral_settings_rip.spin', 60)
+	  
+	  	  local Cloak = dark_addon.settings.fetch('KiraFeral_settings_Cloak.check', true)
+	  local Cloakpercent = dark_addon.settings.fetch('KiraFeral_settings_Cloak.spin', 60)
+	  
+	  
+	  local healka = dark_addon.settings.fetch('KiraFeral_settings_healka.check', true)
+	  local healkapercent = dark_addon.settings.fetch('KiraFeral_settings_healka.spin', 60)
 	  local enemyCount = enemies.around(8)
 	  if enemyCount == 0 then enemyCount = 1 end  
 
+
+  local intpercent = math.random(intpercentlow,intpercenthigh)
+         
+	
+	if toggle("KickALL", false) and castable(SB.Kick, 'target') and -spell(SB.Kick) == 0 and target.interrupt(intpercent, false) then
+    --  print('Kicked' .. intpercent)
+      return cast(SB.Kick, 'target')
+    end
+	if toggle("KickALL", false) and castable(SB.Blind, 'target') and -spell(SB.Kick) > 0 and -spell(SB.Blind) == 0 and target.interrupt(intpercent, false) then
+      --  print('Kicked' .. intpercent)
+        return cast(SB.Blind, 'target')
+    end
+
+   local cloakme = player.removable("disease", "magic", "poison")
+  if cloakme and -player.health <= Cloakpercent and Cloak then
+    return cast(SB.CloakofShadows)
+  end	
+  
+
+   if castable(SB.CrimsonVial) and -spell(SB.CrimsonVial) == 0 and -player.health <= healkapercent and healka then
+    return cast(SB.CrimsonVial, 'player')
+  end
+  
+ if castable(SB.Riposte) and -spell(SB.Riposte) == 0 and -player.health <= rippercent and rip then
+    return cast(SB.Riposte, 'player')
+  end
+  
+  if target.enemy and target.alive and target.distance < 8 then
+    auto_attack()
+  end
+
+	if castable(SB.BladeFlurry) and -spell(SB.BladeFlurry) == 0 and enemyCount >= 2 then
+    return cast(SB.BladeFlurry, 'target')
+  end
+   if RolltheBones() then return end
+
+	  if castable(SB.GhostlyStrike) and -spell(SB.GhostlyStrike) == 0 and player.power.combopoints.actual <= 4 and talent(1,3) then
+    return cast(SB.GhostlyStrike, 'target')
+  end
+  
+    if castable(SB.BladeRush) and -spell(SB.BladeRush) == 0 and talent(7,2) and player.buff(SB.AdrenalineRush).down then
+    return cast(SB.BladeRush, 'target')
+  end
+  
+  
+  if castable(SB.KillingSpree) and -spell(SB.KillingSpree) == 0 and talent(7,3) then
+    return cast(SB.KillingSpree, 'target')
+  end       
+  
+   if castable(SB.AdrenalineRush) and -spell(SB.AdrenalineRush) == 0 and toggle('cooldowns', false) then
+    return cast(SB.AdrenalineRush, 'target')
+  end
+  if toggle('cooldowns', false) and castable(SB.MarkedforDeath) and -spell(SB.MarkedforDeath) == 0 and player.power.combopoints.actual <= 1 and talent(3,3) then
+    return cast(SB.MarkedforDeath, 'target')
+  end
+			
+  if castable(SB.BetweentheEyes) and -spell(SB.BetweentheEyes) == 0 and player.power.combopoints.actual >= 4 
+  and (player.buff(SB.RuthlessPrecision).up or aceupyoursleevetrait or deadshottrait) then
+    return cast(SB.BetweentheEyes, 'target')
+  end
+  
+    if castable(SB.Dispatch) and -spell(SB.Dispatch) == 0 and player.power.combopoints.actual >= 4 then
+    return cast(SB.Dispatch, 'target')
+  end
+  
+    if castable(SB.PistolShot) and -spell(SB.PistolShot) == 0 and player.buff(SB.Opportunity).up 
+  and (player.power.combopoints.actual <= 3 or (player.power.combopoints.actual <= 2 and talent(1,1))) then
+    return cast(SB.PistolShot, 'target')
+  end
+    if castable(SB.SinisterStrike) and -spell(SB.SinisterStrike) == 0 then
+    return cast(SB.SinisterStrike, 'target')
+  end    
+
+    if castable(SB.SinisterStrike) and -spell(SB.SinisterStrike) == 0 then
+    return cast(SB.SinisterStrike, 'target')
+  end    
+  
+      if dark_addon.settings.fetch('KiraFeral_settings_Tricks') == true then
+        local iTarget = dark_addon.environment.conditions.unit(findTank())
+        if iTarget.unitID ~= "player" and SB.TricksOfTheTrade == 0 and player.buff(SB.Stealth).up then
+            print("Tricks on " .. iTarget.name)
+            return cast(SB.TricksOfTheTrade, iTarget)
+        end
+    end
+
+
+--Essence start
+   	local delay = 0
+   
+   --burst essences
+
+	--1
+
+    if toggle("cooldowns", false) and castable(SB.GuardianofAzeroth1) and -spell(SB.GuardianofAzeroth1) == 0 then
+    return cast(SB.GuardianofAzeroth1, 'target')
+    end 
+	    if toggle("cooldowns", false) and castable(SB.GuardianofAzeroth2) and -spell(SB.GuardianofAzeroth2) == 0 then
+        return cast(SB.GuardianofAzeroth2, 'target')
+		end 
+		    if toggle("cooldowns", false) and castable(SB.GuardianofAzeroth3) and -spell(SB.GuardianofAzeroth3) == 0 then
+			return cast(SB.GuardianofAzeroth3, 'target')
+			end 
+	
+	--2
+	
+    if toggle("cooldowns", false) and castable(SB.MemoryofLucidDreams1) and -spell(SB.MemoryofLucidDreams1) == 0 then
+    return cast(SB.MemoryofLucidDreams1, 'target')
+    end 
+	    if toggle("cooldowns", false) and castable(SB.MemoryofLucidDreams2) and -spell(SB.MemoryofLucidDreams2) == 0 then
+        return cast(SB.MemoryofLucidDreams2, 'target')
+		end 
+		    if toggle("cooldowns", false) and castable(SB.MemoryofLucidDreams3) and -spell(SB.MemoryofLucidDreams3) == 0 then
+			return cast(SB.MemoryofLucidDreams3, 'target')
+			end 
+
+	--3 uncomment to cast (req. 8.3.0+ patch)
+		-- if delay < GetTime() then
+	-- if toggle("cooldowns", false) and castable(SB.MomentofGlory1) then
+    -- return cast(SB.MomentofGlory1, 'player')
+    -- end 
+	    -- if toggle("cooldowns", false) and castable(SB.MomentofGlory2) and -spell(SB.MomentofGlory2) == 0 then
+        -- return cast(SB.MomentofGlory2, 'target')
+		-- end 
+		    -- if toggle("cooldowns", false) and castable(SB.MomentofGlory3) and -spell(SB.MomentofGlory3) == 0 then
+			-- return cast(SB.MomentofGlory3, 'target')
+			-- end 
+		-- delay = GetTime() + 1.5
+	-- end	
+			
+	--4
+	
+    if toggle("cooldowns", false) and castable(SB.WorldveinResonance1) and -spell(SB.WorldveinResonance1) == 0 then
+    return cast(SB.WorldveinResonance1, 'target')
+    end 
+	    if toggle("cooldowns", false) and castable(SB.WorldveinResonance2) and -spell(SB.WorldveinResonance2) == 0 then
+        return cast(SB.WorldveinResonance2, 'target')
+		end 
+		    if toggle("cooldowns", false) and castable(SB.WorldveinResonance3) and -spell(SB.WorldveinResonance3) == 0 then
+			return cast(SB.WorldveinResonance3, 'target')
+			end 
+
+	
+	
+	
+	--damage essences
+	
+	
+	
+	--1 
+	
+	 if castable(SB.AnimaofDeath1) and -spell(SB.AnimaofDeath1) == 0 then
+        return cast(SB.AnimaofDeath1, 'target')
+    end
+			 if castable(SB.AnimaofDeath2) and -spell(SB.AnimaofDeath2) == 0 then
+        return cast(SB.AnimaofDeath2, 'target')
+    end
+				 if castable(SB.AnimaofDeath3) and -spell(SB.AnimaofDeath3) == 0 then
+        return cast(SB.AnimaofDeath3, 'target')
+    end
+	
+	--2 
+	
+	 if castable(SB.BloodoftheEnemy1) and -spell(SB.BloodoftheEnemy1) == 0 then
+        return cast(SB.BloodoftheEnemy1, 'target')
+    end
+			 if castable(SB.BloodoftheEnemy2) and -spell(SB.BloodoftheEnemy2) == 0 then
+        return cast(SB.BloodoftheEnemy2, 'target')
+    end
+				 if castable(SB.BloodoftheEnemy3) and -spell(SB.BloodoftheEnemy3) == 0 then
+        return cast(SB.BloodoftheEnemy3, 'target')
+    end
+	
+		
+	--3  uncomment to cast (req. 8.3.0+ patch)
+	
+	 -- if castable(SB.ReapingFlames1) and -spell(SB.ReapingFlames1) == 0 then
+        -- return cast(SB.ReapingFlames1, 'target')
+    -- end
+			 -- if castable(SB.ReapingFlames2) and -spell(SB.ReapingFlames2) == 0 then
+        -- return cast(SB.ReapingFlames2, 'target')
+    -- end
+				 -- if castable(SB.ReapingFlames3) and -spell(SB.ReapingFlames3) == 0 then
+        -- return cast(SB.ReapingFlames3, 'target')
+    -- end
+	
+	--4
+	
+	
+local focused = dark_addon.settings.fetch("KiraFeral_settings_focused")
+	if delay < GetTime() then	
+
+if (focused == "shift" and modifier.shift) or (focused == "control" and modifier.control) or (focused == "alt" and modifier.alt) then 
+
+if castable(SB.FocusedAzeriteBeam1) or castable(SB.FocusedAzeriteBeam2) or castable(SB.FocusedAzeriteBeam3) then
+	return cast(SB.FocusedAzeriteBeam1, 'ground') or cast(SB.FocusedAzeriteBeam2, 'ground') or cast(SB.FocusedAzeriteBeam3, 'ground')
+	end	
+end	
+ delay = GetTime() + 1.4
+end
+
+	-- if delay < GetTime() then
+	 -- if castable(SB.FocusedAzeriteBeam1) and -spell(SB.FocusedAzeriteBeam1) == 0 then
+        -- return cast(SB.FocusedAzeriteBeam1, 'target')
+    -- end
+			 -- if castable(SB.FocusedAzeriteBeam2) and -spell(SB.FocusedAzeriteBeam2) == 0 then
+        -- return cast(SB.FocusedAzeriteBeam2, 'target')
+    -- end
+				 -- if castable(SB.FocusedAzeriteBeam3) and -spell(SB.FocusedAzeriteBeam3) == 0 then
+        -- return cast(SB.FocusedAzeriteBeam3, 'target')
+    -- end
+	 -- delay = GetTime() + 1.4
+-- end	
+	--5
+	
+	 if castable(SB.PurifyingBlast1) and -spell(SB.PurifyingBlast1) == 0 then
+        return cast(SB.PurifyingBlast1, 'target')
+    end
+			 if castable(SB.PurifyingBlast2) and -spell(SB.PurifyingBlast2) == 0 then
+        return cast(SB.PurifyingBlast2, 'target')
+    end
+				 if castable(SB.PurifyingBlast3) and -spell(SB.PurifyingBlast3) == 0 then
+        return cast(SB.PurifyingBlast3, 'target')
+    end
+	
+	--6
+	
+	 if castable(SB.ConcentratedFlame1) and -spell(SB.ConcentratedFlame1) == 0 then
+        return cast(SB.ConcentratedFlame1, 'target')
+    end
+			 if castable(SB.ConcentratedFlame2) and -spell(SB.ConcentratedFlame2) == 0 then
+        return cast(SB.ConcentratedFlame2, 'target')
+    end
+				 if castable(SB.ConcentratedFlame3) and -spell(SB.ConcentratedFlame3) == 0 then
+        return cast(SB.ConcentratedFlame3, 'target')
+    end
+	
+	--7
+			
+	 if castable(SB.TheUnboundForce1) and -spell(SB.TheUnboundForce1) == 0 then
+        return cast(SB.TheUnboundForce1, 'target')
+    end
+			 if castable(SB.TheUnboundForce2) and -spell(SB.TheUnboundForce2) == 0 then
+        return cast(SB.TheUnboundForce2, 'target')
+    end
+				 if castable(SB.TheUnboundForce3) and -spell(SB.TheUnboundForce3) == 0 then
+        return cast(SB.TheUnboundForce3, 'target')
+    end
+	
+		
+	
+	-- end essences 
+
+			  
+			if talent(6, 3) and castable(SB.SliceAndDice) and -player.buff(SB.SliceAndDice).down and player.power.combopoints.actual >= 4  then
+			return cast(SB.SliceAndDice)
+			end
+
+			  if usetrinkets and target.alive and target.enemy and player.alive then
+				if GetItemCooldown(Trinket13) == 0 then
+				  macro('/use 13')
+				end
+				if GetItemCooldown(Trinket14) == 0 then
+				  macro('/use 14')
+				end
+			  end
+
+
+
+				
+-- if had target end
+		
+	if (Hook == "shift" and modifier.shift) or (Hook == "control" and modifier.control) or (Hook == "alt" and modifier.alt) and castable(SB.Hook) then
+      return cast(SB.Hook)
+	end	
+	
+   -- if CrimsonVile and -player.health <= CrimsonVile then
+        -- return cast(SB.CrimsonVial)
+      -- end
+		if Feint and talent(4,3) and -player.health <= Feint then
+        return cast(SB.Feint)
+		end
+	
+	if usehealthstone == true and player.health.percent < healthstonepercent and GetItemCount(5512) >= 1 and GetItemCooldown(5512) == 0 then
+		macro("/use Healthstone") -- переименую камень лока.
+    end	
+		
+	if (Distract == "shift" and modifier.shift) or (Distract == "control" and modifier.control) or (Distract == "alt" and modifier.alt) and castable(SB.Distract)  then
+      return cast(SB.Distract, 'ground')
+	end	
+	
+        if not player.channeling() and dark_addon.settings.fetch('KiraFeral_settings_autosprint') == true and castable(SB.Sprint) then
+            return cast(SB.Sprint)
+        end
+
+end -- combat end
  if toggle('interrupts', false) then
 	if Kick0 == true then
         if target.castable(SB.Kick) then
@@ -977,271 +1281,6 @@ local function combat()
 	end		
 end
 
-  local intpercent = math.random(intpercentlow,intpercenthigh)
-         
-	
-	if toggle("KickALL", false) and castable(SB.Kick, 'target') and -spell(SB.Kick) == 0 and target.interrupt(intpercent, false) then
-    --  print('Kicked' .. intpercent)
-      return cast(SB.Kick, 'target')
-    end
-	if toggle("KickALL", false) and castable(SB.Blind, 'target') and -spell(SB.Kick) > 0 and -spell(SB.Blind) == 0 and target.interrupt(intpercent, false) then
-      --  print('Kicked' .. intpercent)
-        return cast(SB.Blind, 'target')
-    end
-	local dispellable_unit = player.removable('disease', 'magic', 'poison') 
-  if toggle("dispel", false) then
-  if castable(SB.CloakofShadows) and -spell(SB.CloakofShadows) == 0 and dispellable_unit then
-    return cast(SB.CloakofShadows, 'player')
-  end
-  end 
-  
- if castable(SB.Riposte) and -spell(SB.Riposte) == 0 and -player.health <= rippercent and rip then
-    return cast(SB.Riposte, 'player')
-  end
-  if target.enemy and target.alive and target.distance < 8 then
-    auto_attack()
-  end
-
-	if castable(SB.BladeFlurry) and -spell(SB.BladeFlurry) == 0 and enemyCount >= 2 then
-    return cast(SB.BladeFlurry, 'target')
-  end
-   if RolltheBones() then return end
-
-	  if castable(SB.GhostlyStrike) and -spell(SB.GhostlyStrike) == 0 and player.power.combopoints.actual <= 4 and talent(1,3) then
-    return cast(SB.GhostlyStrike, 'target')
-  end
-  
-    if castable(SB.BladeRush) and -spell(SB.BladeRush) == 0 and talent(7,2) and player.buff(SB.AdrenalineRush).down then
-    return cast(SB.BladeRush, 'target')
-  end
-  
-  
-  if castable(SB.KillingSpree) and -spell(SB.KillingSpree) == 0 and talent(7,3) then
-    return cast(SB.KillingSpree, 'target')
-  end       
-  
-   if castable(SB.AdrenalineRush) and -spell(SB.AdrenalineRush) == 0 and toggle('cooldowns', false) then
-    return cast(SB.AdrenalineRush, 'target')
-  end
-  if toggle('cooldowns', false) and castable(SB.MarkedforDeath) and -spell(SB.MarkedforDeath) == 0 and player.power.combopoints.actual <= 1 and talent(3,3) then
-    return cast(SB.MarkedforDeath, 'target')
-  end
-			
-  if castable(SB.BetweentheEyes) and -spell(SB.BetweentheEyes) == 0 and player.power.combopoints.actual >= 4 
-  and (player.buff(SB.RuthlessPrecision).up or aceupyoursleevetrait or deadshottrait) then
-    return cast(SB.BetweentheEyes, 'target')
-  end
-  
-    if castable(SB.Dispatch) and -spell(SB.Dispatch) == 0 and player.power.combopoints.actual >= 4 then
-    return cast(SB.Dispatch, 'target')
-  end
-  
-    if castable(SB.PistolShot) and -spell(SB.PistolShot) == 0 and player.buff(SB.Opportunity).up 
-  and (player.power.combopoints.actual <= 3 or (player.power.combopoints.actual <= 2 and talent(1,1))) then
-    return cast(SB.PistolShot, 'target')
-  end
-    if castable(SB.SinisterStrike) and -spell(SB.SinisterStrike) == 0 then
-    return cast(SB.SinisterStrike, 'target')
-  end    
-
-    if castable(SB.SinisterStrike) and -spell(SB.SinisterStrike) == 0 then
-    return cast(SB.SinisterStrike, 'target')
-  end    
-  
-      if dark_addon.settings.fetch('KiraFeral_settings_Tricks') == true then
-        local iTarget = dark_addon.environment.conditions.unit(findTank())
-        if iTarget.unitID ~= "player" and SB.TricksOfTheTrade == 0 and player.buff(SB.Stealth).up then
-            print("Tricks on " .. iTarget.name)
-            return cast(SB.TricksOfTheTrade, iTarget)
-        end
-    end
-
-
---Essence start
-   	local delay = 0
-   
-   --burst essences
-
-	--1
-
-    if toggle("cooldowns", false) and castable(SB.GuardianofAzeroth1) and -spell(SB.GuardianofAzeroth1) == 0 then
-    return cast(SB.GuardianofAzeroth1, 'target')
-    end 
-	    if toggle("cooldowns", false) and castable(SB.GuardianofAzeroth2) and -spell(SB.GuardianofAzeroth2) == 0 then
-        return cast(SB.GuardianofAzeroth2, 'target')
-		end 
-		    if toggle("cooldowns", false) and castable(SB.GuardianofAzeroth3) and -spell(SB.GuardianofAzeroth3) == 0 then
-			return cast(SB.GuardianofAzeroth3, 'target')
-			end 
-	
-	--2
-	
-    if toggle("cooldowns", false) and castable(SB.MemoryofLucidDreams1) and -spell(SB.MemoryofLucidDreams1) == 0 then
-    return cast(SB.MemoryofLucidDreams1, 'target')
-    end 
-	    if toggle("cooldowns", false) and castable(SB.MemoryofLucidDreams2) and -spell(SB.MemoryofLucidDreams2) == 0 then
-        return cast(SB.MemoryofLucidDreams2, 'target')
-		end 
-		    if toggle("cooldowns", false) and castable(SB.MemoryofLucidDreams3) and -spell(SB.MemoryofLucidDreams3) == 0 then
-			return cast(SB.MemoryofLucidDreams3, 'target')
-			end 
-
-	--3 uncomment to cast (req. 8.3.0+ patch)
-		-- if delay < GetTime() then
-	-- if toggle("cooldowns", false) and castable(SB.MomentofGlory1) then
-    -- return cast(SB.MomentofGlory1, 'player')
-    -- end 
-	    -- if toggle("cooldowns", false) and castable(SB.MomentofGlory2) and -spell(SB.MomentofGlory2) == 0 then
-        -- return cast(SB.MomentofGlory2, 'target')
-		-- end 
-		    -- if toggle("cooldowns", false) and castable(SB.MomentofGlory3) and -spell(SB.MomentofGlory3) == 0 then
-			-- return cast(SB.MomentofGlory3, 'target')
-			-- end 
-		-- delay = GetTime() + 1.5
-	-- end	
-			
-	--4
-	
-    if toggle("cooldowns", false) and castable(SB.WorldveinResonance1) and -spell(SB.WorldveinResonance1) == 0 then
-    return cast(SB.WorldveinResonance1, 'target')
-    end 
-	    if toggle("cooldowns", false) and castable(SB.WorldveinResonance2) and -spell(SB.WorldveinResonance2) == 0 then
-        return cast(SB.WorldveinResonance2, 'target')
-		end 
-		    if toggle("cooldowns", false) and castable(SB.WorldveinResonance3) and -spell(SB.WorldveinResonance3) == 0 then
-			return cast(SB.WorldveinResonance3, 'target')
-			end 
-
-	
-	
-	
-	--damage essences
-	
-	
-	
-	--1 
-	
-	 if castable(SB.AnimaofDeath1) and -spell(SB.AnimaofDeath1) == 0 then
-        return cast(SB.AnimaofDeath1, 'target')
-    end
-			 if castable(SB.AnimaofDeath2) and -spell(SB.AnimaofDeath2) == 0 then
-        return cast(SB.AnimaofDeath2, 'target')
-    end
-				 if castable(SB.AnimaofDeath3) and -spell(SB.AnimaofDeath3) == 0 then
-        return cast(SB.AnimaofDeath3, 'target')
-    end
-	
-	--2 
-	
-	 if castable(SB.BloodoftheEnemy1) and -spell(SB.BloodoftheEnemy1) == 0 then
-        return cast(SB.BloodoftheEnemy1, 'target')
-    end
-			 if castable(SB.BloodoftheEnemy2) and -spell(SB.BloodoftheEnemy2) == 0 then
-        return cast(SB.BloodoftheEnemy2, 'target')
-    end
-				 if castable(SB.BloodoftheEnemy3) and -spell(SB.BloodoftheEnemy3) == 0 then
-        return cast(SB.BloodoftheEnemy3, 'target')
-    end
-	
-		
-	--3  uncomment to cast (req. 8.3.0+ patch)
-	
-	 -- if castable(SB.ReapingFlames1) and -spell(SB.ReapingFlames1) == 0 then
-        -- return cast(SB.ReapingFlames1, 'target')
-    -- end
-			 -- if castable(SB.ReapingFlames2) and -spell(SB.ReapingFlames2) == 0 then
-        -- return cast(SB.ReapingFlames2, 'target')
-    -- end
-				 -- if castable(SB.ReapingFlames3) and -spell(SB.ReapingFlames3) == 0 then
-        -- return cast(SB.ReapingFlames3, 'target')
-    -- end
-	
-	--4
-	
-	
-local focused = dark_addon.settings.fetch("KiraFeral_settings_focused")
-	if delay < GetTime() then	
-
-if (focused == "shift" and modifier.shift) or (focused == "control" and modifier.control) or (focused == "alt" and modifier.alt) then 
-
-if castable(SB.FocusedAzeriteBeam1) or castable(SB.FocusedAzeriteBeam2) or castable(SB.FocusedAzeriteBeam3) then
-	return cast(SB.FocusedAzeriteBeam1, 'ground') or cast(SB.FocusedAzeriteBeam2, 'ground') or cast(SB.FocusedAzeriteBeam3, 'ground')
-	end	
-end	
- delay = GetTime() + 1.4
-end
-
-	-- if delay < GetTime() then
-	 -- if castable(SB.FocusedAzeriteBeam1) and -spell(SB.FocusedAzeriteBeam1) == 0 then
-        -- return cast(SB.FocusedAzeriteBeam1, 'target')
-    -- end
-			 -- if castable(SB.FocusedAzeriteBeam2) and -spell(SB.FocusedAzeriteBeam2) == 0 then
-        -- return cast(SB.FocusedAzeriteBeam2, 'target')
-    -- end
-				 -- if castable(SB.FocusedAzeriteBeam3) and -spell(SB.FocusedAzeriteBeam3) == 0 then
-        -- return cast(SB.FocusedAzeriteBeam3, 'target')
-    -- end
-	 -- delay = GetTime() + 1.4
--- end	
-	--5
-	
-	 if castable(SB.PurifyingBlast1) and -spell(SB.PurifyingBlast1) == 0 then
-        return cast(SB.PurifyingBlast1, 'target')
-    end
-			 if castable(SB.PurifyingBlast2) and -spell(SB.PurifyingBlast2) == 0 then
-        return cast(SB.PurifyingBlast2, 'target')
-    end
-				 if castable(SB.PurifyingBlast3) and -spell(SB.PurifyingBlast3) == 0 then
-        return cast(SB.PurifyingBlast3, 'target')
-    end
-	
-	--6
-	
-	 if castable(SB.ConcentratedFlame1) and -spell(SB.ConcentratedFlame1) == 0 then
-        return cast(SB.ConcentratedFlame1, 'target')
-    end
-			 if castable(SB.ConcentratedFlame2) and -spell(SB.ConcentratedFlame2) == 0 then
-        return cast(SB.ConcentratedFlame2, 'target')
-    end
-				 if castable(SB.ConcentratedFlame3) and -spell(SB.ConcentratedFlame3) == 0 then
-        return cast(SB.ConcentratedFlame3, 'target')
-    end
-	
-	--7
-			
-	 if castable(SB.TheUnboundForce1) and -spell(SB.TheUnboundForce1) == 0 then
-        return cast(SB.TheUnboundForce1, 'target')
-    end
-			 if castable(SB.TheUnboundForce2) and -spell(SB.TheUnboundForce2) == 0 then
-        return cast(SB.TheUnboundForce2, 'target')
-    end
-				 if castable(SB.TheUnboundForce3) and -spell(SB.TheUnboundForce3) == 0 then
-        return cast(SB.TheUnboundForce3, 'target')
-    end
-	
-		
-	
-	-- end essences 
-
-			  
-			if talent(6, 3) and castable(SB.SliceAndDice) and -player.buff(SB.SliceAndDice).down and player.power.combopoints.actual >= 4  then
-			return cast(SB.SliceAndDice)
-			end
-
-			  if usetrinkets and target.alive and target.enemy and player.alive then
-				if GetItemCooldown(Trinket13) == 0 then
-				  macro('/use 13')
-				end
-				if GetItemCooldown(Trinket14) == 0 then
-				  macro('/use 14')
-				end
-			  end
-
-
-
-				
--- if had target end
-
 
  if toggle("TrinkIt", false) then
 
@@ -1512,33 +1551,8 @@ if Trink1 == true then
 	end
 
 end
-		
-	if (Hook == "shift" and modifier.shift) or (Hook == "control" and modifier.control) or (Hook == "alt" and modifier.alt) and castable(SB.Hook) then
-      return cast(SB.Hook)
-	end	
 
-		if Feint and talent(4,3) and -player.health <= Feint then
-        return cast(SB.Feint)
-		end
-
-			 if CrimsonVile and -player.health <= CrimsonVile and -spell(SB.CrimsonVile) == 0 then 
-				return cast(SB.CrimsonVile) 
-			  end
-	
-	if usehealthstone == true and player.health.percent < healthstonepercent and GetItemCount(5512) >= 1 and GetItemCooldown(5512) == 0 then
-		macro("/use Healthstone") -- переименую камень лока.
-    end	
-		
-	if (Distract == "shift" and modifier.shift) or (Distract == "control" and modifier.control) or (Distract == "alt" and modifier.alt) and castable(SB.Distract)  then
-      return cast(SB.Distract, 'ground')
-	end	
-	
-        if not player.channeling() and dark_addon.settings.fetch('KiraFeral_settings_autosprint') == true and castable(SB.Sprint) then
-            return cast(SB.Sprint)
-        end
-end	
-end -- combat end
-
+end
 
 local function resting()
   	local Feint = dark_addon.settings.fetch("KiraFeral_settings_Feint", 40)
@@ -1552,13 +1566,16 @@ local function resting()
          if not player.channeling() and dark_addon.settings.fetch('KiraFeral_settings_autosprint') == true and castable(SB.Sprint) then
             return cast(SB.Sprint)
         end
-  if not -buff(SB.Stealth) and toggle('use_stealth', false) and player.moving then 
+  if not -buff(SB.Stealth) and toggle('use_stealth', false) and player.moving and player.alive then 
     return cast(SB.Stealth)
   end
 
   if  toggle('Opener', false) and  target.distance <= 8 and castable(SB.Ambush) and -buff(SB.Stealth) and target.enemy then
     return cast(SB.Ambush, 'target')
   end
+		if Feint and talent(4,3) and -player.health <= Feint then
+        return cast(SB.Feint)
+		end
 
 end
 
@@ -1577,10 +1594,6 @@ end
       return cast(SB.Distract, 'ground')
 	end	
 	
-		if Feint and talent(4,3) and -player.health <= Feint then
-        return cast(SB.Feint)
-		end
-
 local axe = CreateFrame("MessageFrame",nil,UIParent)
 axe:SetFrameStrata("BACKGROUND")
 axe:SetWidth(64)
@@ -1627,6 +1640,8 @@ local settings = {
             { key = 'autosprint', type = 'checkbox', text = 'Auto sprint', desc = '', default = false },
             { key = 'Tricks', type = 'checkbox', text = 'Auto Tricks', desc = '', default = false },
             { key = 'rip', type = 'checkspin', text = 'Riposte', desc = 'Health % to cast at', default_check = false, default_spin = 60, min = 5, max = 100, step = 1 },
+            { key = 'Cloak', type = 'checkspin', text = 'Cloak Of Shadows', desc = 'Health % to cast at', default_check = false, default_spin = 60, min = 5, max = 100, step = 1 },
+            { key = 'healka', type = 'checkspin', text = 'Crimson Vial', desc = 'Health % to cast at', default_check = false, default_spin = 60, min = 5, max = 100, step = 1 },
             { key = 'smartrtb', type = 'checkbox', text = 'Smart Roll the Bones', desc = '', default = false },
 			{ key = 'usetrinkets', type = 'checkbox', text = 'Auto Trinkets', desc = 'If u had ofc.', default = false },
 			{ key = 'Distract', type = 'dropdown', text = 'Distract', desc = 'Distract on mouseover.', default = 'control',
@@ -1647,7 +1662,7 @@ local settings = {
 					    { type = 'rule' },
 						{ type = 'header', text = "Save Ur Ass!" ,		align = 'CENTER',},
 			{ key = 'Feint', type = 'spinner', text = 'Auto Feint', desc = 'On HP %', default = 40, min = 1, max = 100, step = 1 }, 
-			{ key = 'CrimsonVile', type = 'spinner', text = 'Crimson Vile', desc = 'On HP %', default = 40, min = 1, max = 100, step = 1 },
+			-- { key = 'CrimsonVile', type = 'spinner', text = 'Crimson Vile', desc = 'On HP %', default = 40, min = 1, max = 100, step = 1 },
 			{ key = "healthstone", type = "checkspin", text = "Warlock food", desc = "On HP %", default_check = false, default_spin = 30, min = 5, max = 100, step = 1 },
  
 		    { type = 'rule' },
@@ -1760,25 +1775,6 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
       color2 = dark_addon.interface.color.orange
     }
   })
-
-  
-  
-  dark_addon.interface.buttons.add_toggle({
-        name = 'dispel',
-        label = 'Dispel Debuffs with cloak.',
-        font = 'dark_addon_icon',
-        on = {
-            label = dark_addon.interface.icon('toggle-on'),
-            color = dark_addon.interface.color.green,
-            color2 = dark_addon.interface.color.green
-        },
-        off = {
-            label = dark_addon.interface.icon('toggle-off'),
-      color = dark_addon.interface.color.yellow,
-      color2 = dark_addon.interface.color.orange
-        },
-    })
-  
   
   
  --TrinkIt
@@ -2035,6 +2031,7 @@ configWindow = dark_addon.interface.builder.buildGUI(settings)
     })
 
 end
+
 
 dark_addon.rotation.register({
   spec = dark_addon.rotation.classes.rogue.outlaw,
