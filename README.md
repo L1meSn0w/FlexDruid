@@ -30,16 +30,7 @@
 		Opener: /fd toggle Opener
 
 - Some macro for OutLaw:
-
-		PVP Kick: /fd toggle interrupts 
-		PVE Kick: /fd toggle KickALL
-		Cooldowns: /fd toggle cooldowns
-		Dispel with cloak: /fd toggle dispel
-		PvP Trinket.: /fd toggle TrinkIt
-		Opener: /fd toggle Opener
-		Auto-Stealth: /fd toggle use_stealth
-		Vanish -> AmbushTaret: /fd toggle VanishAmbush
-		P.s Click on vanish manually.
+		<Trying to make somethig working fine kekw>
 		
 
 
