@@ -1007,15 +1007,15 @@ end
 	
 	--6
 	
-	 if castable(SB.ConcentratedFlame1) and -spell(SB.ConcentratedFlame1) == 0 then
-        return cast(SB.ConcentratedFlame1, 'target')
-    end
-			 if castable(SB.ConcentratedFlame2) and -spell(SB.ConcentratedFlame2) == 0 then
-        return cast(SB.ConcentratedFlame2, 'target')
-    end
-				 if castable(SB.ConcentratedFlame3) and -spell(SB.ConcentratedFlame3) == 0 then
-        return cast(SB.ConcentratedFlame3, 'target')
-    end
+--	 if castable(SB.ConcentratedFlame1) and -spell(SB.ConcentratedFlame1) == 0 then
+ --       return cast(SB.ConcentratedFlame1, 'target')
+ --   end
+--			 if castable(SB.ConcentratedFlame2) and -spell(SB.ConcentratedFlame2) == 0 then
+  --      return cast(SB.ConcentratedFlame2, 'target')
+ --   end
+--				 if castable(SB.ConcentratedFlame3) and -spell(SB.ConcentratedFlame3) == 0 then
+  --      return cast(SB.ConcentratedFlame3, 'target')
+ --   end
 	
 	--7
 			
