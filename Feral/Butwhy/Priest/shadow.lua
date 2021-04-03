@@ -821,10 +821,10 @@
 			
 		if not talent(3,2) then 
 		if (mousedots == "shift" and modifier.shift) or (mousedots == "control" and modifier.control) or (mousedots == "alt" and modifier.alt) then 
-		if mouseover.debuff(SB.ShadowPain).down and -spell(SB.ShadowPain) == 0  then
+		if mouseover.debuff(SB.ShadowPain).down and castable(SB.ShadowPain)  then
 		PlaySound(113377)
 			 return cast(SB.ShadowPain, "mouseover")
-		else if mouseover.debuff(SB.VampiricTouch).down and -spell(SB.VampiricTouch) == 0 then
+		else if mouseover.debuff(SB.VampiricTouch).down and castable(SB.VampiricTouch) then
 		PlaySound(113377)
 		return cast(SB.VampiricTouch, "mouseover")
 	end
@@ -832,7 +832,7 @@
 	end
 		else 
 		if talent(3,2) and (mousedots == "shift" and modifier.shift) or (mousedots == "control" and modifier.control) or (mousedots == "alt" and modifier.alt) then 
-		if mouseover.debuff(SB.VampiricTouch).down or mouseover.debuff(SB.ShadowPain).down and -spell(SB.VampiricTouch) == 0 then
+		if mouseover.debuff(SB.VampiricTouch).down or mouseover.debuff(SB.ShadowPain).down and castable(SB.VampiricTouch) then
 		PlaySound(113377)
 		return cast(SB.VampiricTouch, "mouseover")
 	end
@@ -875,7 +875,7 @@
 			if castable(SB.MindFlay) then
 				return cast(SB.MindFlay, 'target')
 			end
-		if castable(SB.ShadowWordDeath) and -spell(SB.ShadowWordDeath) == 0 then
+		if castable(SB.ShadowWordDeath) then
 		PlaySound(103147)
 		return cast(SB.ShadowWordDeath)
 		end
@@ -888,25 +888,25 @@
 
 	--1
 
-    if toggle("cooldowns", false) and castable(SB.GuardianofAzeroth1) and -spell(SB.GuardianofAzeroth1) == 0 then
+    if toggle("cooldowns", false) and castable(SB.GuardianofAzeroth1) then
     return cast(SB.GuardianofAzeroth1, 'target')
     end 
-	    if toggle("cooldowns", false) and castable(SB.GuardianofAzeroth2) and -spell(SB.GuardianofAzeroth2) == 0 then
+	    if toggle("cooldowns", false) and castable(SB.GuardianofAzeroth2)  then
         return cast(SB.GuardianofAzeroth2, 'target')
 		end 
-		    if toggle("cooldowns", false) and castable(SB.GuardianofAzeroth3) and -spell(SB.GuardianofAzeroth3) == 0 then
+		    if toggle("cooldowns", false) and castable(SB.GuardianofAzeroth3)  then
 			return cast(SB.GuardianofAzeroth3, 'target')
 			end 
 	
 	--2
 	
-    if toggle("cooldowns", false) and castable(SB.MemoryofLucidDreams1) and -spell(SB.MemoryofLucidDreams1) == 0 then
+    if toggle("cooldowns", false) and castable(SB.MemoryofLucidDreams1)  then
     return cast(SB.MemoryofLucidDreams1, 'target')
     end 
-	    if toggle("cooldowns", false) and castable(SB.MemoryofLucidDreams2) and -spell(SB.MemoryofLucidDreams2) == 0 then
+	    if toggle("cooldowns", false) and castable(SB.MemoryofLucidDreams2)  then
         return cast(SB.MemoryofLucidDreams2, 'target')
 		end 
-		    if toggle("cooldowns", false) and castable(SB.MemoryofLucidDreams3) and -spell(SB.MemoryofLucidDreams3) == 0 then
+		    if toggle("cooldowns", false) and castable(SB.MemoryofLucidDreams3)  then
 			return cast(SB.MemoryofLucidDreams3, 'target')
 			end 
 
@@ -915,10 +915,10 @@
 	-- if toggle("cooldowns", false) and castable(SB.MomentofGlory1) then
     -- return cast(SB.MomentofGlory1, 'player')
     -- end 
-	    -- if toggle("cooldowns", false) and castable(SB.MomentofGlory2) and -spell(SB.MomentofGlory2) == 0 then
+	    -- if toggle("cooldowns", false) and castable(SB.MomentofGlory2) then
         -- return cast(SB.MomentofGlory2, 'target')
 		-- end 
-		    -- if toggle("cooldowns", false) and castable(SB.MomentofGlory3) and -spell(SB.MomentofGlory3) == 0 then
+		    -- if toggle("cooldowns", false) and castable(SB.MomentofGlory3) then
 			-- return cast(SB.MomentofGlory3, 'target')
 			-- end 
 		-- delay = GetTime() + 1.5
@@ -926,13 +926,13 @@
 			
 	--4
 	
-    if toggle("cooldowns", false) and castable(SB.WorldveinResonance1) and -spell(SB.WorldveinResonance1) == 0 then
+    if toggle("cooldowns", false) and castable(SB.WorldveinResonance1)  then
     return cast(SB.WorldveinResonance1, 'target')
     end 
-	    if toggle("cooldowns", false) and castable(SB.WorldveinResonance2) and -spell(SB.WorldveinResonance2) == 0 then
+	    if toggle("cooldowns", false) and castable(SB.WorldveinResonance2)  then
         return cast(SB.WorldveinResonance2, 'target')
 		end 
-		    if toggle("cooldowns", false) and castable(SB.WorldveinResonance3) and -spell(SB.WorldveinResonance3) == 0 then
+		    if toggle("cooldowns", false) and castable(SB.WorldveinResonance3)  then
 			return cast(SB.WorldveinResonance3, 'target')
 			end 
 
@@ -945,87 +945,89 @@
 	
 	--1 
 	
-	 if castable(SB.AnimaofDeath1) and -spell(SB.AnimaofDeath1) == 0 then
+	 if castable(SB.AnimaofDeath1)  then
         return cast(SB.AnimaofDeath1, 'target')
     end
-			 if castable(SB.AnimaofDeath2) and -spell(SB.AnimaofDeath2) == 0 then
+			 if castable(SB.AnimaofDeath2)  then
         return cast(SB.AnimaofDeath2, 'target')
     end
-				 if castable(SB.AnimaofDeath3) and -spell(SB.AnimaofDeath3) == 0 then
+				 if castable(SB.AnimaofDeath3) then
         return cast(SB.AnimaofDeath3, 'target')
     end
 	
 	--2 
 	
-	 if castable(SB.BloodoftheEnemy1) and -spell(SB.BloodoftheEnemy1) == 0 then
+	 if castable(SB.BloodoftheEnemy1)  then
         return cast(SB.BloodoftheEnemy1, 'target')
     end
-			 if castable(SB.BloodoftheEnemy2) and -spell(SB.BloodoftheEnemy2) == 0 then
+			 if castable(SB.BloodoftheEnemy2) then
         return cast(SB.BloodoftheEnemy2, 'target')
     end
-				 if castable(SB.BloodoftheEnemy3) and -spell(SB.BloodoftheEnemy3) == 0 then
+				 if castable(SB.BloodoftheEnemy3)  then
         return cast(SB.BloodoftheEnemy3, 'target')
     end
 	
 		
 	--3  uncomment to cast (req. 8.3.0+ patch)
 	
-	 -- if castable(SB.ReapingFlames1) and -spell(SB.ReapingFlames1) == 0 then
+	 -- if castable(SB.ReapingFlames1) and  then
         -- return cast(SB.ReapingFlames1, 'target')
     -- end
-			 -- if castable(SB.ReapingFlames2) and -spell(SB.ReapingFlames2) == 0 then
+			 -- if castable(SB.ReapingFlames2)  then
         -- return cast(SB.ReapingFlames2, 'target')
     -- end
-				 -- if castable(SB.ReapingFlames3) and -spell(SB.ReapingFlames3) == 0 then
+				 -- if castable(SB.ReapingFlames3)  then
         -- return cast(SB.ReapingFlames3, 'target')
     -- end
 	
 	--4
 	if delay < GetTime() then
-	 if castable(SB.FocusedAzeriteBeam1) and -spell(SB.FocusedAzeriteBeam1) == 0 then
+	 if castable(SB.FocusedAzeriteBeam1)  then
         return cast(SB.FocusedAzeriteBeam1, 'target')
     end
-			 if castable(SB.FocusedAzeriteBeam2) and -spell(SB.FocusedAzeriteBeam2) == 0 then
+			 if castable(SB.FocusedAzeriteBeam2)  then
         return cast(SB.FocusedAzeriteBeam2, 'target')
     end
-				 if castable(SB.FocusedAzeriteBeam3) and -spell(SB.FocusedAzeriteBeam3) == 0 then
+				 if castable(SB.FocusedAzeriteBeam3)  then
         return cast(SB.FocusedAzeriteBeam3, 'target')
     end
 	 delay = GetTime() + 1.4
 end	
 	--5
 	
-	 if castable(SB.PurifyingBlast1) and -spell(SB.PurifyingBlast1) == 0 then
+	 if castable(SB.PurifyingBlast1)  then
         return cast(SB.PurifyingBlast1, 'target')
     end
-			 if castable(SB.PurifyingBlast2) and -spell(SB.PurifyingBlast2) == 0 then
+			 if castable(SB.PurifyingBlast2) then
         return cast(SB.PurifyingBlast2, 'target')
     end
-				 if castable(SB.PurifyingBlast3) and -spell(SB.PurifyingBlast3) == 0 then
+				 if castable(SB.PurifyingBlast3)  then
         return cast(SB.PurifyingBlast3, 'target')
     end
 	
 	--6
 	
---	 if castable(SB.ConcentratedFlame1) and -spell(SB.ConcentratedFlame1) == 0 then
- --       return cast(SB.ConcentratedFlame1, 'target')
- --   end
---			 if castable(SB.ConcentratedFlame2) and -spell(SB.ConcentratedFlame2) == 0 then
-  --      return cast(SB.ConcentratedFlame2, 'target')
- --   end
---				 if castable(SB.ConcentratedFlame3) and -spell(SB.ConcentratedFlame3) == 0 then
-  --      return cast(SB.ConcentratedFlame3, 'target')
- --   end
-	
+	 -- if castable(SB.ConcentratedFlame1)   then
+			-- return cast(SB.ConcentratedFlame1, 'target')
+		-- end
+		
+			-- if castable(SB.ConcentratedFlame2)  then
+				-- return cast(SB.ConcentratedFlame2, 'target')
+			-- end
+			
+				 -- if castable(SB.ConcentratedFlame3)  then
+					-- return cast(SB.ConcentratedFlame3, 'target')
+			 -- end
+				
 	--7
 			
-	 if castable(SB.TheUnboundForce1) and -spell(SB.TheUnboundForce1) == 0 then
+	 if castable(SB.TheUnboundForce1)  then
         return cast(SB.TheUnboundForce1, 'target')
     end
-			 if castable(SB.TheUnboundForce2) and -spell(SB.TheUnboundForce2) == 0 then
+			 if castable(SB.TheUnboundForce2)  then
         return cast(SB.TheUnboundForce2, 'target')
     end
-				 if castable(SB.TheUnboundForce3) and -spell(SB.TheUnboundForce3) == 0 then
+				 if castable(SB.TheUnboundForce3) then
         return cast(SB.TheUnboundForce3, 'target')
     end
 	
