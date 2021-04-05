@@ -102,7 +102,7 @@
 			<Script file="Butwhy\GitHubRotations\WWNikopol.lua" />
 				<Script file="Butwhy\GitHubRotations\BWNikopol.lua" />
 	<Script file="Butwhy\GitHubRotations\Mage\arcane.lua" />
-		<Script file="Butwhy\GitHubRotations\Mage\ffire.lua" />
+		<Script file="Butwhy\GitHubRotations\Mage\fire.lua" />
 			<Script file="Butwhy\GitHubRotations\Mage\fire_raid.lua" />
 				<Script file="Butwhy\GitHubRotations\Mage\frost.lua" />
 </Ui>
