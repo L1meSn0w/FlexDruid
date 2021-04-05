@@ -12,7 +12,7 @@
 
 Status:
 
-0. Git Rotations (Rex&PAL&Ferib&Rotations&NikpoolMW) - unknown, probably work, but a bit UD.
+0. Git Rotations (Rex&PAL&Ferib&Rotations&Nikpool) - unknown, probably work, but a bit UD.
 1. Priest Shadow - Fine
 2. Feral Dru - Greate
 3. Frost DK - WiP
