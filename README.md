@@ -44,12 +44,14 @@ Status:
 		
 
 - Some macro for OutLaw:
+
 		Wip...
 		
 		
 		
 - Some macro for FDk:
-		Opener: /fd toggle Opener 
+
+		Opener: /fd toggle Opener
 		
 		
 ToDo:
