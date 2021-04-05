@@ -32,10 +32,11 @@
   <Script file="Butwhy\Core\system\support\patches.lua" />
   <Script file="Butwhy\Core\system\support\ready.lua" />
   <Script file="Butwhy\FlexBook\FlexBook.lua" />
-  <Script file="Butwhy\Druid\restoration.lua" />
-  <Script file="Butwhy\Druid\feral.lua" />
-  <Script file="Butwhy\Druid\balance.lua" />
-  <Script file="Butwhy\Priest\shadow.lua" />
-  <Script file="Butwhy\Rogue\Outlaw.lua" />
-  
+  <Script file="Butwhy\Classes\Druid\restoration.lua" />
+  <Script file="Butwhy\Classes\Druid\feral.lua" />
+  <Script file="Butwhy\Classes\Druid\balance.lua" />
+  <Script file="Butwhy\Classes\Priest\shadow.lua" />
+  <Script file="Butwhy\Classes\Rogue\Outlaw.lua" />
+  <Script file="Butwhy\Classes\DeathKing\Frosty.lua" />
+    <Script file="Butwhy\Classes\Warrior\Arms.lua" />
 </Ui>

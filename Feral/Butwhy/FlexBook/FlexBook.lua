@@ -324,6 +324,141 @@ TrueBearings = 193359,
   
 }
 
+
+
+dark_addon.rotation.spellbooks.warrior = {
+
+	--Arms 
+	AutoAttack = 6603,
+	BattleShout = 6673,
+	Execute = 281000,
+	BerserkerRage = 18499,
+	Hamstring = 1715,
+	Bladestorm = 227847,
+	HeroicLeap = 6544,
+	Charge = 100,
+	HeroicThrow = 57755,
+	ColossusSmash = 167105,
+	IntimidatingShout = 5246,
+	DiebytheSword = 118038,
+	MortalStrike = 12294,
+	Overpower = 7384,
+	Pummel = 6552,
+	VictoryRush = 34428,
+	VictoryRushBuff = 32216,
+	RallyingCry = 97462,
+	Whirlwind = 1680,
+	Slam = 1464,
+	SweepingStrikes = 260708,
+	Skullsplitter = 260643,
+	ImpendigVicroty = 202168,
+	StormBolt = 107570,
+	Rend = 772,
+	DefensiveStance = 197690,
+	Warbreaker = 262161,
+	Cleave = 845,
+	Avatar = 107574,
+	DeadlyCalm = 262228,
+	Ravager = 152277,
+	WarBanner = 236320,
+	SharpenBlade = 198817,
+	Duel = 236273,
+	SpellReflection = 216890,
+	Disarm = 236077,
+	ColossusSmashDebuff = 208086,
+	DeepWoundsDebuff = 262115,
+	SuddenDeath = 29725
+
+}
+
+
+dark_addon.rotation.spellbooks.dk = {
+--frost
+AntiMagicShell = 48707,
+Mindfreeze = 47528,
+Remorselesswinter = 196770,
+BattleRess = 61999,
+Pillaroffrost = 51271,
+HowlingBlast = 49184,
+IceStrike = 49143,
+ChainsofIce = 45524,
+IceWay = 3714,
+IceBoundForti = 48792,
+UndeadControl = 111673,
+DeathAdvance = 48265,
+DarkCommand = 56222,
+DeathStrike = 49998,
+Obliterate = 49020,
+RuneWeapon = 47568,
+Grip = 49576,
+-- talents
+HornOfWinter = 57330,
+Asphyxia = 108184,
+BlindingsSleet = 207167,
+FrostScyte = 207230,
+WrathWalk = 212552,
+DeathPact = 48743,
+GlacialAdvance = 194913,
+FrostWyrmFury = 279302,
+Breathofsyndra = 152279,
+--Procs \\ buffs
+ColdHeart = 281209,
+Rime = 59052,
+KillingMachine = 51124,
+DarkSuccor = 101568
+}
+
+dark_addon.rotation.spellbooks.azerite ={
+
+
+	 AnimaofDeath1 = 294926,
+		 AnimaofDeath2 = 300002,				--- Draw upon your vitality to sear your foes, dealing 10% of your maximum health in Fire damage to all nearby enemies and heal for 10% of your maximum health per enemy hit, up to 50% of your maximum health.
+			 AnimaofDeath3 = 300003,
+
+	 BloodoftheEnemy1 = 297108,
+		 BloodoftheEnemy2 = 298273,			--- The Heart of Azeroth erupts violently, dealing 18094 Shadow damage to enemies within 12 yds. You gain 25% critical strike chance against the targets for 10 sec, and increases your critical hit damage by 25% for 5 sec.
+			 BloodoftheEnemy3 = 298277,
+
+	 ReapingFlames1 = 310690,
+		 ReapingFlames2 = 311194, --- Burn your target with a bolt of Azerite, dealing 0 Fire damage. If the target has less than 20% health or more than 80% health, the cooldown is reduced by 30 sec. If Reaping Flames kills an enemy, its cooldown is lowered to 5 sec and it will deal 100% increased damage on its next use.
+			 ReapingFlames3 = 311195,
+
+	 GuardianofAzeroth1 = 295840,
+		 GuardianofAzeroth2 = 299355, --- Call upon Azeroth to summon a Guardian of Azeroth for 30 sec who impales your target with spikes of Azerite every 2.5 sec that deal [0 * (1 + Versatility) * (1.25)] Fire damage. Every 8 sec, the Guardian launches a volley of Azerite Spikes at its target, dealing 8 Fire damage to all nearby enemies. Each time the Guardian of Azeroth casts a spell, you gain 2% Haste, stacking up to 5 times. This effect ends when the Guardian of Azeroth despawns.
+			 GuardianofAzeroth3 = 299358,
+	
+	 FocusedAzeriteBeam1 = 295258,
+		 FocusedAzeriteBeam2 = 299336, --- Focus excess Azerite energy into the Heart of Azeroth, then expel that energy outward, dealing 92680 Fire damage to all enemies in front of you over 3 sec.
+			 FocusedAzeriteBeam3 = 299338,
+	
+	 MemoryofLucidDreams1 = 298357,
+		 MemoryofLucidDreams2 = 299372, --- Clear your mind and attune yourself with the Heart of Azeroth, increasing your [Mana][Energy][Maelstrom] generation rate by 100% and your Leech by 0 for 15 sec.
+			 MemoryofLucidDreams3 = 299374,
+	
+	 PurifyingBlast1 = 295337,
+		 PurifyingBlast2 = 299345, --- Call down a purifying beam upon the target area, dealing [4112 * (1 + Versatility) * 7] Fire damage over 6 sec. Has a low chance to immediately annihilate any specimen deemed unworthy by MOTHER.When an enemy dies within the beam, your damage is increased by 10% for 8 sec. Any Aberration struck by the beam is stunned for 3 sec.
+			 PurifyingBlast3 = 299347,
+	
+	 MomentofGlory1 = 311203,
+		 MomentofGlory2 = 311302, --- Release a wave of energy from your Heart of Azeroth, increasing the damage all party members within 15 yds deal with Azerite Essences by 45% and their Speed by 3 for the next 20 sec.
+			 MomentofGlory3 = 311303,
+	
+	 ConcentratedFlame1 = 295373,
+		 ConcentratedFlame2 = 299349, --- Blast your target with a ball of concentrated flame
+			 ConcentratedFlame3 = 299353,
+	
+	 TheUnboundForce1 = 298452,
+		 TheUnboundForce2 = 299376, --- Unleash the forces within the Heart of Azeroth, causing shards of Azerite to strike your target for 13017.88515 Fire damage over 2 sec. This damage is increased by 300% if it critically strikes.
+			 TheUnboundForce3 = 299378,
+	
+	 WorldveinResonance1 = 295186,
+		 WorldveinResonance2 = 298628, --- Concentrate energy into the Heart of Azeroth, immediately causing 3 Lifeblood Shards to erupt from the nearby ground for 18 sec, and incease the primary stat gained from Lifeblood Shards by 300% for 18 sec.
+			 WorldveinResonance3 = 299334
+
+
+
+}
+
 dark_addon.rotation.dispellbooks.soothe = {
 	-- Soothe
 	[228318] = "Raging", -- Raging Affix	All	-	No	+100% damage dealt
