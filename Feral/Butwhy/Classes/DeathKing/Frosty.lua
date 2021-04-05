@@ -1,10 +1,3 @@
--- Frost DK for 8.1 by Rotations - 8/2018
--- Talents: 2 1 2 2 1 1 2
--- Holding Alt =
--- Holding Shift =
-
-
-
 local addon, dark_addon = ...
 local SB = dark_addon.rotation.spellbooks.dk
 local AZ = dark_addon.rotation.spellbooks.azerite
@@ -228,7 +221,7 @@ end
 	  	 if castable(SB.Pillaroffrost) then
 	    return cast(SB.Pillaroffrost)
 	  end
-	  if castable(SB.Breathofsyndra) and -player.power.runicpower.actual <= 95 then
+	  if castable(SB.Breathofsyndra) and -player.power.runicpower.actual => 95 then
 	  	    return cast(SB.Breathofsyndra, 'Target')
 	  end
 	   if player.buff(SB.Breathofsyndra).down then
