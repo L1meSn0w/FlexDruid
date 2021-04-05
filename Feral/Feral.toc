@@ -4,7 +4,7 @@
 ## Notes-ruRU: Шо ручки устали? А может их нет? :3
 ## Notes: U boored? U2lazy 2learn rotation? Huh noob! :3
 
-## Interface: 80205
+## Interface: 80300
 ## SavedVariablesPerCharacter: dark_addon_storage
 ## Version: 1.3.3.7
 ## LoadOnDemand: 0
