@@ -221,7 +221,7 @@ end
 	  	 if castable(SB.Pillaroffrost) then
 	    return cast(SB.Pillaroffrost)
 	  end
-	  if castable(SB.Breathofsyndra) and -player.power.runicpower.actual => 95 then
+	  if castable(SB.Breathofsyndra) and -player.power.runicpower.actual > 95 then
 	  	    return cast(SB.Breathofsyndra, 'Target')
 	  end
 	   if player.buff(SB.Breathofsyndra).down then
