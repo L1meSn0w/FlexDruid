@@ -98,7 +98,9 @@
 	<Script file="Butwhy\GitHubRotations\Warrior\furywarpal.lua" />
 	<Script file="Butwhy\GitHubRotations\Warlock\affliction_ferib.lua" />
 	<Script file="Butwhy\Support\Support.lua" />
-		<Script file="Butwhy\GitHubRotations\MWNikopol.lua" />	
+		<Script file="Butwhy\GitHubRotations\MWNikopol.lua" />
+			<Script file="Butwhy\GitHubRotations\WWNikopol.lua" />
+				<Script file="Butwhy\GitHubRotations\BWNikopol.lua" />
 	<Script file="Butwhy\GitHubRotations\Mage\arcane.lua" />
 		<Script file="Butwhy\GitHubRotations\Mage\ffire.lua" />
 			<Script file="Butwhy\GitHubRotations\Mage\fire_raid.lua" />
