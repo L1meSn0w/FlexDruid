@@ -1,12 +1,23 @@
 # FlexDruid
-- Re-Writed Profiles:
-1. Priest
-2. Feral
-	
-- CopyPasted Profiles:
-1. Restoration
-2. Balance
+- Re-Writed\Writed Profiles:
+1. Priest Shadow
+2. Feral Dru
+3. Frost DK
+4. Warrior Arms 
 
+- CopyPasted Profiles:
+1. Restoration Dru
+2. Balance Dru
+
+
+Status:
+1. Priest Shadow - Fine
+2. Feral Dru - Greate
+3. Frost DK - WiP
+4. Warrior Arms - WiP
+5. Balance - Fine
+6. Restoration - Greate
+7. 
 ## Macros
 - Some macro for Feral:
 
@@ -19,7 +30,7 @@
 		Tank if tank dies: /fd toggle beartest
 		Announce: /fd toggle Information
 
-- Some macro for Priest:
+- Some macro for Shadow:
 
 		PVP Kick: /fd toggle interrupts 
 		PVE Kick: /fd toggle KickALL
@@ -28,11 +39,21 @@
 		Party Dispel: /fd toggle frienddispel
 		Dispel adds: /fd toggle dispel
 		Opener: /fd toggle Opener
-
-- Some macro for OutLaw:
-		<Trying to make somethig working fine kekw>
+		
+		
 		
 
+- Some macro for OutLaw:
+		Wip...
+		
+		
+		
+- Some macro for FDk:
+		Opener: /fd toggle Opener 
+		
+		
+ToDo:
+All other specs.
 
 
 # Api stuff Down Below
