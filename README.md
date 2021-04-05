@@ -8,15 +8,18 @@
 - CopyPasted Profiles:
 1. Restoration Dru
 2. Balance Dru
-
+3. Git Rotations
 
 Status:
+
+0. Git Rotations (Rex&PAL&Ferib&Rotations&NikpoolMW) - unknown, probably work, but a bit UD.
 1. Priest Shadow - Fine
 2. Feral Dru - Greate
 3. Frost DK - WiP
 4. Warrior Arms - WiP
 5. Balance - Fine
 6. Restoration - Greate
+
 
 ## Macros
 - Some macro for Feral:
