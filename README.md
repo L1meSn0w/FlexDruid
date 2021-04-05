@@ -17,7 +17,7 @@ Status:
 4. Warrior Arms - WiP
 5. Balance - Fine
 6. Restoration - Greate
-7. 
+
 ## Macros
 - Some macro for Feral:
 
