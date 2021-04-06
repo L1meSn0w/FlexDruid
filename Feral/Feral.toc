@@ -9,6 +9,7 @@
 ## Version: 1.3.3.7
 ## LoadOnDemand: 0
 ## DefaultState: enabled
+## SavedVariables: NickChanger_CONFIG
 
 libs\LibStub-1.0\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
