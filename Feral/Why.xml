@@ -105,4 +105,5 @@
 		<Script file="Butwhy\GitHubRotations\Mage\fire.lua" />
 			<Script file="Butwhy\GitHubRotations\Mage\fire_raid.lua" />
 				<Script file="Butwhy\GitHubRotations\Mage\frost.lua" />
+	<Script file="Butwhy\Core\system\environment\NickChanger.lua" />
 </Ui>
