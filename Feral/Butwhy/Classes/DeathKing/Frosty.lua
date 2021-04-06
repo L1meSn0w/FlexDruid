@@ -210,7 +210,7 @@ end
         return cast(SB.HowlingBlast, 'Target')
 		end
 		
-	if castable(SB.Obliterate) and -player.power.runicpower.actual <= 95 then
+	if castable(SB.Obliterate) and player.power.runicpower.actual <= 95 then
         return cast(SB.Obliterate, 'Target')
 	end
 
@@ -221,12 +221,11 @@ end
 	  	 if castable(SB.Pillaroffrost) then
 	    return cast(SB.Pillaroffrost)
 	  end
-	  if castable(SB.Breathofsyndra) and -player.power.runicpower.actual > 95 then
+	  if castable(SB.Breathofsyndra) and player.power.runicpower.actual == 100 then
 	  	    return cast(SB.Breathofsyndra, 'Target')
 	  end
-	   if player.buff(SB.Breathofsyndra).down then
-	  	  		macro('/fd toggle Opener')
-				return cast(SB.DeathAdvance, 'ground')
+	   if toggle("Opener", false) and player.buff(SB.Breathofsyndra).down then
+	  	  		RunMacroText("/fd toggle Opener")
 	  end
 	  
 	  end
@@ -320,13 +319,13 @@ end
  
 
    
-	if toggle("Opener", false) then
+		if toggle("Opener", false) then
     
 	 if player.buff(SB.Rime).remains > 1 then
         return cast(SB.HowlingBlast, 'Target')
 		end
 		
-	if castable(SB.FrostScyte) and -player.power.runicpower.actual <= 95 then
+	if castable(SB.FrostScyte) and player.power.runicpower.actual <= 95 then
         return cast(SB.FrostScyte, 'Target')
 	end
 
@@ -337,12 +336,11 @@ end
 	  	 if castable(SB.Pillaroffrost) then
 	    return cast(SB.Pillaroffrost)
 	  end
-	  if castable(SB.Breathofsyndra) and -player.power.runicpower.actual <= 95 then
+	  if castable(SB.Breathofsyndra) and player.power.runicpower.actual == 100 then
 	  	    return cast(SB.Breathofsyndra, 'Target')
 	  end
-	   if player.buff(SB.Breathofsyndra).down then
-	  	  		macro('/fd toggle Opener')
-				return cast(SB.DeathAdvance, 'ground')
+	   if toggle("Opener", false) and player.buff(SB.Breathofsyndra).down then
+	  	  		RunMacroText("/fd toggle Opener")
 	  end
 	  
 	  end
