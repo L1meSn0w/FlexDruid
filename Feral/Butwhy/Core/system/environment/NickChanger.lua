@@ -1,7 +1,7 @@
 local CharacterEvents = CreateFrame("frame");
 
 local defaults = {
-	ENABLED = false,
+	ENABLED = true,
 	CUSTOM_PLAYER_NAME = "Stealth"
 }
 
