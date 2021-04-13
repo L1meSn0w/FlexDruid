@@ -667,7 +667,7 @@ dark_addon.rotation.register(
         {
           spec = dark_addon.rotation.classes.druid.restoration,
           name = "Healer",
-          label = "Rex restoration dru.",
+          label = "Rex RU restoration dru.",
           combat = combat,
           resting = resting,
           interface = interface
