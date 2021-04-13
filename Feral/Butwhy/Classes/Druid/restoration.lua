@@ -1,25 +1,209 @@
 local dark_addon = dark_interface
 local SB = dark_addon.rotation.spellbooks.druid
+local function azerite()
+
+if player.alive and target.alive and target.enemy then
+ --Essence start
+   	local delay = 0
+   
+   --burst essences
+
+	--1
+
+    if toggle("cooldowns", false) and castable(AZ.GuardianofAzeroth1) and -spell(AZ.GuardianofAzeroth1) == 0 then
+    return cast(AZ.GuardianofAzeroth1, 'target')
+    end 
+	    if toggle("cooldowns", false) and castable(AZ.GuardianofAzeroth2) and -spell(AZ.GuardianofAzeroth2) == 0 then
+        return cast(AZ.GuardianofAzeroth2, 'target')
+		end 
+		    if toggle("cooldowns", false) and castable(AZ.GuardianofAzeroth3) and -spell(AZ.GuardianofAzeroth3) == 0 then
+			return cast(AZ.GuardianofAzeroth3, 'target')
+			end 
+	
+	--2
+	
+    if toggle("cooldowns", false) and castable(AZ.MemoryofLucidDreams1) and -spell(AZ.MemoryofLucidDreams1) == 0 then
+    return cast(AZ.MemoryofLucidDreams1, 'target')
+    end 
+	    if toggle("cooldowns", false) and castable(AZ.MemoryofLucidDreams2) and -spell(AZ.MemoryofLucidDreams2) == 0 then
+        return cast(AZ.MemoryofLucidDreams2, 'target')
+		end 
+		    if toggle("cooldowns", false) and castable(AZ.MemoryofLucidDreams3) and -spell(AZ.MemoryofLucidDreams3) == 0 then
+			return cast(AZ.MemoryofLucidDreams3, 'target')
+			end 
+
+	3 uncomment to cast (req. 8.3.0+ patch)
+		if delay < GetTime() then
+	if toggle("cooldowns", false) and castable(AZ.MomentofGlory1) then
+    return cast(AZ.MomentofGlory1, 'player')
+    end 
+	    if toggle("cooldowns", false) and castable(AZ.MomentofGlory2) and -spell(AZ.MomentofGlory2) == 0 then
+        return cast(AZ.MomentofGlory2, 'target')
+		end 
+		    if toggle("cooldowns", false) and castable(AZ.MomentofGlory3) and -spell(AZ.MomentofGlory3) == 0 then
+			return cast(AZ.MomentofGlory3, 'target')
+			end 
+		delay = GetTime() + 1.5
+	end	
+			
+	--4
+	
+    if toggle("cooldowns", false) and castable(AZ.WorldveinResonance1) and -spell(AZ.WorldveinResonance1) == 0 then
+    return cast(AZ.WorldveinResonance1, 'target')
+    end 
+	    if toggle("cooldowns", false) and castable(AZ.WorldveinResonance2) and -spell(AZ.WorldveinResonance2) == 0 then
+        return cast(AZ.WorldveinResonance2, 'target')
+		end 
+		    if toggle("cooldowns", false) and castable(AZ.WorldveinResonance3) and -spell(AZ.WorldveinResonance3) == 0 then
+			return cast(AZ.WorldveinResonance3, 'target')
+			end 
+
+	
+	
+	
+	--damage essences
+	
+	
+	
+	--1 
+	
+	 if castable(AZ.AnimaofDeath1) and -spell(AZ.AnimaofDeath1) == 0 then
+        return cast(AZ.AnimaofDeath1, 'target')
+    end
+			 if castable(AZ.AnimaofDeath2) and -spell(AZ.AnimaofDeath2) == 0 then
+        return cast(AZ.AnimaofDeath2, 'target')
+    end
+				 if castable(AZ.AnimaofDeath3) and -spell(AZ.AnimaofDeath3) == 0 then
+        return cast(AZ.AnimaofDeath3, 'target')
+    end
+	
+	--2 
+	
+	 if castable(AZ.BloodoftheEnemy1) and -spell(AZ.BloodoftheEnemy1) == 0 then
+        return cast(AZ.BloodoftheEnemy1, 'target')
+    end
+			 if castable(AZ.BloodoftheEnemy2) and -spell(AZ.BloodoftheEnemy2) == 0 then
+        return cast(AZ.BloodoftheEnemy2, 'target')
+    end
+				 if castable(AZ.BloodoftheEnemy3) and -spell(AZ.BloodoftheEnemy3) == 0 then
+        return cast(AZ.BloodoftheEnemy3, 'target')
+    end
+	
+		
+	--3  uncomment to cast (req. 8.3.0+ patch)
+	
+	 if castable(AZ.ReapingFlames1) and -spell(AZ.ReapingFlames1) == 0 then
+        return cast(AZ.ReapingFlames1, 'target')
+    end
+			 if castable(AZ.ReapingFlames2) and -spell(AZ.ReapingFlames2) == 0 then
+        return cast(AZ.ReapingFlames2, 'target')
+    end
+				 if castable(AZ.ReapingFlames3) and -spell(AZ.ReapingFlames3) == 0 then
+        return cast(AZ.ReapingFlames3, 'target')
+    end
+	
+	--4
+	if delay < GetTime() then
+	 if castable(AZ.FocusedAzeriteBeam1) and -spell(AZ.FocusedAzeriteBeam1) == 0 then
+        return cast(AZ.FocusedAzeriteBeam1, 'target')
+    end
+			 if castable(AZ.FocusedAzeriteBeam2) and -spell(AZ.FocusedAzeriteBeam2) == 0 then
+        return cast(AZ.FocusedAzeriteBeam2, 'target')
+    end
+				 if castable(AZ.FocusedAzeriteBeam3) and -spell(AZ.FocusedAzeriteBeam3) == 0 then
+        return cast(AZ.FocusedAzeriteBeam3, 'target')
+    end
+	 delay = GetTime() + 1.4
+end	
+	--5
+	
+	 if castable(AZ.PurifyingBlast1) and -spell(AZ.PurifyingBlast1) == 0 then
+        return cast(AZ.PurifyingBlast1, 'target')
+    end
+			 if castable(AZ.PurifyingBlast2) and -spell(AZ.PurifyingBlast2) == 0 then
+        return cast(AZ.PurifyingBlast2, 'target')
+    end
+				 if castable(AZ.PurifyingBlast3) and -spell(AZ.PurifyingBlast3) == 0 then
+        return cast(AZ.PurifyingBlast3, 'target')
+    end
+	
+	--6
+	
+	 if castable(AZ.ConcentratedFlame1) and -spell(AZ.ConcentratedFlame1) == 0 then
+        return cast(AZ.ConcentratedFlame1, 'target')
+    end
+			 if castable(AZ.ConcentratedFlame2) and -spell(AZ.ConcentratedFlame2) == 0 then
+        return cast(AZ.ConcentratedFlame2, 'target')
+    end
+				 if castable(AZ.ConcentratedFlame3) and -spell(AZ.ConcentratedFlame3) == 0 then
+        return cast(AZ.ConcentratedFlame3, 'target')
+    end
+	
+	--7
+			
+	 if castable(AZ.TheUnboundForce1) and -spell(AZ.TheUnboundForce1) == 0 then
+        return cast(AZ.TheUnboundForce1, 'target')
+    end
+			 if castable(AZ.TheUnboundForce2) and -spell(AZ.TheUnboundForce2) == 0 then
+        return cast(AZ.TheUnboundForce2, 'target')
+    end
+				 if castable(AZ.TheUnboundForce3) and -spell(AZ.TheUnboundForce3) == 0 then
+        return cast(AZ.TheUnboundForce3, 'target')
+    end
+	
+	--8
+		
+		if castable(AZ.LifeBindersInvocation1) and -spell(AZ.LifeBindersInvocation1) == 0 and group.under(wgpercent2, 75, true) >= wgtargets2 and not player.moving then
+        return cast(AZ.LifeBindersInvocation1, 'player')
+    end
+		
+			if castable(AZ.LifeBindersInvocation2) and -spell(AZ.LifeBindersInvocation2) == 0 and group.under(wgpercent2, 75, true) >= wgtargets2 and not player.moving then
+			return cast(AZ.LifeBindersInvocation2, 'player')
+		end		
+			
+				if castable(AZ.LifeBindersInvocation3) and -spell(AZ.LifeBindersInvocation3) == 0 and group.under(wgpercent2, 75, true) >= wgtargets2 and not player.moving then
+				return cast(AZ.LifeBindersInvocation3, 'player')
+			end		
+
+
+
+	-- end essences 
+
+end
+
+end
+setfenv(azerite, dark_addon.environment.env)
 
 --Start Dispel Function
 local function dispel()
 
   --Nature's Cure
-  local ncdelay = math.random(0.5,2)
 
-  if toggle("dispel", false) then
+  -- if toggle("dispel", false) then
+    -- local unit = group.dispellable(SB.NaturesCure)
+    -- if unit and unit.castable(SB.NaturesCure) then
+        -- return cast(SB.NaturesCure, unit)
+    -- end
+  -- end
+  
+  -- if toggle("dispel", false) then
+    -- local unit2 = target.dispellable(SB.Soothe)
+    -- if unit2 and unit2.castable(SB.Soothe) then
+        -- return cast(SB.Soothe, unit2)
+    -- end
+  -- end 
+
+  if toggle("dispell", false) then
+    -- self-cleanse
+    if castable(SB.NaturesCure) and player.dispellable(SB.NaturesCure) then
+      return cast(SB.NaturesCure, player)
+    end
+    -- group cleanse
     local unit = group.dispellable(SB.NaturesCure)
     if unit and unit.castable(SB.NaturesCure) then
-        return cast(SB.NaturesCure, unit)
+      return cast(SB.NaturesCure, unit)
     end
   end
-  
-  if toggle("dispel", false) then
-    local unit2 = target.dispellable(SB.Soothe)
-    if unit2 and unit2.castable(SB.Soothe) then
-        return cast(SB.Soothe, unit2)
-    end
-  end 
 
   --Soothe
   -- if target.castable(SB.Soothe) then
@@ -259,6 +443,8 @@ setfenv(dps, dark_addon.environment.env)
 local function healing(combat)
 
     --Settings
+	 local wgpercent2 = dark_addon.settings.fetch("rexdru_settings_wgpercent2", 70)
+    local wgtargets2 = dark_addon.settings.fetch("rexdru_settings_wgtargets2", 3)
     local tankrejuvepercent = dark_addon.settings.fetch("rexdru_settings_tankrejuve", 90)
     local tankregrowthpercent = dark_addon.settings.fetch("rexdru_settings_tankregrowth", 90)
     local grouprejuvepercent = dark_addon.settings.fetch("rexdru_settings_grouprejuve", 90)
@@ -407,12 +593,13 @@ local function combat()
   if not player.alive or player.buff(SB.TravelForm).exists or player.buff(SB.Refreshment).up or player.buff(SB.Drink).up or player.channeling() then
     return
   end
-
+  if azerite() then return end
+	  --Dispel
+  if dispel() then return end
   --Healing
   if healing(true) then return end
 
-  --Dispel
-  if dispel() then return end
+
 
             -- --Racials
             -- if racials() then return end
@@ -474,12 +661,16 @@ local function interface()
       } },
 	  { key = 'useconcflame', type = 'checkbox', text = 'Auto Use Concentrated Flame Essence on lowest', desc = '', default = true },
       { key = "lbplayerpercent", type = "spinner", text = "Photosynthesis Lifebloom", desc = "Switch to Player when Lowest Health Percent at", default = 50, min = 1, max = 100, step = 1 },    
-      { key = 'grouprejuve', type = 'spinner', text = 'Rejuvenation', desc = 'Health Percent to cast at', default = 90, min = 1, max = 100, step = 1 },      
+      { key = 'grouprejuve', type = 'spinner', text = 'Rejuvenation', desc = 'Health Percent to cast at', default = 90, min = 1, max = 100, step = 1 },          
       { key = 'groupregrowth', type = 'spinner', text = 'Regrowth', desc = 'Health Percent to cast at', default = 80, min = 1, max = 100, step = 1 },                     
       { key = "ironbark", type = "checkspin", text = "Ironbark", desc = "Lowest Group Member - Health Percent to cast at", default_check = true, default_spin = 30, min = 1, max = 100, step = 1 },
       { key = "swiftmend", type = "spinner", text = "Swiftmend", desc = "Lowest Group Member - Health Percent to cast at", default = 50, min = 1, max = 100, step = 1 },      
       { key = "wgpercent", type = "spinner", text = "Wild Growth", desc = "Lowest Group Member - Health Percent to cast at", default = 70, min = 1, max = 100, step = 1 },
       { key = "wgtargets", type = "spinner", text = "Wild Growth Targets", desc = "Minimum number of group targets", default = 3, min = 1, max = 40, step = 1 },
+	  
+	  { key = "wgpercent2", type = "spinner", text = "Azerite Seeds %", desc = "Lowest Group Member - Health Percent to cast at", default = 75, min = 1, max = 100, step = 1 },
+      { key = "wgtargets2", type = "spinner", text = "Azerite Seeds № Targets", desc = "Minimum number of group targets", default = 3, min = 1, max = 40, step = 1 },
+
       { key = "tranqpercent", type = "spinner", text = "Tranquility", desc = "Lowest Group Member - Health Percent to cast at", default = 50, min = 1, max = 100, step = 1 },
       { key = "tranqtargets", type = "spinner", text = "Tranquility Targets", desc = "Minimum number of group targets", default = 3, min = 1, max = 40, step = 1 },
       { key = "innervate", type = "checkspin", text = "Innervate", desc = "Mana Percent to cast at", default_check = true, default_spin = 90, min = 1, max = 100, step = 1 }, 
@@ -596,7 +787,7 @@ dark_addon.rotation.register(
     {
     spec = dark_addon.rotation.classes.druid.restoration,
     name = "RexRestDru",
-    label = "Rex's Restoration Druid",
+    label = "Rex Fixed",
     combat = combat,
     resting = resting,
     interface = interface
