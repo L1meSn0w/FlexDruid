@@ -317,9 +317,9 @@ SB.FeralFrenzy = 274837
 SB.Iris = 299336
 
 local function combat()
-if not UIParent:IsShown() then
-   RunMacroText("/reload")
-end
+-- if not UIParent:IsShown() then
+   -- RunMacroText("/reload")
+-- end
 --Кик в цель
 	local Kick0 = dark_addon.settings.fetch('KiraFeral_settings2_Kick0', true)
 	local Kick1 = dark_addon.settings.fetch('KiraFeral_settings2_Kick1', true)
@@ -1744,9 +1744,9 @@ end
 
 
 local function resting()
-if not UIParent:IsShown() then
-   RunMacroText("/reload")
-end
+-- if not UIParent:IsShown() then
+   -- RunMacroText("/reload")
+-- end
 if toggle("Information", false) then
 	 
  if (GetLocale() == "ruRU") then

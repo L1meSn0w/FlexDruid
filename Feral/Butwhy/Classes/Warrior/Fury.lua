@@ -33,53 +33,51 @@ local stund = dark_addon.rotation.CC
 local flashl = dark_addon.rotation.spellbooks.flashlig
 local holylight = dark_addon.rotation.spellbooks.holyli
 local repentr = dark_addon.rotation.spellbooks.repa
-local CC = dark_addon.rotation.CC
 local AZ = dark_addon.rotation.spellbooks.azerite
---SpellBook
-SB.BattleShout = 6673
-SB.Execute = 281000
-SB.BerserkerRage = 18499
-SB.Hamstring = 1715
-SB.Bladestorm = 227847
-SB.HeroicLeap = 6544
+-- To Do
+
+-- Spells
+
+SB.FuriousSlash = 100130
+SB.Rampage = 184367
+SB.Enrage = 184361
+SB.Recklessness = 1719
+SB.Siegebreaker = 280772
+SB.ExecuteFury = 5308
+SB.Bloodthirst = 23881
+SB.RagingBlow = 85288
+SB.DragonRoar = 118000
+SB.Bladestorm = 46924
+SB.WhirlwindFury = 190411
+SB.Massacre = 206315
+SB.SuddenDeath = 280721
 SB.Charge = 100
-SB.HeroicThrow = 57755
-SB.ColossusSmash = 167105
-SB.IntimidatingShout = 5246
-SB.DiebytheSword = 118038
-SB.MortalStrike = 12294
-SB.Overpower = 7384
-SB.Pummel = 6552
+SB.RecklessAbandon = 202751
+SB.AngerManagement = 152278
+SB.PulverizingBlows = 275632
+SB.SimmeringRage = 278757
+SB.RecklessFlurry = 278758
+SB.UnbridledFerocity = 288056
+SB.WarMachine = 262231
+SB.EndlessRage = 202296
+SB.Carnage = 202922
+SB.HeroicLeap = 6544
+SB.DoubleTime = 103827
+SB.BoundingStride = 202163
+SB.EnragedRegeneration = 184364
 SB.VictoryRush = 34428
 SB.RallyingCry = 97462
-SB.Whirlwind = 1680
-SB.Slam = 1464
-SB.SweepingStrikes = 260708
-SB.Skullsplitter = 260643
-SB.ImpendigVicroty = 202168
+SB.BattleShout = 6673
+SB.Pummel = 6552
 SB.StormBolt = 107570
-SB.Rend = 772
-SB.DefensiveStance = 197690
-SB.Warbreaker = 262161
-SB.Cleave = 845
-SB.Avatar = 107574
-SB.DeadlyCalm = 262228
-SB.Ravager = 152277
-SB.WarBanner = 236320
-SB.SharpenBlade = 198817
-SB.Duel = 236273
-SB.SpellReflection = 216890
-SB.Disarm = 236077
-SB.ColossusSmashDebuff = 208086
-SB.DeepWoundsDebuff = 262115
-SB.SuddenDeath = 29725
-SB.Kon = 127220
-SB.GladiatorsMedallion = 208683
+SB.ImpendingVictory = 202168
+SB.VictoryRushBuff = 32216
+SB.AncestralCall = 274738
+SB.Berserking = 26297
+SB.BloodFury = 33697
+SB.GiftoftheNaaru = 121093
+SB.LightsJudgement = 255647
 
-SB.kick = 32612
-
--- Define Counters
-local DefStance = 0
 
 local function kick()
 local IntimidatingShoutInt = dark_addon.settings.fetch("armswar_settings_IntimidatingShoutInt", true)
@@ -119,100 +117,7 @@ setfenv(kick, dark_addon.environment.env)
 
 
 
-
-
-
--- local function SpellCastTest()
-
--- if player.alive and target.enemy and target.alive then
-
--- test = CreateFrame("Frame", "test", UIParent);
--- test:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED");
-
--- test:SetScript("OnEvent", function(self, event, arg1, arg2, arg3, arg4)
-
-	-- if(event=="UNIT_SPELLCAST_SUCCEEDED" and arg1 == "target") then
-
-		-- if arg3==(SB.kick) then
-		-- print('gay')
-			-- return cast(SB.StormBolt, "Target")
-
-		-- end
-
-	-- end
-		
-	-- -- if(event=="UNIT_SPELLCAST_SUCCEEDED" and arg1 == "focus") then
-
-		-- -- if arg3==(SB.TestArg2) then
-
-			-- -- return cast(SB.spell, "focus")
-
-		-- -- end
-
-	-- -- end		
-		
-		
-	-- end)
-
--- end
-
-
--- end
-
--- setfenv(SpellCastTest, dark_addon.environment.env)
-
-
-
-
-
-
-
-
-
-
-
-
-
--- UNIT_SPELLCAST_SENT: "unit", "target", "castGUID", spellID"
-
--- UNIT_SPELLCAST_SUCCEEDED: "target", "castGUID", spellID
-
--- Every spellcast has a unique castGUID. It is created when you begin casting with UNIT_SPELLCAST_SENT, and it appears at the end of cast/channel or instantly in the UNIT_SPELLCAST_SUCCEEDED.
-
--- So whenever unit == "player", just record the castGUID and then look for spells completing with that same value. This is how you know it was not someone else's spell.
-
--- Meanwhile, you can lookup the spellID corresponding to every spell. In the example below, I used the two from your post (196670 and 589).
-
--- local myFrame = CreateFrame("Frame");
--- local myCurrentCast;
--- myFrame:RegisterEvent("UNIT_SPELLCAST_SENT");
--- myFrame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED");
--- myFrame:SetScript("OnEvent",
-    -- function(self, event, arg1, arg2, arg3, arg4)
-        -- if (event == "UNIT_SPELLCAST_SENT" and arg1 == "player") then
-            -- print("I am casting something");
-            -- myCurrentCast = arg3;
-        -- elseif (event == "UNIT_SPELLCAST_SUCCEEDED" and arg2 == myCurrentCast) then
-            -- if (arg3 == 196670) then
-                -- print("I just finished casting Chaos Bolt!");
-            -- elseif (arg3 == 589) then
-                -- print("Look at my instant Shadow Word: Pain.  Isn't it cool?");
-            -- end
-        -- end
-    -- end
--- );
-
-
-
-
-
-
-
-
-
-
 local function combat()
--- if SpellCastTest then end
 if kick() then return end
 
   if target.alive and target.enemy and player.alive and not player.channeling() then
@@ -222,25 +127,21 @@ if kick() then return end
   end
   
   macro('/cqs')
-  
+  if target.alive and target.enemy and player.alive and not player.channeling() then
     -- Reading from settings
-	
-    local DBTSHealth = dark_addon.settings.fetch("armswar_settings_DBTSHealth", 60)
-    local GiftHealth = dark_addon.settings.fetch("armswar_settings_GiftHealth", 20)
-    local Hstonecheck = dark_addon.settings.fetch("armswar_settings_healthstone.check", true)
-    local Hstonepercent = dark_addon.settings.fetch("armswar_settings_healthstone.spin", 20)
+    local intpercentlow = dark_addon.settings.fetch("furywar_settings_intpercentlow", 50)
+    local intpercenthigh = dark_addon.settings.fetch("furywar_settings_intpercenthigh", 65)
+    local ERHealth = dark_addon.settings.fetch("furywar_settings_ERHealth", 60)
+    local VRHealth = dark_addon.settings.fetch("furywar_settings_VRHealth", 80)
+    local GiftHealth = dark_addon.settings.fetch("furywar_settings_GiftHealth", 20)
+    local Hstonecheck = dark_addon.settings.fetch("furywar_settings_healthstone.check", true)
+    local Hstonepercent = dark_addon.settings.fetch("furywar_settings_healthstone.spin", 20)
     local race = UnitRace("player")
-	-- healka
-	local healkapercent = dark_addon.settings.fetch('armswar_settings_healka.spin', 60)
-	  local healka = dark_addon.settings.fetch('armswar_settings_healka.check', true)
-    -- Targets in range check
-    local enemyCount = enemies.around(8)
-    dark_addon.interface.status_extra("Targets: " .. enemyCount .. " Dist: " .. target.distance .. " yd")
 
-local Charge = dark_addon.settings.fetch("armswar_settings_Charge") 
-local HeroicLeap = dark_addon.settings.fetch("armswar_settings_HeroicLeap")
-local RallyingCry = dark_addon.settings.fetch("armswar_settings_RallyingCry")
-local Azerite = dark_addon.settings.fetch("armswar_settings_Azerite")
+local Charge = dark_addon.settings.fetch("furywar_settings_Charge") 
+local HeroicLeap = dark_addon.settings.fetch("furywar_settings_HeroicLeap")
+local RallyingCry = dark_addon.settings.fetch("furywar_settings_RallyingCry")
+local Azerite = dark_addon.settings.fetch("furywar_settings_Azerite")
 
 	if (HeroicLeap == "shift" and modifier.shift) or (HeroicLeap == "control" and modifier.control) or (HeroicLeap == "alt" and modifier.alt) and -spell(SB.HeroicLeap) == 0 then
       return cast(SB.HeroicLeap, "ground")
@@ -255,29 +156,6 @@ local Azerite = dark_addon.settings.fetch("armswar_settings_Azerite")
     end	
 	
 	
-	-- events stuff in future....
-	
--- test = CreateFrame("Frame", "test", UIParent);
--- test:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED");
--- test:SetScript("OnEvent", function(self, event, arg1, arg2, arg3, arg4)
-	-- if(event=="UNIT_SPELLCAST_SUCCEEDED" and arg1 == "target") then
-
-		-- if arg3==(SB.kick) then
-		-- print('gay')
-			-- return cast(SB.StormBolt, "Target")
-		-- end
-		
-	-- end
-	-- end)
-
-
-
-
-
-
-
-
-
 
 if (Azerite == "shift" and modifier.shift) or (Azerite == "control" and modifier.control) or (Azerite == "alt" and modifier.alt) then
 	
@@ -589,10 +467,16 @@ end
 
 
 
-
-
-
-
+	
+	
+	
+	
+    -- Targets in range check
+    local enemyCount = enemies.around(8)
+    if enemyCount == 0 then
+      enemyCount = 1
+    end
+    dark_addon.interface.status_extra("T#:" .. enemyCount .. " D:" .. target.distance)
 
     -- Use Racials
     if toggle("useracials", false) then
@@ -602,7 +486,7 @@ end
       if race == "Troll" and castabe(SB.Berserking) then
         return cast(SB.Berserking)
       end
-      if race == "Mag'har Orc" and castable(SB.AncestralCall) then
+      if castable(SB.AncestralCall) then
         return cast(SB.AncestralCall)
       end
       if race == "LightforgedDraenei" and castable(SB.LightsJudgement) then
@@ -617,388 +501,169 @@ end
     if target.enemy and target.alive and target.distance < 8 then
       auto_attack()
     end
-
+	
 
     -- Interrupts
     -- Define random number for interrupt
+    local intpercent = math.random(intpercentlow, intpercenthigh)
 
+    -- Pummel
+    if
+      toggle("interrupts", false) and castable(SB.Pummel, "target") and -spell(SB.Pummel) == 0 and
+        target.interrupt(intpercent, false) and
+        target.distance < 8
+     then
+      return cast(SB.Pummel, "target")
+    end
 	
-
+	--StormBolt
+    if
+      toggle("interrupts", false) and castable(SB.StormBolt, "target") and -spell(SB.StormBolt) == 0 and
+        target.interrupt(intpercent, false) and
+        target.distance < 8
+     then
+      return cast(SB.StormBolt, "target")
+    end
+	
     -- Cooldowns
     if toggle("cooldowns", false) then
-      -- Avatar on cooldown or for burst DPS
-      if castable(SB.Avatar) and castable(SB.ColossusSmash) and talent(6, 2) then
-        return cast(SB.Avatar)
+      -- Recklessness on cooldown or for burst DPS
+      if castable(SB.Recklessness) and -spell(SB.Recklessness) == 0 then
+        return cast(SB.Recklessness)
       end
     end
 
-    -- Defensive Spells
-    -- Defensive Stance
-    if castable(SB.DefensiveStance) and talent(4, 3) and toggle("defensivestance", false) and DefStance == 0 then
-      print("Defensive Stance On")
-      DefStance = 1
-      return cast(SB.DefensiveStance)
+    --Defensive and Utility Abilities
+    -- Enraged Regeneration is Fury's only personal cooldown, good for mitigating damage and healing it back up with Bloodthirst. Note that the buff is not consumed by Bloodthirst, meaning it can be used multiple times during the 8-second duration for increased healing.
+    if castable(SB.EnragedRegeneration) and -spell(SB.EnragedRegeneration) == 0 and -player.health <= ERHealth then
+      print("EnragedRegeneration @ " .. ERHealth)
+      return cast(SB.EnragedRegeneration)
     end
 
-    if castable(SB.DefensiveStance) and talent(4, 3) and not toggle("defensivestance", false) and DefStance == 1 then
-      print("Defensive Stance Off")
-      DefStance = 0
-      return cast(SB.DefensiveStance)
+    -- Rallying Cry is one of the few group/raid wide cooldowns, good for both mitigating large attacks and granting a buffer when players are already close to death. Use primarily when large, group-wide damage is incoming.
+    -- Piercing Howl is Fury's snare; good for kiting targets and proccing  Furious Charge heals.
+    -- Intimidating Shout is also good for kiting, but keep in mind that feared targets can aggro other hostile enemies.
+    -- Taunt is a generic taunt, though due to Fury's lack of Die by the Sword, it's not recommended to use unless in an effort to save the group from a wipe.
+
+    -- Healing
+    if castable(SB.VictoryRush) and -buff(SB.VictoryRushBuff) and -player.health <= VRHealth then
+      print("Heal @ " .. -player.health)
+      return cast(SB.VictoryRush)
     end
 
-    -- Die by the Sword
-    if castable(SB.DiebytheSword) and -buff(SB.DiebytheSword) and -player.health <= DBTSHealth then
-      print("Casted on % " .. -player.health)
-      return cast(SB.DiebytheSword)
+    if castable(SB.ImpendingVictory) and -player.health <= VRHealth and talent(2, 2) then
+      print("Heal @ " .. -player.health)
+      return cast(SB.ImpendingVictory)
     end
-
-
-	--healimsya zhivem
-
-   if castable(SB.VictoryRush) and -buff(SB.VictoryRushBuff) and -player.health <= healkapercent and healka then
-    return cast(SB.VictoryRush, 'target')
-  end
-  
-   if castable(SB.ImpendigVicroty) and -player.health <= healkapercent and healka then
-    return cast(SB.ImpendigVicroty, 'target')
-  end
-
 
     -- Healthstone
     if Hstonecheck == true and -player.health < Hstonepercent and GetItemCount(5512) >= 1 and GetItemCooldown(5512) == 0 then
       macro("/use Healthstone")
     end
 
-    if enemyCount == 1 then
-      -- Single Target - non-Execute phase(talent3,1)
-      if talent(3, 1) and -target.health > 35 then
-           -- Cast Rend if less than 4 seconds remains, outside of Colossus Smash
-        if
-          castable(SB.Rend, "target") and target.debuff(SB.Rend).remains < 4 and
-            not (-target.debuff(SB.ColossusSmashDebuff)) and
-            -power.rage > 30 and
-            talent(3, 3)
-         then
-          return cast(SB.Rend)
-        end
+    --Multi-target
+    --WhirlwindFury allows Fury to cleave its normal single target rotation on up to 4 additional targets, although some setup is done to ensure larger Bladestorm burst on intermittent waves of adds.
 
-        -- Cast Skullsplitter when less than 60 Rage, when Bladestorm is not about to be used.
-        if
-          castable(SB.Skullsplitter, "target") and -spell(SB.Bladestorm) > 12 and
-            -power.rage < 50 and
-            talent(1, 3)
-         then
-          return cast(SB.Skullsplitter)
-        end
-
-        --[[        -- Cast Avatar prior to Colossus Smash
-        if castable(SB.Avatar, 'target') and -spell(SB.Avatar) == 0 and -spell(SB.ColossusSmash) == 0 and talent(6,2) then
-          print'ST NE'
-          return cast(SB.Avatar)
-        end]]
-        -- Cast Ravager immediately prior to Colossus Smash
-        if castable(SB.Ravager, "target") and -spell(SB.ColossusSmash) == 0 and talent(7, 3) then
-          return cast(SB.Ravager, "player")
-        end
-
-        -- Cast Colossus Smash
-        if castable(SB.ColossusSmash, "target") then
-          return cast(SB.ColossusSmash)
-        end
-
-        -- Cast Warbreaker
-        if castable(SB.Warbreaker, "target") and talent(5, 2) then
-          return cast(SB.Warbreaker)
-        end
-
-        -- Cast Deadly Calm
-        if castable(SB.DeadlyCalm, "target") and talent(6, 3) then
-          return cast(SB.DeadlyCalm)
-        end
-
-        -- Cast Execute with Sudden Death proc
-        if castable(SB.Execute, "target") and -buff(SB.SuddenDeath) then
-          return cast(SB.Execute)
-        end
-
-        -- Cast Overpower to buff Mortal Strike
-        if castable(SB.Overpower, "target") then
-          return cast(SB.Overpower)
-        end
-
-        -- Cast Mortal Strike to maintain Deep Wounds
-        if castable(SB.MortalStrike, "target") and -power.rage >= 30 then
-          return cast(SB.MortalStrike)
-        end
-
-        -- Cast Bladestorm during Colossus Smash or Test of Might (see below)
-        if castable(SB.Bladestorm, "target") and -target.debuff(SB.ColossusSmashDebuff)  and -power.rage <=40 then
-          return cast(SB.Bladestorm)
-        end
-
-        -- Cast Slam
-        if castable(SB.Slam, "target") and -power.rage >= 20 then
-          return cast(SB.Slam)
-        end
+    --For general multitarget cleave
+    if enemyCount >= 2 or toggle("multitarget", false) and target.distance <= 8 then
+      -- WhirlwindFury to apply  WhirlwindFury whenever the buff is not up
+      if castable(SB.WhirlwindFury) and -spell(SB.WhirlwindFury) == 0 and player.buff(SB.WhirlwindFury).down then
+        return cast(SB.WhirlwindFury)
       end
-
-      -- Single Target - Execute phase(talent3,1)
-      if talent(3, 1) and -target.health <= 35 then
-
-       
-        -- Cast Skullsplitter when less than 60 Rage
-        if castable(SB.Skullsplitter, "target") and -power.rage < 50 and talent(1, 3) then
-          return cast(SB.Skullsplitter)
-        end
-
-        --[[        -- Cast Avatar prior to Colossus Smash
-        if castable(SB.Avatar, 'target') and -spell(SB.Avatar) == 0 and -spell(SB.ColossusSmash) == 0 and talent(6,2) then
-          print'ST Execute'
-          return cast(SB.Avatar)
-        end]]
-        -- Cast Ravager immediately prior to Colossus Smash
-        if castable(SB.Ravager, "target") and -spell(SB.ColossusSmash) == 0 and talent(7, 3) then
-          return cast(SB.Ravager, "player")
-        end
-
-        -- Cast Colossus Smash
-        if castable(SB.ColossusSmash, "target") then
-          return cast(SB.ColossusSmash)
-        end
-
-        -- Cast Warbreaker
-        if castable(SB.Warbreaker, "target") and talent(5, 2) then
-          return cast(SB.Warbreaker)
-        end
-
-        -- Cast Bladestorm when under 30 Rage.
-        if castable(SB.Bladestorm, "target") and -power.rage < 30 then
-          return cast(SB.Bladestorm)
-        end
-
-        -- Cast Deadly Calm
-        if castable(SB.DeadlyCalm, "target") and talent(6, 3) then
-          return cast(SB.DeadlyCalm)
-        end
-
-        -- Cast Mortal Strike with 2 stacks of Overpower and Dreadnaught talented.
-        if
-          castable(SB.MortalStrike, "target") and buff(SB.Overpower).count == 2 and
-            talent(7, 2) and
-            -power.rage >= 30
-         then
-          return cast(SB.MortalStrike)
-        end
-
-        -- Cast Overpower
-        if castable(SB.Overpower, "target") then
-          return cast(SB.Overpower)
-        end
-
-        -- Cast Execute
-        if castable(SB.Execute, "target") and -power.rage >= 20 then
-          return cast(SB.Execute)
-        end
-      end
+    --Continue the single target rotation, and WhirlwindFury should be kept up naturally
+    --An example sequence might look like this:  WhirlwindFury -  Rampage -  Raging Blow -  WhirlwindFury -   Bloodthirst -  Raging Blow -  WhirlwindFury -  Bloodthirst -  Rampage -  WhirlwindFury...
     end
 
-    -- Multiple Target - 2 to 3
-    if enemyCount == 2 or enemyCount == 3 then
-  
-      -- Cast Sweeping Strikes if you are not about to use Bladestorm
-      if castable(SB.SweepingStrikes, "target") and -spell(SB.Bladestorm) > 12 then
-        return cast(SB.SweepingStrikes)
-      end
-
-      -- Cast Rend if less than 4 seconds remains, outside of Colossus Smash
+    -- Single Target
+    if enemyCount >= 1 and target.distance <= 8 then
+      -- Top talents: Endless Rage, Furious Slash, Carnage, Dragon Roar, Siegebreaker
+      -- Furious Slash until 3 stacks, or to keep the buff from falling
       if
-        castable(SB.Rend, "target") and target.debuff(SB.Rend).remains < 4 and
-          not (-target.debuff(SB.ColossusSmashDebuff)) and
-          -power.rage > 30 and
+        castable(SB.FuriousSlash) and -spell(SB.FuriousSlash) == 0 and player.buff(SB.FuriousSlash).count < 3 or player.buff(SB.FuriousSlash).remains <= 4 and
           talent(3, 3)
        then
-        return cast(SB.Rend)
+        return cast(SB.FuriousSlash)
       end
 
-      -- Cast Skullsplitter when less than 60 Rage, when Bladestorm is not about to be used.
+      -- Rampage when not Enraged or above 75rage (Talent5,1)
+      if castable(SB.Rampage) and -spell(SB.Rampage) == 0 and talent(5, 1) and -power.rage > 75 then
+        return cast(SB.Rampage)
+      end
+
+      -- Rampage when not Enraged or above 85rage (Talent5,2)
+      if castable(SB.Rampage) and -spell(SB.Rampage) == 0 and talent(5, 2) and -power.rage > 85 then
+        return cast(SB.Rampage)
+      end
+	  
+	        -- Rampage when not Enraged or above 95rage (Talent5,3)
+      if castable(SB.Rampage) and -spell(SB.Rampage) == 0 and talent(5, 3) and -power.rage > 95 then
+        return cast(SB.Rampage)
+      end
+	  
+      -- Siegebreaker during Recklessness, or between its cooldown (you should get two casts between each Recklessness)
+      if castable(SB.Siegebreaker) and -spell(SB.Siegebreaker) == 0 and talent(7, 3) then
+        return cast(SB.Siegebreaker)
+      end
+
+      -- ExecuteFury while Enraged
+      if castable(SB.ExecuteFury) and -spell(SB.ExecuteFury) == 0 and player.buff(SB.Enrage).up then
+        return cast(SB.ExecuteFury)
+      end
+
+      -- Raging Blow at 2 charges and Enraged
       if
-        castable(SB.Skullsplitter, "target") and -spell(SB.Bladestorm) > 12 and
-          -power.rage < 50 and
-          talent(1, 3)
+        castable(SB.RagingBlow) and -spell(SB.RagingBlow) == 0 and spell(SB.RagingBlow).charges == 2 and
+          player.buff(SB.Enrage).up
        then
-        return cast(SB.Skullsplitter)
+        return cast(SB.RagingBlow)
       end
 
-      --[[        -- Cast Avatar prior to Colossus Smash
-        if castable(SB.Avatar, 'target') and -spell(SB.Avatar) == 0 and -spell(SB.ColossusSmash) == 0 and talent(6,2) then
-          print'MT 2-3'
-          return cast(SB.Avatar)
-        end]]
-      -- Cast Ravager immediately prior to Colossus Smash
-      if castable(SB.Ravager, "target") and -spell(SB.ColossusSmash) == 0 and talent(7, 3) then
-        return cast(SB.Ravager, "player")
+      -- Bloodthirst
+      if castable(SB.Bloodthirst) and -spell(SB.Bloodthirst) == 0 then
+        return cast(SB.Bloodthirst)
       end
 
-      -- Cast Colossus Smash
-      if castable(SB.ColossusSmash, "target") then
-        return cast(SB.ColossusSmash)
+      -- Dragon Roar while Enraged
+      if castable(SB.DragonRoar) and -spell(SB.DragonRoar) == 0 and player.buff(SB.Enrage).up and talent(6, 2) then
+        return cast(SB.DragonRoar)
       end
 
-      -- Cast Warbreaker
-      if castable(SB.Warbreaker, "target") and talent(5, 2) then
-        return cast(SB.Warbreaker)
-      end
-
-      -- Cast Bladestorm during the Colossus Smash debuff
-      if castable(SB.Bladestorm, "target") and -target.debuff(SB.ColossusSmashDebuff) then
+      -- Bladestorm while Enraged
+      if castable(SB.Bladestorm) and -spell(SB.Bladestorm) == 0 and player.buff(SB.Enrage).up and talent(6, 3) then
         return cast(SB.Bladestorm)
       end
 
-      -- Cast Deadly Calm
-      if castable(SB.DeadlyCalm, "target") and talent(6, 3) then
-        return cast(SB.DeadlyCalm)
+      -- Raging Blow
+      if castable(SB.RagingBlow) and -spell(SB.RagingBlow) == 0 then
+        return cast(SB.RagingBlow)
       end
 
-      -- Cast Cleave to maintain Deep Wounds
-      if castable(SB.Cleave, "target") and -power.rage >= 20 and talent(5, 3) then
-        return cast(SB.Cleave)
+      -- Furious Slash if talented
+      -- if castable(SB.FuriousSlash) and -spell(SB.FuriousSlash) == 0 and talent(3, 3) then
+        -- return cast(SB.FuriousSlash)
+      -- end
+
+      -- WhirlwindFury
+      if castable(SB.WhirlwindFury) then
+        return cast(SB.WhirlwindFury)
       end
 
-      -- Cast Mortal Strike with 2 stacks of Overpower and Dreadnaught talented
-      if
-        castable(SB.MortalStrike, "target") and buff(SB.Overpower).count == 2 and
-          talent(7, 2) and
-          -power.rage >= 30
-       then
-        return cast(SB.MortalStrike)
-      end
-
-      -- Cast Execute
-      if castable(SB.Execute, "target") and -power.rage >= 20 then
-        return cast(SB.Execute)
-      end
-
-      -- Cast Overpower
-      if castable(SB.Overpower, "target") then
-        return cast(SB.Overpower)
-      end
-
-      -- Cast Mortal Strike
-      if castable(SB.MortalStrike, "target") and -power.rage >= 30 then
-        return cast(SB.MortalStrike)
-      end
-
-      -- Cast Slam during Sweeping Strikes
-      if castable(SB.Slam, "target") and -power.rage >= 20 and -buff(SB.SweepingStrikes) then
-        return cast(SB.Slam)
-      end
-
-      -- Cast Whirlwind
-      if castable(SB.Whirlwind, "target") and -power.rage >= 30 then
-        return cast(SB.Whirlwind)
-      end
-    end
-
-    -- Multiple Target - 4+
-    if enemyCount >= 4 then
-  
-      -- Cast Sweeping Strikes if you are not about to use Bladestorm
-      if castable(SB.SweepingStrikes, "target") and -spell(SB.Bladestorm) > 12 then
-        return cast(SB.SweepingStrikes)
-      end
-
-      -- Cast Skullsplitter when less than 60 Rage, when Bladestorm is not about to be used.
-      if
-        castable(SB.Skullsplitter, "target") and -spell(SB.Bladestorm) > 12 and
-          -power.rage < 50 and
-          talent(1, 3)
-       then
-        return cast(SB.Skullsplitter)
-      end
-
-      --[[        -- Cast Avatar prior to Colossus Smash
-        if castable(SB.Avatar, 'target') and -spell(SB.Avatar) == 0 and -spell(SB.ColossusSmash) == 0 and talent(6,2) then
-          print'MT 4+'
-          return cast(SB.Avatar)
-        end]]
-      -- Cast Ravager immediately prior to Colossus Smash
-      if castable(SB.Ravager, "target") and -spell(SB.ColossusSmash) == 0 and talent(7, 3) then
-        return cast(SB.Ravager, "player")
-      end
-
-      -- Cast Colossus Smash
-      if castable(SB.ColossusSmash, "target") then
-        return cast(SB.ColossusSmash)
-      end
-
-      -- Cast Warbreaker
-      if castable(SB.Warbreaker, "target") and talent(5, 2) then
-        return cast(SB.Warbreaker)
-      end
-
-      -- Cast Bladestorm during the Colossus Smash debuff
-      if castable(SB.Bladestorm, "target") and -target.debuff(SB.ColossusSmashDebuff) then
-        return cast(SB.Bladestorm)
-      end
-
-      -- Cast Deadly Calm
-      if castable(SB.DeadlyCalm, "target") and talent(6, 3) then
-        return cast(SB.DeadlyCalm)
-      end
-
-      -- Cast Cleave to maintain Deep Wounds
-      if castable(SB.Cleave, "target") and -power.rage >= 20 and talent(5, 3) then
-        return cast(SB.Cleave)
-      end
-
-      -- Cast Execute during Sweeping Strikes
-      if castable(SB.Execute, "target") and -power.rage >= 20 and -buff(SB.SweepingStrikes) then
-        return cast(SB.Execute)
-      end
-
-      -- Cast Mortal Strike during Sweeping Strikes
-      if
-        castable(SB.MortalStrike, "target") and -power.rage >= 30 and
-          -buff(SB.SweepingStrikes)
-       then
-        return cast(SB.MortalStrike)
-      end
-
-      -- Cast Whirlwind during Colossus Smash
-      if
-        castable(SB.Whirlwind, "target") and -power.rage >= 30 and
-          -target.debuff(SB.ColossusSmashDebuff)
-       then
-        return cast(SB.Whirlwind)
-      end
-
-      -- Cast Overpower
-      if castable(SB.Overpower, "target") then
-        return cast(SB.Overpower)
-      end
-
-      -- Cast Whirlwind
-      if castable(SB.Whirlwind, "target") and -power.rage >= 30 then
-        return cast(SB.Whirlwind)
-      end
+    --An example sequence with talents might look like this:  Siegebreaker -  Rampage -  Raging Blow -  Bloodthirst -  Dragon Roar -  Furious Slash -  Bloodthirst -  Rampage -  Raging Blow...
+    --An example sequence without talents might look like this:  Rampage -  Raging Blow - Bloodthirst -  Raging Blow -  WhirlwindFury -  Bloodthirst -  Rampage -  WhirlwindFury...
     end
   end
 end
-
-
+end
 
 local function resting()
-local Charge = dark_addon.settings.fetch("armswar_settings_Charge") 
-local HeroicLeap = dark_addon.settings.fetch("armswar_settings_HeroicLeap")
-local enemyCount = enemies.around(8)
+  local enemyCount = enemies.around(8)
+  dark_addon.interface.status_extra("T#:" .. enemyCount .. " D:" .. target.distance)
 
 
-    dark_addon.interface.status_extra("Targets: " .. enemyCount .. " Dist: " .. target.distance .. " yd")
+local Charge = dark_addon.settings.fetch("furywar_settings_Charge") 
+local HeroicLeap = dark_addon.settings.fetch("furywar_settings_HeroicLeap")
 
-	if player.buff(SB.BattleShout).down and castable(SB.BattleShout) then
-	return cast(SB.BattleShout)
-	end
-	
+
 	if (HeroicLeap == "shift" and modifier.shift) or (HeroicLeap == "control" and modifier.control) or (HeroicLeap == "alt" and modifier.alt) and -spell(SB.HeroicLeap) == 0 then
       return cast(SB.HeroicLeap, "ground")
     end
@@ -1007,35 +672,21 @@ local enemyCount = enemies.around(8)
       return cast(SB.Charge, "target")
     end
 
-	
-	
-	end
-	
-	
-	
+end
+
+
 local function interface()
   local settings = {
-    key = "armswar_settings",
-    title = "Azrel-Arms Warrior",
+    key = "furywar_settings",
+    title = "Fury Warrior",
     width = 300,
     height = 500,
     resize = true,
     show = false,
-
     template = {
-      {type = "header", text = "Azrael-Arms Settings"	,align = 'CENTER'},
-      {type = "text", text = "If you want automatic AOE then please remember to turn on EnemyNamePlates in WoW (V key)"	,align = 'CENTER'},
-      {type = "text", text = "Set-up Modifiers!"	,align = 'CENTER'},
-      -- {type = "rule"},
-	  
-	 -- {type = "text", text = "VictoryRush or ImpendigVicroty"	,align = 'CENTER'},
-	          
-				 			{ type = 'rule' },
-							
-	
-	
-	
-	{ type = 'header', text = "Modifiers",align = 'CENTER'},
+      {type = "header", text = "Fury Warrior Settings",  align = 'CENTER'},
+     
+	  { type = 'header', text = "Modifiers",align = 'CENTER'},
 			
 			{ key = 'Charge', type = 'dropdown', text = 'Charge', desc = '', default = 'shift',
 				list = {
@@ -1096,21 +747,30 @@ local function interface()
 	  
 	  
 	  			{ type = 'rule' },
+	  
+      {type = "rule"},
+
       {type = "header", text = "Defensive Settings", align = 'CENTER'},
-	  
-	     { key = 'healka', type = 'checkspin', text = 'VictoryRush | ImpendigVicroty', desc = 'Health % to cast at', default_check = false, default_spin = 60, min = 5, max = 100, step = 1 },
-	  
       {
-        key = "DBTSHealth",
+        key = "ERHealth",
         type = "spinner",
-        text = "Die by the Sword at Health %",
+        text = "Enraged Regeneration at Health %",
         default = "60",
-        desc = "cast Die by the Sword at",
+        desc = "cast Enraged Regeneration at",
         min = 0,
         max = 100,
         step = 1
       },
-
+      {
+        key = "VRHealth",
+        type = "spinner",
+        text = "Victory Rush/Imp Victory at Health %",
+        default = "80",
+        desc = "cast Victory Rush/Imp Victory at",
+        min = 0,
+        max = 100,
+        step = 1
+      },
       {
         key = "healthstone",
         type = "checkspin",
@@ -1130,8 +790,7 @@ local function interface()
         min = 0,
         max = 100,
         step = 1
-      },
-    
+      }
     }
   }
 
@@ -1144,8 +803,8 @@ local function interface()
       font = "dark_addon_icon",
       on = {
         label = dark_addon.interface.icon("cog"),
-        color = dark_addon.interface.color.warrior_brown,
-        color2 = dark_addon.interface.color.warrior_brown
+        color = dark_addon.interface.color.cyan,
+        color2 = dark_addon.interface.color.dark_cyan
       },
       off = {
         label = dark_addon.interface.icon("cog"),
@@ -1178,24 +837,8 @@ local function interface()
       }
     }
   )
-  dark_addon.interface.buttons.add_toggle(
-    {
-      name = "defensivestance",
-      label = "Defensive Stance",
-      font = "dark_addon_icon",
-      on = {
-        label = dark_addon.interface.icon("toggle-on"),
-        color = dark_addon.interface.color.warrior_brown,
-        color2 = dark_addon.interface.color.warrior_brown
-      },
-      off = {
-        label = dark_addon.interface.icon("toggle-off"),
-        color = dark_addon.interface.color.grey,
-        color2 = dark_addon.interface.color.dark_grey
-      }
-    }
-  )
   
+    
     dark_addon.interface.buttons.add_toggle(
     {
       name = "pveKick",
@@ -1215,12 +858,13 @@ local function interface()
   )
 end
 
+
 -- This is what actually tells DR about your custom rotation
 dark_addon.rotation.register(
   {
-    spec = dark_addon.rotation.classes.warrior.arms,
-    name = "Armed",
-    label = "Azraelled Arms Warrior",
+    spec = dark_addon.rotation.classes.warrior.fury,
+    name = "Fury",
+    label = "Azrael-Fury Warrior",
     combat = combat,
     resting = resting,
     interface = interface

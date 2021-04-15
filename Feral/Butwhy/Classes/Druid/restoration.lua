@@ -32,7 +32,7 @@ if player.alive and target.alive and target.enemy then
 			return cast(AZ.MemoryofLucidDreams3, 'target')
 			end 
 
-	3 uncomment to cast (req. 8.3.0+ patch)
+	
 		if delay < GetTime() then
 	if toggle("cooldowns", false) and castable(AZ.MomentofGlory1) then
     return cast(AZ.MomentofGlory1, 'player')
@@ -738,7 +738,7 @@ local function interface()
 --   )
 
   dark_addon.interface.buttons.add_toggle(
-    { name = "dispel", label = "Nature's Cure",
+    { name = "dispel", label = "Dispel group",
     on = { label = "Dispel ON", color = dark_addon.interface.color.orange, color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_orange, 0.7) },
     off = { label = "Dispel OFF", color = dark_addon.interface.color.grey, color2 = dark_addon.interface.color.ratio(dark_addon.interface.color.dark_grey, 0.5) }
     }
