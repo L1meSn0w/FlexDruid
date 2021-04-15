@@ -1,5 +1,6 @@
 local dark_addon = dark_interface
 local SB = dark_addon.rotation.spellbooks.druid
+local AZ = dark_addon.rotation.spellbooks.azerite
 local function azerite()
 
 if player.alive and target.alive and target.enemy then
