@@ -33,7 +33,7 @@ local stund = dark_addon.rotation.CC
 local flashl = dark_addon.rotation.spellbooks.flashlig
 local holylight = dark_addon.rotation.spellbooks.holyli
 local repentr = dark_addon.rotation.spellbooks.repa
-
+-- https://pastebin.com/rSdteM8h
 --SpellBook
 SB.BattleShout = 6673
 SB.Execute = 281000
