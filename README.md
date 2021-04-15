@@ -1,9 +1,7 @@
 # FlexDruid
 - Re-Writed\Writed Profiles:
 1. Priest Shadow
-2. Feral Dru
-3. Frost DK
-4. Warrior Arms 
+3. Warrior Arms\Fury
 
 - CopyPasted Profiles:
 1. Restoration Dru
@@ -13,12 +11,13 @@
 Status:
 
 0. Git Rotations (Rex&PAL&Ferib&Rotations&Nikpool) - unknown, probably work, but a bit UD.
-1. Priest Shadow - Fine
+1. Priest Shadow - Greate
 2. Feral Dru - Greate
-3. Frost DK - WiP
-4. Warrior Arms - WiP
-5. Balance - Fine
-6. Restoration - Greate
+3. Frost DK - R.I.P (mb later)
+4. Warrior Arms - Fine
+5. Warrior Fury - Fine
+6. Balance - Fine
+7. Restoration - Greate
 
 
 ## Macros
@@ -51,10 +50,6 @@ Status:
 		Wip...
 		
 		
-		
-- Some macro for FDk:
-
-		Opener: /fd toggle Opener
 		
 		
 ToDo:
