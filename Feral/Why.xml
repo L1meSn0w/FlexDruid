@@ -37,9 +37,11 @@
   <Script file="Butwhy\Classes\Druid\balance.lua" />
   <Script file="Butwhy\Classes\Priest\shadow.lua" />
   <Script file="Butwhy\Classes\Rogue\Outlaw.lua" />
+  <Script file="Butwhy\Classes\Rogue\Subt.lua" />
   <Script file="Butwhy\Classes\dk\dodik.lua" />
   <Script file="Butwhy\Classes\Warrior\Arms.lua" />
   <Script file="Butwhy\Classes\Warrior\Fury.lua" />
+  
 	<Script file="Butwhy\GitHubRotations\RexArmsWar.lua" /> 
 	<Script file="Butwhy\GitHubRotations\RexFuryWar.lua" />
 	<Script file="Butwhy\GitHubRotations\RexProtWar.lua" />
